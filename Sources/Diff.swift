@@ -22,14 +22,37 @@ extension DiffElement {
     }
 }
 
-struct Point {
+public struct Point {
     let x: Int
     let y: Int
 }
 
-struct Trace {
+public struct Trace {
     let from: Point
     let to: Point
+    let D: Int
+}
+
+enum TraceType {
+    case Insertion
+    case Deletion
+    case MatchPoint
+}
+
+extension Trace {
+    func type() -> TraceType {
+        if from.x+1 == to.x && from.y+1 == to.y {
+            return .MatchPoint
+        } else if from.y < to.y {
+            return .Insertion
+        } else {
+            return .Deletion
+        }
+    }
+    
+    func k() -> Int {
+        return from.x - from.y
+    }
 }
 
 public extension RangeReplaceableCollectionType where Self.Generator.Element : Equatable, Self.Index : SignedIntegerType {
@@ -63,7 +86,7 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element : E
 
 public extension CollectionType where Generator.Element : Equatable, Index : SignedIntegerType {
     
-   public func diff(b: Self) -> Diff
+   public func diffTraces(b: Self) -> Array<Trace>
     {
         
         let N = Int(self.count.toIntMax())
@@ -98,11 +121,11 @@ public extension CollectionType where Generator.Element : Equatable, Index : Sig
                 var x = { _ -> Int in
                     if k == -D || (k != D && V[index-1] < V[index+1]) { //V[index-1] - y is bigger V[index+1] - y is smaller
                         let x = V[index+1]
-                        traces.append(Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k)))
+                        traces.append(Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D))
                         return x // go down AKA insert
                     } else {
                         let x = V[index-1]+1
-                        traces.append(Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k)))
+                        traces.append(Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k), D: D))
                         return x // go right AKA delete
                     }
                 }()
@@ -113,17 +136,21 @@ public extension CollectionType where Generator.Element : Equatable, Index : Sig
                 while x < N && y < M && self[Self.Index(x.toIntMax())] == b[Self.Index(y.toIntMax())] {
                     x += 1
                     y += 1
-                    traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y)))
+                    traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
                 }
                 
                 V[index] = x
                 
                 if x >= N && y >= M {
-                    return findPath(traces, n: N, m: M)
+                    return traces
                 }
             }
         }
-        return Diff(elements: [])
+        return []
+    }
+    
+    func diff(b: Self) -> Diff {
+        return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
     }
     
     private func findPath(traces: Array<Trace>, n: Int, m: Int) -> Diff {
