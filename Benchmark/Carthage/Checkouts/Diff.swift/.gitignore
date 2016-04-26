@@ -18,11 +18,8 @@ DerivedData
 *.xcuserstate
 
 Carthage/Build
-Benchmark/Cartfile.resolved
 
 #SPM
 .build/
 .DS_Store
-
-#Vim
 *.swp
