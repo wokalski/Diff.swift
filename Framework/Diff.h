@@ -6,7 +6,7 @@
 //  Copyright © 2016 wczekalski. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Diff.swift.
 FOUNDATION_EXPORT double Diff_swiftVersionNumber;
