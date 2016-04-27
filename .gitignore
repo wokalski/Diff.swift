@@ -19,6 +19,7 @@ DerivedData
 
 Carthage/Build
 Benchmark/Cartfile.resolved
+Benchmark/Carthage/Checkouts/
 
 #SPM
 .build/
