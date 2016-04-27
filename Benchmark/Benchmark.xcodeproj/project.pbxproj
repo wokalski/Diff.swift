@@ -11,6 +11,7 @@
 		C92178C51CD01050004642C7 /* Dwifft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; };
 		C92178C91CD01085004642C7 /* Diff.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C92178CA1CD01085004642C7 /* Dwifft.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C98888EE1CD0A23D000DA46C /* PerformanceTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */; };
 		C9EE86EE1CCFBAFD006BD90E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */; };
 		C9EE86F01CCFBAFD006BD90E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */; };
 		C9EE86F31CCFBAFD006BD90E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EE86F11CCFBAFD006BD90E /* Main.storyboard */; };
@@ -18,7 +19,6 @@
 		C9EE86F81CCFBAFD006BD90E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EE86F61CCFBAFD006BD90E /* LaunchScreen.storyboard */; };
 		C9EE87681CCFD649006BD90E /* Diff-old.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9EE87631CCFD628006BD90E /* Diff-old.swift */; };
 		C9EE87691CCFD649006BD90E /* Diff.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9EE87641CCFD628006BD90E /* Diff.swift */; };
-		C9EE876B1CCFD76D006BD90E /* DiffSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE876A1CCFD76D006BD90E /* DiffSwift.swift */; };
 		C9EE876D1CCFD8AD006BD90E /* Dwifft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +50,7 @@
 /* Begin PBXFileReference section */
 		C92178C21CD01050004642C7 /* Diff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Diff.framework; path = Carthage/Build/iOS/Diff.framework; sourceTree = SOURCE_ROOT; };
 		C92178C31CD01050004642C7 /* Dwifft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dwifft.framework; path = Carthage/Build/iOS/Dwifft.framework; sourceTree = SOURCE_ROOT; };
+		C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTestUtils.swift; sourceTree = "<group>"; };
 		C9EE86EA1CCFBAFD006BD90E /* Benchmark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benchmark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,7 +60,6 @@
 		C9EE86F91CCFBAFD006BD90E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9EE87631CCFD628006BD90E /* Diff-old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff-old.swift"; sourceTree = "<group>"; };
 		C9EE87641CCFD628006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
-		C9EE876A1CCFD76D006BD90E /* DiffSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffSwift.swift; sourceTree = "<group>"; };
 		C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dwifft.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +117,7 @@
 			children = (
 				C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */,
 				C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */,
-				C9EE876A1CCFD76D006BD90E /* DiffSwift.swift */,
+				C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */,
 				C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */,
 				C92178C11CD01034004642C7 /* Frameworks */,
 				C9EE87671CCFD62C006BD90E /* Resources */,
@@ -209,9 +209,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C98888EE1CD0A23D000DA46C /* PerformanceTestUtils.swift in Sources */,
 				C9EE86F01CCFBAFD006BD90E /* ViewController.swift in Sources */,
 				C9EE86EE1CCFBAFD006BD90E /* AppDelegate.swift in Sources */,
-				C9EE876B1CCFD76D006BD90E /* DiffSwift.swift in Sources */,
 				C9EE876D1CCFD8AD006BD90E /* Dwifft.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
