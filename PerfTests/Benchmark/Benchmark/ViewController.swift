@@ -13,8 +13,11 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let dwifft = performDiff(performDwifft)
-        let diff = performDiff(diffSwift)
+        let from = pathForFile(fileName: "Diff-old")
+        let to = pathForFile(fileName: "Diff-new")
+        
+        let dwifft = performDiff(from, toFilePath: to, diffFunc: performDwifft)
+        let diff = performDiff(from, toFilePath: to, diffFunc: diffSwift)
         
         print("Both libraries are compiled with -O -whole-module-optimization\n")
         print("         | Diff.swift | Dwifft ")
@@ -26,3 +29,6 @@ class ViewController: UIViewController {
     }
 }
 
+func pathForFile(fileName fileName: String) -> String{
+    return NSBundle.mainBundle().pathForResource(fileName, ofType: "swift")!
+}

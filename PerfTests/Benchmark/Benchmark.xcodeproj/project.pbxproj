@@ -9,40 +9,42 @@
 /* Begin PBXBuildFile section */
 		C92178C41CD01050004642C7 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; };
 		C92178C51CD01050004642C7 /* Dwifft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; };
-		C92178C91CD01085004642C7 /* Diff.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C92178CA1CD01085004642C7 /* Dwifft.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C98888EE1CD0A23D000DA46C /* PerformanceTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */; };
+		C92178C91CD01085004642C7 /* Diff.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C92178CA1CD01085004642C7 /* Dwifft.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C93B984A1CD114D200047B30 /* Diff-new.swift in Copy Files */ = {isa = PBXBuildFile; fileRef = C93B98461CD114C700047B30 /* Diff-new.swift */; };
+		C93B984B1CD114D200047B30 /* Diff-old.swift in Copy Files */ = {isa = PBXBuildFile; fileRef = C93B98471CD114C700047B30 /* Diff-old.swift */; };
+		C98888F41CD0A489000DA46C /* PerformanceTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98888F31CD0A489000DA46C /* PerformanceTestUtils.swift */; };
 		C9EE86EE1CCFBAFD006BD90E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */; };
 		C9EE86F01CCFBAFD006BD90E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */; };
 		C9EE86F31CCFBAFD006BD90E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EE86F11CCFBAFD006BD90E /* Main.storyboard */; };
 		C9EE86F51CCFBAFD006BD90E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9EE86F41CCFBAFD006BD90E /* Assets.xcassets */; };
 		C9EE86F81CCFBAFD006BD90E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9EE86F61CCFBAFD006BD90E /* LaunchScreen.storyboard */; };
-		C9EE87681CCFD649006BD90E /* Diff-old.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9EE87631CCFD628006BD90E /* Diff-old.swift */; };
-		C9EE87691CCFD649006BD90E /* Diff.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9EE87641CCFD628006BD90E /* Diff.swift */; };
 		C9EE876D1CCFD8AD006BD90E /* Dwifft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C92178C81CD01079004642C7 /* CopyFiles */ = {
+		C92178C81CD01079004642C7 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C92178C91CD01085004642C7 /* Diff.framework in CopyFiles */,
-				C92178CA1CD01085004642C7 /* Dwifft.framework in CopyFiles */,
+				C92178C91CD01085004642C7 /* Diff.framework in Copy Files */,
+				C92178CA1CD01085004642C7 /* Dwifft.framework in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9EE87061CCFC276006BD90E /* CopyFiles */ = {
+		C9EE87061CCFC276006BD90E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				C9EE87681CCFD649006BD90E /* Diff-old.swift in CopyFiles */,
-				C9EE87691CCFD649006BD90E /* Diff.swift in CopyFiles */,
+				C93B984A1CD114D200047B30 /* Diff-new.swift in Copy Files */,
+				C93B984B1CD114D200047B30 /* Diff-old.swift in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -50,7 +52,9 @@
 /* Begin PBXFileReference section */
 		C92178C21CD01050004642C7 /* Diff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Diff.framework; path = Carthage/Build/iOS/Diff.framework; sourceTree = SOURCE_ROOT; };
 		C92178C31CD01050004642C7 /* Dwifft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dwifft.framework; path = Carthage/Build/iOS/Dwifft.framework; sourceTree = SOURCE_ROOT; };
-		C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTestUtils.swift; sourceTree = "<group>"; };
+		C93B98461CD114C700047B30 /* Diff-new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Diff-new.swift"; path = "../../Utils/Resources/Diff-new.swift"; sourceTree = "<group>"; };
+		C93B98471CD114C700047B30 /* Diff-old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Diff-old.swift"; path = "../../Utils/Resources/Diff-old.swift"; sourceTree = "<group>"; };
+		C98888F31CD0A489000DA46C /* PerformanceTestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTestUtils.swift; path = ../../Utils/PerformanceTestUtils.swift; sourceTree = "<group>"; };
 		C9EE86EA1CCFBAFD006BD90E /* Benchmark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benchmark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,8 +62,6 @@
 		C9EE86F41CCFBAFD006BD90E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9EE86F71CCFBAFD006BD90E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9EE86F91CCFBAFD006BD90E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9EE87631CCFD628006BD90E /* Diff-old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff-old.swift"; sourceTree = "<group>"; };
-		C9EE87641CCFD628006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
 		C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dwifft.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +119,7 @@
 			children = (
 				C9EE86ED1CCFBAFD006BD90E /* AppDelegate.swift */,
 				C9EE86EF1CCFBAFD006BD90E /* ViewController.swift */,
-				C98888ED1CD0A23D000DA46C /* PerformanceTestUtils.swift */,
+				C98888F31CD0A489000DA46C /* PerformanceTestUtils.swift */,
 				C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */,
 				C92178C11CD01034004642C7 /* Frameworks */,
 				C9EE87671CCFD62C006BD90E /* Resources */,
@@ -129,8 +131,8 @@
 		C9EE87671CCFD62C006BD90E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9EE87631CCFD628006BD90E /* Diff-old.swift */,
-				C9EE87641CCFD628006BD90E /* Diff.swift */,
+				C93B98461CD114C700047B30 /* Diff-new.swift */,
+				C93B98471CD114C700047B30 /* Diff-old.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -145,8 +147,8 @@
 				C9EE86E61CCFBAFD006BD90E /* Sources */,
 				C9EE86E71CCFBAFD006BD90E /* Frameworks */,
 				C9EE86E81CCFBAFD006BD90E /* Resources */,
-				C9EE87061CCFC276006BD90E /* CopyFiles */,
-				C92178C81CD01079004642C7 /* CopyFiles */,
+				C9EE87061CCFC276006BD90E /* Copy Files */,
+				C92178C81CD01079004642C7 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -209,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C98888EE1CD0A23D000DA46C /* PerformanceTestUtils.swift in Sources */,
+				C98888F41CD0A489000DA46C /* PerformanceTestUtils.swift in Sources */,
 				C9EE86F01CCFBAFD006BD90E /* ViewController.swift in Sources */,
 				C9EE86EE1CCFBAFD006BD90E /* AppDelegate.swift in Sources */,
 				C9EE876D1CCFD8AD006BD90E /* Dwifft.swift in Sources */,
