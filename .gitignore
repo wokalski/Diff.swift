@@ -18,8 +18,8 @@ DerivedData
 *.xcuserstate
 
 Carthage/Build
-Benchmark/Cartfile.resolved
-Benchmark/Carthage/Checkouts/
+/PerfTests/Benchmark/Cartfile.resolved
+/PerfTetts/Benchmark/Carthage/Checkouts/
 
 #SPM
 .build/
