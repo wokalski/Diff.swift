@@ -90,6 +90,15 @@ extension ForwardIndexType {
     }
 }
 
+public extension String {
+    public func diff(b: String) -> Diff {
+        if self == b {
+            return Diff(elements: [])
+        }
+        return characters.diff(b.characters)
+    }
+}
+
 public extension CollectionType where Generator.Element : Equatable {
     
    public func diffTraces(b: Self) -> Array<Trace>
