@@ -84,7 +84,13 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element : E
     }
 }
 
-public extension CollectionType where Generator.Element : Equatable, Index : SignedIntegerType {
+extension ForwardIndexType {
+    func advancedByInt(x: Int) -> Self {
+        return advancedBy(Distance(x.toIntMax()))
+    }
+}
+
+public extension CollectionType where Generator.Element : Equatable {
     
    public func diffTraces(b: Self) -> Array<Trace>
     {
@@ -133,10 +139,16 @@ public extension CollectionType where Generator.Element : Equatable, Index : Sig
                 var y = x - k
                 
                 // keep going as long as they match on diagonal k
-                while x < N && y < M && self[Self.Index(x.toIntMax())] == b[Self.Index(y.toIntMax())] {
-                    x += 1
-                    y += 1
-                    traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
+                while x < N && y < M {
+                    let yIndex = b.startIndex.advancedByInt(y)
+                    let xIndex = startIndex.advancedByInt(x)
+                    if self[xIndex] == b[yIndex] {
+                        x += 1
+                        y += 1
+                        traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
+                    } else {
+                        break
+                    }
                 }
                 
                 V[index] = x
