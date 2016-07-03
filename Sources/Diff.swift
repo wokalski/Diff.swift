@@ -7,14 +7,16 @@ public struct Diff {
 public enum DiffElement {
     case Insert(from: Int, at: Int)
     case Delete(at: Int)
-    case Equal(aIndex: Int, bIndex: Int)
 }
 
 extension DiffElement {
-    init(trace: Trace) {
-        if trace.from.x+1 == trace.to.x && trace.from.y+1 == trace.to.y {
-            self = .Equal(aIndex: trace.to.x, bIndex: trace.to.y)
-        } else if trace.from.y < trace.to.y {
+    init?(trace: Trace) {
+        
+        guard !(trace.from.x+1 == trace.to.x && trace.from.y+1 == trace.to.y) else {
+            return nil
+        }
+        
+        if trace.from.y < trace.to.y {
             self = .Insert(from: trace.from.y, at: trace.from.x)
         } else {
             self = .Delete(at: trace.from.x)
@@ -56,17 +58,6 @@ extension Trace {
 }
 
 public extension RangeReplaceableCollectionType where Self.Generator.Element : Equatable, Self.Index : SignedIntegerType {
-    public func apply(patch: Patch<Generator.Element, Index>) -> Self {
-        var mutableSelf = self
-
-        for insertion in patch.insertions {
-            mutableSelf.insert(insertion.element, atIndex: insertion.index)
-        }
-        for deletion in patch.deletions {
-            mutableSelf.removeAtIndex(deletion)
-        }
-        return mutableSelf
-    }
 
     public func apply(patch: [PatchElement<Generator.Element, Index>]) -> Self {
         var mutableSelf = self
@@ -101,8 +92,7 @@ public extension String {
 
 public extension CollectionType where Generator.Element : Equatable {
     
-   public func diffTraces(b: Self) -> Array<Trace>
-    {
+    public func diffTraces(b: Self) -> Array<Trace> {
         
         let N = Int(self.count.toIntMax())
         let M = Int(b.count.toIntMax())
@@ -128,10 +118,10 @@ public extension CollectionType where Generator.Element : Equatable {
                 
                 
                 /*
-                case 1: k == -D: take the furthest going k+1 trace and go greedly down. We take x of the furthest going k+1 path and go greedly down.
-                case 2: k == D: take the furthest going k-d trace and go right. Again, k+1 is unknown so we have to take k-1. What's more k-1 is right most one trace. We add 1 so that we go 1 to the right direction and stay on the same y
-                case 3: -D<k<D: take the rightmost one (biggest x) and if it the previous trace went right go down, otherwise (if it the trace went down) go right
-                */
+                 case 1: k == -D: take the furthest going k+1 trace and go greedly down. We take x of the furthest going k+1 path and go greedly down.
+                 case 2: k == D: take the furthest going k-d trace and go right. Again, k+1 is unknown so we have to take k-1. What's more k-1 is right most one trace. We add 1 so that we go 1 to the right direction and stay on the same y
+                 case 3: -D<k<D: take the rightmost one (biggest x) and if it the previous trace went right go down, otherwise (if it the trace went down) go right
+                 */
                 
                 var x = { _ -> Int in
                     if k == -D || (k != D && V[index-1] < V[index+1]) { //V[index-1] - y is bigger V[index+1] - y is smaller
@@ -174,7 +164,7 @@ public extension CollectionType where Generator.Element : Equatable {
         return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
     }
     
-    private func findPath(traces: Array<Trace>, n: Int, m: Int) -> Diff {
+    private func findPath(traces: [Trace], n: Int, m: Int) -> Diff {
         
         guard traces.count > 0 else {
             return Diff(elements: [])
@@ -194,7 +184,10 @@ public extension CollectionType where Generator.Element : Equatable {
                 break;
             }
         }
-        return Diff(elements: array.reverse().map { DiffElement(trace: $0) })
+        return Diff(elements: array
+            .reverse()
+            .flatMap { DiffElement(trace: $0) }
+        )
     }
     
 }
