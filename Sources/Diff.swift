@@ -104,9 +104,45 @@ public extension String {
     }
 }
 
+extension Array {
+    func value(at index: Index) -> Generator.Element? {
+        if (index < 0 || index >= self.count) {
+            return nil
+        }
+        return self[index]
+    }
+}
+
 public extension CollectionType where Generator.Element : Equatable {
     
-    public func diffTraces(b: Self) -> Array<Trace> {
+    private func tracesForDeletions() -> [Trace] {
+        var traces = [Trace]()
+        for index in 0..<self.count.toIntMax() {
+            let intIndex = index.toIntMax()
+            traces.append(Trace(from: Point(x: Int(intIndex), y: 0), to: Point(x: Int(intIndex)+1, y: 0), D: 0))
+        }
+        return traces
+    }
+    
+    private func tracesForInsertions(b: Self) -> [Trace] {
+        var traces = [Trace]()
+        for index in 0..<b.count.toIntMax() {
+            let intIndex = index.toIntMax()
+            traces.append(Trace(from: Point(x: 0, y: Int(intIndex)), to: Point(x: 0, y: Int(intIndex)+1), D: 0))
+        }
+        return traces
+    }
+    
+    public func diffTraces(b: Self) -> [Trace] {
+        
+        // Simple optimizations
+        if (self.count == 0 && b.count == 0) {
+            return []
+        } else if (self.count == 0) {
+            return tracesForInsertions(b)
+        } else if (b.count == 0) {
+            return tracesForDeletions()
+        }
         
         let N = Int(self.count.toIntMax())
         let M = Int(b.count.toIntMax())
@@ -137,44 +173,67 @@ public extension CollectionType where Generator.Element : Equatable {
                  case 3: -D<k<D: take the rightmost one (biggest x) and if it the previous trace went right go down, otherwise (if it the trace went down) go right
                  */
                 
-                var x = { _ -> Int in
-                    if k == -D || (k != D && V[index-1] < V[index+1]) { //V[index-1] - y is bigger V[index+1] - y is smaller
+//                let trace = nextTrace(D, k: k, previousX: V.value(at: index-1), nextX: V.value(at: index+1))
+//                var x = trace.to.x
+//                var y = trace.to.y
+                
+                let trace = { _ -> Trace in
+                    
+                    let traceType = nextTraceType(D, k: k, previousX: V.value(at: index-1), nextX: V.value(at: index+1))
+
+                    if  traceType == .Insertion {
                         let x = V[index+1]
-                        traces.append(Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D))
-                        return x // go down AKA insert
+                        return Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D)
                     } else {
                         let x = V[index-1]+1
-                        traces.append(Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k), D: D))
-                        return x // go right AKA delete
+                        return Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k), D: D)
                     }
                 }()
                 
-                var y = x - k
+                var x = trace.to.x
+                var y = trace.to.y
                 
-                // keep going as long as they match on diagonal k
-                while x < N && y < M {
-                    let yIndex = b.startIndex.advancedByInt(y)
-                    let xIndex = startIndex.advancedByInt(x)
-                    if self[xIndex] == b[yIndex] {
-                        x += 1
-                        y += 1
-                        traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
-                    } else {
-                        break
+                if (x <= N && y <= M) {
+                    traces.append(trace)
+                    
+                    // keep going as long as they match on diagonal k
+                    while x >= 0 && y >= 0 && x < N && y < M {
+                        let yIndex = b.startIndex.advancedByInt(y)
+                        let xIndex = startIndex.advancedByInt(x)
+                        if self[xIndex] == b[yIndex] {
+                            x += 1
+                            y += 1
+                            traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
+                        } else {
+                            break
+                        }
                     }
-                }
-                
-                V[index] = x
-                
-                if x >= N && y >= M {
-                    return traces
+                    
+                    V[index] = x
+                    
+                    if x >= N && y >= M {
+                        return traces
+                    }
                 }
             }
         }
         return []
     }
     
-    func diff(b: Self) -> Diff {
+    private func nextTraceType(D: Int, k: Int, previousX: Int?, nextX: Int?) -> TraceType {
+        if k == -D {
+            return .Insertion
+        } else if k != D {
+            if let previousX = previousX, nextX = nextX where previousX < nextX {
+                return .Insertion
+            }
+            return .Deletion
+        } else {
+            return .Deletion
+        }
+}
+    
+    public func diff(b: Self) -> Diff {
         return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
     }
     
