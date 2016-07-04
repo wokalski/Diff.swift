@@ -1,7 +1,6 @@
 
-
 public struct Diff {
-    let elements: [DiffElement]
+    public let elements: [DiffElement]
 }
 
 public enum DiffElement {
@@ -11,28 +10,43 @@ public enum DiffElement {
 
 extension DiffElement {
     init?(trace: Trace) {
-        
-        guard !(trace.from.x+1 == trace.to.x && trace.from.y+1 == trace.to.y) else {
-            return nil
-        }
-        
-        if trace.from.y < trace.to.y {
-            self = .Insert(from: trace.from.y, at: trace.from.x)
-        } else {
+        switch trace.type() {
+        case .Insertion:
+            self = .Insert(from: trace.from.y, at: trace.to.x-(trace.from.x-trace.from.y))
+        case .Deletion:
             self = .Delete(at: trace.from.x)
+        case .MatchPoint:
+            return nil
         }
     }
 }
 
 public struct Point {
-    let x: Int
-    let y: Int
+    public let x: Int
+    public let y: Int
+}
+
+extension Point: Equatable {}
+
+public func ==(l: Point, r: Point) -> Bool {
+    return (l.x == r.x) && (l.y == r.y)
 }
 
 public struct Trace {
-    let from: Point
-    let to: Point
-    let D: Int
+    public let from: Point
+    public let to: Point
+    public let D: Int
+}
+
+extension Trace: Hashable {
+    public var hashValue: Int {
+        return (((51 + from.x.hashValue) * 51 + from.y.hashValue) * 51 + to.x.hashValue) * 51 + to.y.hashValue
+    }
+}
+extension Trace: Equatable {}
+
+public func ==(l: Trace, r: Trace) -> Bool {
+    return (l.from == r.from) && (l.to == r.to)
 }
 
 enum TraceType {
@@ -170,22 +184,22 @@ public extension CollectionType where Generator.Element : Equatable {
             return Diff(elements: [])
         }
         
-        var array = Array<Trace>()
+        var array = [Trace]()
         var item = traces.last!
         array.append(item)
         
         for trace in traces.reverse() {
             if trace.to.x == item.from.x && trace.to.y == item.from.y {
-                array.append(trace)
+                array.insert(trace, atIndex: 0)
                 item = trace
-            }
-            
-            if trace.from.x == 0 && trace.from.y == 0 {
-                break;
+                
+                if trace.from == Point(x: 0, y: 0) {
+                    break;
+                }
             }
         }
+        
         return Diff(elements: array
-            .reverse()
             .flatMap { DiffElement(trace: $0) }
         )
     }

@@ -9,16 +9,31 @@
 /* Begin PBXBuildFile section */
 		C92178BE1CD00243004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C92178BF1CD00246004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838FF31D29571000691BE8 /* DiffTests.swift */; };
+		C9838FF61D29571000691BE8 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE872D1CCFCB33006BD90E /* Diff.framework */; };
 		C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87851CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87831CCFFB68006BD90E /* Patch.swift */; };
 		C9EE87871CCFFB68006BD90E /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87831CCFFB68006BD90E /* Patch.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C9838FF71D29571000691BE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9EE870D1CCFCA83006BD90E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9EE872C1CCFCB33006BD90E;
+			remoteInfo = "Diff-Mac";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		C92178BB1CD0023E004642C7 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Diff.h; path = Framework/Diff.h; sourceTree = "<group>"; };
 		C92178BC1CD0023E004642C7 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iOS.plist; path = Framework/iOS.plist; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Mac.plist; path = Framework/Mac.plist; sourceTree = "<group>"; };
+		C9838FF11D29571000691BE8 /* DiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9838FF31D29571000691BE8 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTests.swift; sourceTree = "<group>"; };
+		C9838FF51D29571000691BE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9EE87161CCFCA83006BD90E /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE872D1CCFCB33006BD90E /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE87821CCFFB68006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
@@ -26,6 +41,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C9838FEE1D29571000691BE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9838FF61D29571000691BE8 /* Diff.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9EE87121CCFCA83006BD90E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,11 +66,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C9838FF21D29571000691BE8 /* DiffTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9838FF31D29571000691BE8 /* DiffTests.swift */,
+				C9838FF51D29571000691BE8 /* Info.plist */,
+			);
+			path = DiffTests;
+			sourceTree = "<group>";
+		};
 		C9EE870C1CCFCA83006BD90E = {
 			isa = PBXGroup;
 			children = (
 				C9EE87811CCFFB68006BD90E /* Sources */,
 				C9EE87901CD00188006BD90E /* Framework */,
+				C9838FF21D29571000691BE8 /* DiffTests */,
 				C9EE87171CCFCA83006BD90E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +90,7 @@
 			children = (
 				C9EE87161CCFCA83006BD90E /* Diff.framework */,
 				C9EE872D1CCFCB33006BD90E /* Diff.framework */,
+				C9838FF11D29571000691BE8 /* DiffTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +136,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C9838FF01D29571000691BE8 /* DiffTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DiffTests" */;
+			buildPhases = (
+				C9838FED1D29571000691BE8 /* Sources */,
+				C9838FEE1D29571000691BE8 /* Frameworks */,
+				C9838FEF1D29571000691BE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9838FF81D29571000691BE8 /* PBXTargetDependency */,
+			);
+			name = DiffTests;
+			productName = DiffTests;
+			productReference = C9838FF11D29571000691BE8 /* DiffTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C9EE87151CCFCA83006BD90E /* Diff-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Diff-iOS" */;
@@ -144,9 +196,13 @@
 		C9EE870D1CCFCA83006BD90E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = wczekalski;
 				TargetAttributes = {
+					C9838FF01D29571000691BE8 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					C9EE87151CCFCA83006BD90E = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -169,11 +225,19 @@
 			targets = (
 				C9EE87151CCFCA83006BD90E /* Diff-iOS */,
 				C9EE872C1CCFCB33006BD90E /* Diff-Mac */,
+				C9838FF01D29571000691BE8 /* DiffTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C9838FEF1D29571000691BE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9EE87141CCFCA83006BD90E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,6 +255,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C9838FED1D29571000691BE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9EE87111CCFCA83006BD90E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,7 +283,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C9838FF81D29571000691BE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9EE872C1CCFCB33006BD90E /* Diff-Mac */;
+			targetProxy = C9838FF71D29571000691BE8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		C9838FFA1D29571000691BE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = DiffTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C9838FFB1D29571000691BE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = DiffTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		C9EE871C1CCFCA83006BD90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -386,6 +494,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DiffTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9838FFA1D29571000691BE8 /* Debug */,
+				C9838FFB1D29571000691BE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Diff" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
