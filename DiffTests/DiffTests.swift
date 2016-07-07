@@ -9,6 +9,12 @@
 import XCTest
 import Diff
 
+extension Trace: Hashable {
+    public var hashValue: Int {
+        return (((51 + from.x.hashValue) * 51 + from.y.hashValue) * 51 + to.x.hashValue) * 51 + to.y.hashValue
+    }
+}
+
 let expectations = [
     ("kitten", "sitting", "D(0)I(00)D(4)I(44)I(66)"),
     ("sitting", "kitten", "D(0)I(00)D(4)I(44)D(6)"),
