@@ -74,7 +74,6 @@ class DiffTests: XCTestCase {
         to: String) -> String {
         return from
             .diff(to)
-            .elements
             .reduce("") { $0 + $1.debugDescription }
     }
 }

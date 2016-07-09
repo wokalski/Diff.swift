@@ -1,18 +1,36 @@
 
-public struct Diff {
+public protocol DiffProtocol: CollectionType, SequenceType {
+    
+    associatedtype DiffElementType
+    associatedtype Index = Array<DiffElementType>.Index
+    
+    var elements: [DiffElementType] { get }
+}
+
+public struct Diff: DiffProtocol {
     public let elements: [DiffElement]
 }
 
 public enum DiffElement {
-    case Insert(from: Int, at: Int)
+    case Insert(at: Int)
     case Delete(at: Int)
 }
 
+public struct ExtendedDiff: DiffProtocol {
+    public let elements: [ExtendedDiffElement]
+}
+
+public enum ExtendedDiffElement {
+    case Insert(at: Int)
+    case Delete(at: Int)
+    case Move(from: Int, to: Int)
+}
+
 extension DiffElement {
-    init?(trace: Trace) {
+    public init?(trace: Trace) {
         switch trace.type() {
         case .Insertion:
-            self = .Insert(from: trace.from.y, at: trace.to.x-(trace.from.x-trace.from.y))
+            self = .Insert(at: trace.from.y)
         case .Deletion:
             self = .Delete(at: trace.from.x)
         case .MatchPoint:
@@ -265,5 +283,19 @@ public extension CollectionType where Generator.Element : Equatable {
     
 }
 
-
-
+extension DiffProtocol {
+    
+    public typealias IndexType = Array<DiffElementType>.Index
+    
+    public var startIndex: IndexType {
+        return elements.startIndex
+    }
+    
+    public var endIndex: IndexType {
+        return elements.endIndex
+    }
+    
+    public subscript(i: IndexType) -> DiffElementType {
+        return elements[i]
+    }
+}
