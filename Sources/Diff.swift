@@ -89,10 +89,10 @@ public extension RangeReplaceableCollection where Self.Iterator.Element : Equata
     }
 }
 
-public extension Collection {
-  public func advanced(by count: Int) -> Self.Index {
-    return index(startIndex, offsetBy: Self.IndexDistance(count.toIntMax()))
-  }
+extension Collection {
+    func advanced(by count: Int) -> Self.Index {
+        return index(startIndex, offsetBy: Self.IndexDistance(count.toIntMax()))
+    }
 }
 
 public extension String {
