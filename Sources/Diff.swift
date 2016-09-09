@@ -4,18 +4,18 @@ public struct Diff {
 }
 
 public enum DiffElement {
-    case Insert(from: Int, at: Int)
-    case Delete(at: Int)
+    case insert(from: Int, at: Int)
+    case delete(at: Int)
 }
 
 extension DiffElement {
     init?(trace: Trace) {
         switch trace.type() {
-        case .Insertion:
-            self = .Insert(from: trace.from.y, at: trace.to.x-(trace.from.x-trace.from.y))
-        case .Deletion:
-            self = .Delete(at: trace.from.x)
-        case .MatchPoint:
+        case .insertion:
+            self = .insert(from: trace.from.y, at: trace.to.x-(trace.from.x-trace.from.y))
+        case .deletion:
+            self = .delete(at: trace.from.x)
+        case .matchPoint:
             return nil
         }
     }
@@ -50,19 +50,19 @@ public func ==(l: Trace, r: Trace) -> Bool {
 }
 
 enum TraceType {
-    case Insertion
-    case Deletion
-    case MatchPoint
+    case insertion
+    case deletion
+    case matchPoint
 }
 
 extension Trace {
     func type() -> TraceType {
         if from.x+1 == to.x && from.y+1 == to.y {
-            return .MatchPoint
+            return .matchPoint
         } else if from.y < to.y {
-            return .Insertion
+            return .insertion
         } else {
-            return .Deletion
+            return .deletion
         }
     }
     
@@ -71,17 +71,17 @@ extension Trace {
     }
 }
 
-public extension RangeReplaceableCollectionType where Self.Generator.Element : Equatable, Self.Index : SignedIntegerType {
+public extension RangeReplaceableCollection where Self.Iterator.Element : Equatable, Self.Index : SignedInteger {
 
-    public func apply(patch: [PatchElement<Generator.Element, Index>]) -> Self {
+    public func apply(_ patch: [PatchElement<Iterator.Element, Index>]) -> Self {
         var mutableSelf = self
 
         for change in patch {
             switch change {
-            case let .Insertion(index, element):
-                mutableSelf.insert(element, atIndex: index)
-            case let .Deletion(index):
-                mutableSelf.removeAtIndex(index)
+            case let .insertion(index, element):
+                mutableSelf.insert(element, at: index)
+            case let .deletion(index):
+                mutableSelf.remove(at: index)
             }
         }
 
@@ -89,14 +89,14 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element : E
     }
 }
 
-extension ForwardIndexType {
-    func advancedByInt(x: Int) -> Self {
-        return advancedBy(Distance(x.toIntMax()))
-    }
+public extension Collection {
+  public func advanced(by count: Int) -> Self.Index {
+    return index(startIndex, offsetBy: Self.IndexDistance(count.toIntMax()))
+  }
 }
 
 public extension String {
-    public func diff(b: String) -> Diff {
+    public func diff(_ b: String) -> Diff {
         if self == b {
             return Diff(elements: [])
         }
@@ -105,7 +105,7 @@ public extension String {
 }
 
 extension Array {
-    func value(at index: Index) -> Generator.Element? {
+    func value(at index: Index) -> Iterator.Element? {
         if (index < 0 || index >= self.count) {
             return nil
         }
@@ -113,9 +113,9 @@ extension Array {
     }
 }
 
-public extension CollectionType where Generator.Element : Equatable {
+public extension Collection where Iterator.Element : Equatable {
     
-    private func tracesForDeletions() -> [Trace] {
+    fileprivate func tracesForDeletions() -> [Trace] {
         var traces = [Trace]()
         for index in 0..<self.count.toIntMax() {
             let intIndex = index.toIntMax()
@@ -124,7 +124,7 @@ public extension CollectionType where Generator.Element : Equatable {
         return traces
     }
     
-    private func tracesForInsertions(b: Self) -> [Trace] {
+    fileprivate func tracesForInsertions(_ b: Self) -> [Trace] {
         var traces = [Trace]()
         for index in 0..<b.count.toIntMax() {
             let intIndex = index.toIntMax()
@@ -133,7 +133,7 @@ public extension CollectionType where Generator.Element : Equatable {
         return traces
     }
     
-    public func diffTraces(b: Self) -> [Trace] {
+    public func diffTraces(_ b: Self) -> [Trace] {
         
         // Simple optimizations
         if (self.count == 0 && b.count == 0) {
@@ -150,12 +150,12 @@ public extension CollectionType where Generator.Element : Equatable {
         
         let max = N+M // this is arbitrary, maximum difference between a and b. N+M assures that this algorithm always finds a diff
         
-        var V = Array(count: 2 * Int(max) + 1, repeatedValue: -1) // from [0...2*max], it is -max...max in the whitepaper
+        var V = Array(repeating: -1, count: 2 * Int(max) + 1) // from [0...2*max], it is -max...max in the whitepaper
         
         V[max+1] = 0
         
         for D in 0...max {
-            for k in (-D).stride(through: D, by: 2) {
+            for k in stride(from: (-D), through: D, by: 2) {
                 
                 let index = k+max
                 
@@ -181,7 +181,7 @@ public extension CollectionType where Generator.Element : Equatable {
                     
                     let traceType = nextTraceType(D, k: k, previousX: V.value(at: index-1), nextX: V.value(at: index+1))
 
-                    if  traceType == .Insertion {
+                    if  traceType == .insertion {
                         let x = V[index+1]
                         return Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D)
                     } else {
@@ -198,8 +198,9 @@ public extension CollectionType where Generator.Element : Equatable {
                     
                     // keep going as long as they match on diagonal k
                     while x >= 0 && y >= 0 && x < N && y < M {
-                        let yIndex = b.startIndex.advancedByInt(y)
-                        let xIndex = startIndex.advancedByInt(x)
+
+                        let yIndex = b.advanced(by: y)
+                        let xIndex = advanced(by: x)
                         if self[xIndex] == b[yIndex] {
                             x += 1
                             y += 1
@@ -220,24 +221,24 @@ public extension CollectionType where Generator.Element : Equatable {
         return []
     }
     
-    private func nextTraceType(D: Int, k: Int, previousX: Int?, nextX: Int?) -> TraceType {
+    fileprivate func nextTraceType(_ D: Int, k: Int, previousX: Int?, nextX: Int?) -> TraceType {
         if k == -D {
-            return .Insertion
+            return .insertion
         } else if k != D {
-            if let previousX = previousX, nextX = nextX where previousX < nextX {
-                return .Insertion
+            if let previousX = previousX, let nextX = nextX , previousX < nextX {
+                return .insertion
             }
-            return .Deletion
+            return .deletion
         } else {
-            return .Deletion
+            return .deletion
         }
 }
     
-    public func diff(b: Self) -> Diff {
+    public func diff(_ b: Self) -> Diff {
         return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
     }
     
-    private func findPath(traces: [Trace], n: Int, m: Int) -> Diff {
+    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> Diff {
         
         guard traces.count > 0 else {
             return Diff(elements: [])
@@ -247,9 +248,9 @@ public extension CollectionType where Generator.Element : Equatable {
         var item = traces.last!
         array.append(item)
         
-        for trace in traces.reverse() {
+        for trace in traces.reversed() {
             if trace.to.x == item.from.x && trace.to.y == item.from.y {
-                array.insert(trace, atIndex: 0)
+                array.insert(trace, at: 0)
                 item = trace
                 
                 if trace.from == Point(x: 0, y: 0) {

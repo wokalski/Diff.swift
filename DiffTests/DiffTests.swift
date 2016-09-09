@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Diff
+@testable import Diff
 
 let expectations = [
     ("kitten", "sitting", "D(0)I(00)D(4)I(44)I(66)"),
@@ -50,13 +50,13 @@ class DiffTests: XCTestCase {
         }
     }
     
-    func duplicateTraces(a: String, b: String) -> Bool {
+    func duplicateTraces(_ a: String, b: String) -> Bool {
         let traces = a.characters.diffTraces(b.characters)
         let tracesSet = Set(traces)
         return !(traces.count == tracesSet.count)
     }
     
-    func tracesOutOfBounds(a: String, b: String) -> [Trace] {
+    func tracesOutOfBounds(_ a: String, b: String) -> [Trace] {
         let ac = a.characters
         let bc = b.characters
         return ac.diffTraces(bc)
@@ -64,7 +64,7 @@ class DiffTests: XCTestCase {
     }
     
     func _test(
-        from: String,
+        _ from: String,
         to: String) -> String {
         return from
             .diff(to)
@@ -76,9 +76,9 @@ class DiffTests: XCTestCase {
 extension DiffElement: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
-        case let Delete(at):
+        case let .delete(at):
             return "D(\(at))"
-        case let Insert(from, at):
+        case let .insert(from, at):
             return "I(\(from)\(at))"
         }
     }
