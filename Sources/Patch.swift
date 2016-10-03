@@ -5,16 +5,16 @@ public extension Diff {
             return T.Index(x.toIntMax())
         }
         
-        for element in elements {
-            switch element {
-            case let .Insert(from, at):
-                //insertions.append(PatchElement.Insertion(index: toIndexType(at), element: b[toIndexType(from)]))
-                retArray.append(PatchElement.Insertion(index: toIndexType(at),element: b[toIndexType(from)]))
-            case let .Delete(at):
-                //deletions.append(PatchElement.Deletion(index: toIndexType(at)))
-                retArray.append(PatchElement.Deletion(index: toIndexType(at)))
-            }
-        }
+//        for element in elements {
+//            switch element {
+//            case let .Insert(at):
+//                //insertions.append(PatchElement.Insertion(index: toIndexType(at), element: b[toIndexType(from)]))
+//                retArray.append(PatchElement.Insertion(index: toIndexType(at),element: b[toIndexType(from)]))
+//            case let .Delete(at):
+//                //deletions.append(PatchElement.Deletion(index: toIndexType(at)))
+//                retArray.append(PatchElement.Deletion(index: toIndexType(at)))
+//            }
+//        }
         return retArray.reverse()
     }
 }
@@ -22,4 +22,10 @@ public extension Diff {
 public enum PatchElement<Element, Index> {
     case Insertion(index: Index, element: Element)
     case Deletion(index: Index)
+}
+
+public enum ExtendedPatch<Element, Index> {
+    case Insertion(index: Index, element: Element)
+    case Deletion(index: Index)
+    case Move(from: Index, to: Index)
 }

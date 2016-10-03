@@ -115,6 +115,12 @@ public extension String {
         }
         return characters.diff(b.characters)
     }
+    public func extendedDiff(other: String) -> ExtendedDiff {
+        if self == other {
+            return ExtendedDiff(elements: [])
+        }
+        return characters.extendedDiff(other.characters)
+    }
 }
 
 extension Array {
@@ -135,8 +141,53 @@ struct TraceStep {
 
 public extension CollectionType where Generator.Element : Equatable {
     
-    public func diff(b: Self) -> Diff {
-        return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
+    public func diff(other: Self) -> Diff {
+        return findPath(diffTraces(other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
+    }
+    
+    public func extendedDiff(other: Self) -> ExtendedDiff {
+        return extendedDiffFrom(diff(other), other: other)
+    }
+    
+    private func extendedDiffFrom(diff: Diff, other: Self) -> ExtendedDiff {
+        
+        let insertions = diff.lazy.filter {
+            switch $0 {
+            case .Insert(_):
+                return true
+            default:
+                return false
+            }
+        }
+        
+        let deletions = diff.lazy.filter {
+            switch $0 {
+            case .Delete(_):
+                return true
+            default:
+                return false
+            }
+        }
+        
+        if self.count < other.count { // more insertions than deletions
+            for delete in deletions {
+                insertions.filter {
+                    if case let .Delete(at) = delete {
+                        if case let .Insert(insertAt) = $0 {
+                            return self[self.startIndex.advancedByInt(at)] == other[other.startIndex.advancedByInt(insertAt)]
+                        }
+                    }
+                    return false
+                }
+            }
+        } else {
+            for insertion in insertions {
+                
+            }
+        }
+        
+        var elements = [ExtendedDiffElement]()
+        return ExtendedDiff(elements: elements)
     }
     
     public func diffTraces(b: Self) -> [Trace] {
