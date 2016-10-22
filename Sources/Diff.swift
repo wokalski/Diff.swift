@@ -37,6 +37,26 @@ extension DiffElement {
             return nil
         }
     }
+    
+    func at() -> Int {
+        switch self {
+        case let .Delete(at):
+            return at
+        case let .Insert(at):
+            return at
+        }
+    }
+}
+
+extension ExtendedDiffElement {
+    init(_ diffElement: DiffElement) {
+        switch diffElement {
+        case let .Delete(at):
+            self = .Delete(at: at)
+        case let .Insert(at):
+            self = .Insert(at: at)
+        }
+    }
 }
 
 public struct Point {
@@ -81,24 +101,6 @@ extension Trace {
     
     func k() -> Int {
         return from.x - from.y
-    }
-}
-
-public extension RangeReplaceableCollectionType where Self.Generator.Element : Equatable, Self.Index : SignedIntegerType {
-
-    public func apply(patch: [PatchElement<Generator.Element, Index>]) -> Self {
-        var mutableSelf = self
-
-        for change in patch {
-            switch change {
-            case let .Insertion(index, element):
-                mutableSelf.insert(element, atIndex: index)
-            case let .Deletion(index):
-                mutableSelf.removeAtIndex(index)
-            }
-        }
-
-        return mutableSelf
     }
 }
 
@@ -151,44 +153,77 @@ public extension CollectionType where Generator.Element : Equatable {
     
     private func extendedDiffFrom(diff: Diff, other: Self) -> ExtendedDiff {
         
-        let insertions = diff.lazy.filter {
-            switch $0 {
-            case .Insert(_):
-                return true
-            default:
-                return false
-            }
-        }
-        
-        let deletions = diff.lazy.filter {
-            switch $0 {
-            case .Delete(_):
-                return true
-            default:
-                return false
-            }
-        }
-        
-        if self.count < other.count { // more insertions than deletions
-            for delete in deletions {
-                insertions.filter {
-                    if case let .Delete(at) = delete {
-                        if case let .Insert(insertAt) = $0 {
-                            return self[self.startIndex.advancedByInt(at)] == other[other.startIndex.advancedByInt(insertAt)]
-                        }
-                    }
-                    return false
-                }
-            }
-        } else {
-            for insertion in insertions {
-                
-            }
-        }
         
         var elements = [ExtendedDiffElement]()
+        var dirtyDiffElements: Set<Diff.Index> = []
+        
+
+        // Complexity O(d^2) where d is the length of the diff
+        
+/*
+ * 1. Iterate all objects
+ * 2. For every iteration find the next matching element
+         a) if it's not found insert the element as is to the output array
+         b) if it's found calculate move as in 3
+ * 3. Calculating the move. 
+         We call the first element a *candidate* and the second element a *match*
+         1. The position of the candidate never changes
+         2. The position of the match is equal to its initial position + m where m is equal to -d + i where d = deletions between candidate and match and i = insertions between candidate and match
+ * 4. Remove the candidate and match and insert the move in the place of the candidate
+ *
+ */
+        
+        for candidateIndex in diff.indices {
+            let candidate = diff[candidateIndex]
+            let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
+            if let match = match {
+                elements.append(match.0)
+                dirtyDiffElements.insert(match.1)
+            } else if !dirtyDiffElements.contains(candidateIndex) {
+                elements.append(ExtendedDiffElement(candidate))
+            }
+        }
+        
         return ExtendedDiff(elements: elements)
     }
+    
+    func firstMatch(
+        diff: Diff,
+        dirtyIndices: Set<Diff.Index>,
+        candidate: DiffElement,
+        candidateIndex: Diff.Index,
+        other: Self) -> (ExtendedDiffElement, Diff.Index)? {
+        
+        var others = [DiffElement]()
+
+        for matchIndex in candidateIndex.successor()..<diff.endIndex {
+            if !dirtyIndices.contains(matchIndex) {
+                let match = diff[matchIndex]
+                if let move = createMatCH(candidate, match: match, other: other) {
+                    return (move, matchIndex)
+                } else {
+                    others.append(match)
+                }
+            }
+        }
+        return nil
+    }
+    
+    func createMatCH(candidate: DiffElement, match: DiffElement, other: Self) -> ExtendedDiffElement? {
+        switch (candidate, match) {
+        case (.Delete, .Insert):
+            if self.element(atIndex: candidate.at()) == other.element(atIndex: match.at()) {
+                return .Move(from: candidate.at(), to: match.at())
+            }
+        case (.Insert, .Delete):
+            if self[self.startIndex.advancedByInt(match.at())] == other[other.startIndex.advancedByInt(candidate.at())] {
+                return .Move(from: match.at(), to: candidate.at())
+            }
+        default: return nil
+        }
+        return nil
+    }
+    
     
     public func diffTraces(b: Self) -> [Trace] {
         if (self.count == 0 && b.count == 0) {
@@ -332,6 +367,13 @@ public extension CollectionType where Generator.Element : Equatable {
         )
     }
     
+    
+    // Move this out to a protocol so that it's possible to specify it per class - allows for some performance gains. For instance Array could simply implement it as self[index] 
+    func element(atIndex i: Int) -> Generator.Element {
+        let index = self.startIndex.advancedByInt(i)
+        return self[index]
+    }
+    
 }
 
 extension DiffProtocol {
@@ -350,3 +392,28 @@ extension DiffProtocol {
         return elements[i]
     }
 }
+
+extension ExtendedDiffElement: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let Delete(at):
+            return "D(\(at))"
+        case let Insert(at):
+            return "I(\(at))"
+        case let Move(from, to):
+            return "M(\(from)\(to))"
+        }
+    }
+}
+
+extension DiffElement: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let Delete(at):
+            return "D(\(at))"
+        case let Insert(at):
+            return "I(\(at))"
+        }
+    }
+}
+

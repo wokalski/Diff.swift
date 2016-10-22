@@ -1,9 +1,11 @@
 public extension Diff {
-    public func patch<T: CollectionType where T.Generator.Element : Equatable, T.Index : SignedIntegerType>(a a: T, b: T) -> [PatchElement<T.Generator.Element, T.Index>] {
-        var retArray = [PatchElement<T.Generator.Element, T.Index>]()
-        let toIndexType: Int -> T.Index = { x in
-            return T.Index(x.toIntMax())
-        }
+    
+    typealias OrderedBefore = (fst: DiffElement, snd: DiffElement) -> Bool
+    
+    public func patch<T: CollectionType where T.Generator.Element : Equatable>(
+        a a: T,
+          b: T
+        ) -> [PatchElement<T.Generator.Element>] {
         
 //        for element in elements {
 //            switch element {
@@ -15,13 +17,18 @@ public extension Diff {
 //                retArray.append(PatchElement.Deletion(index: toIndexType(at)))
 //            }
 //        }
-        return retArray.reverse()
+        return self.map { element in
+            switch (element) {
+            case let .Delete(at): return .Deletion(index: at)
+            case let .Insert(at): return .Insertion(index: at, element: b.element(atIndex: at))
+            }
+        }
     }
 }
 
-public enum PatchElement<Element, Index> {
-    case Insertion(index: Index, element: Element)
-    case Deletion(index: Index)
+public enum PatchElement<Element> {
+    case Insertion(index: Int, element: Element)
+    case Deletion(index: Int)
 }
 
 public enum ExtendedPatch<Element, Index> {
@@ -29,3 +36,15 @@ public enum ExtendedPatch<Element, Index> {
     case Deletion(index: Index)
     case Move(from: Index, to: Index)
 }
+
+extension PatchElement: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let .Deletion(at):
+            return "D(\(at))"
+        case let .Insertion(at, element):
+            return "I(\(at),\(element))"
+        }
+    }
+}
+
