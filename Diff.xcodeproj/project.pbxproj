@@ -205,12 +205,14 @@
 				TargetAttributes = {
 					C9838FF01D29571000691BE8 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					C9EE87151CCFCA83006BD90E = {
 						CreatedOnToolsVersion = 7.3;
 					};
 					C9EE872C1CCFCB33006BD90E = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -307,7 +309,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -322,7 +324,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -433,7 +435,7 @@
 				PRODUCT_NAME = Diff;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -453,7 +455,7 @@
 				PRODUCT_NAME = Diff;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -476,7 +478,7 @@
 				PRODUCT_NAME = Diff;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -500,7 +502,7 @@
 				PRODUCT_NAME = Diff;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

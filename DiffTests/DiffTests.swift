@@ -86,13 +86,13 @@ class DiffTests: XCTestCase {
         }
     }
     
-    func duplicateTraces(a: String, b: String) -> Bool {
+    func duplicateTraces(_ a: String, b: String) -> Bool {
         let traces = a.characters.diffTraces(b.characters)
         let tracesSet = Set(traces)
         return !(traces.count == tracesSet.count)
     }
     
-    func tracesOutOfBounds(a: String, b: String) -> [Trace] {
+    func tracesOutOfBounds(_ a: String, b: String) -> [Trace] {
         let ac = a.characters
         let bc = b.characters
         return ac.diffTraces(bc)
@@ -100,7 +100,7 @@ class DiffTests: XCTestCase {
     }
     
     func _test(
-        from: String,
+        _ from: String,
         to: String) -> String {
         return from
             .diff(to)
@@ -108,7 +108,7 @@ class DiffTests: XCTestCase {
     }
     
     func _testExtended(
-        from: String,
+        _ from: String,
         to: String) -> String {
         return from
             .extendedDiff(to)
