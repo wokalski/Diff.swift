@@ -10,7 +10,7 @@ import UIKit
 
 public extension String {
     func length() -> Int {
-        return lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+        return lengthOfBytes(using: String.Encoding.utf8)
     }
     
     func characterLabels(withFrames frames: [CGRect]) -> [UILabel] {
@@ -31,14 +31,14 @@ public extension String {
 extension Character {
     func label() -> UILabel {
         let l = UILabel()
-        l.textColor = .whiteColor()
+        l.textColor = .white
         l.text = String(self)
         l.sizeToFit()
         return l
     }
 }
 
-func inset(rects rects:[CGRect], to: [CGSize]) -> [CGRect] {
+func inset(rects:[CGRect], to: [CGSize]) -> [CGRect] {
     return zip(to, rects).map { size, rect -> CGRect in
         return rect.inset(to: size)
     }
@@ -46,6 +46,6 @@ func inset(rects rects:[CGRect], to: [CGSize]) -> [CGRect] {
 
 extension CGRect {
     func inset(to size: CGSize) -> CGRect {
-        return CGRectStandardize(CGRectInset(self, (self.width-size.width)/2, (self.height-size.height)/2))
+        return self.insetBy(dx: (self.width-size.width)/2, dy: (self.height-size.height)/2).standardized
     }
 }

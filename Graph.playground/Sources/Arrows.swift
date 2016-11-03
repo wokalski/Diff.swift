@@ -1,10 +1,3 @@
-//
-//  Arrows.swift
-//  Graph
-//
-//  Created by Wojciech Czekalski on 21.03.2016.
-//  Copyright © 2016 wczekalski. All rights reserved.
-//
 
 import UIKit
 
@@ -24,19 +17,19 @@ public extension UIBezierPath {
         var points = [CGPoint]()
         
         let tailLength = length - arrow.headLength;
-        points.append(CGPointMake(0, arrow.tailWidth / 2))
-        points.append(CGPointMake(tailLength, arrow.tailWidth / 2))
-        points.append(CGPointMake(tailLength, arrow.headWidth / 2))
-        points.append(CGPointMake(length, 0))
-        points.append(CGPointMake(tailLength, -arrow.headWidth / 2))
-        points.append(CGPointMake(tailLength, -arrow.tailWidth / 2))
-        points.append(CGPointMake(0, -arrow.tailWidth / 2))
+        points.append(CGPoint(x: 0, y: arrow.tailWidth / 2))
+        points.append(CGPoint(x: tailLength, y: arrow.tailWidth / 2))
+        points.append(CGPoint(x: tailLength, y: arrow.headWidth / 2))
+        points.append(CGPoint(x: length, y: 0))
+        points.append(CGPoint(x: tailLength, y: -arrow.headWidth / 2))
+        points.append(CGPoint(x: tailLength, y: -arrow.tailWidth / 2))
+        points.append(CGPoint(x: 0, y: -arrow.tailWidth / 2))
         
-        var transform = UIBezierPath.transform(from: arrow.from, to: arrow.to, length: length)
-        let path = CGPathCreateMutable()
-        CGPathAddLines(path, &transform, points, 7)
-        CGPathCloseSubpath(path)
-        self.init(CGPath: path)
+        let transform = UIBezierPath.transform(from: arrow.from, to: arrow.to, length: length)
+        let path = CGMutablePath()
+        path.addLines(between: points, transform: transform)
+        path.closeSubpath()
+        self.init(cgPath: path)
     }
 
     private static func transform(from start: CGPoint, to: CGPoint, length: CGFloat) -> CGAffineTransform {
@@ -47,13 +40,13 @@ public extension UIBezierPath {
     
     func shapeLayer() -> CAShapeLayer {
         let l = CAShapeLayer()
-        let path = self.copy()
-        let bounds = path.bounds
+        let bounds = self.bounds
         let origin = bounds.origin
+        let path = self.copy() as! UIBezierPath
         
-        path.applyTransform(CGAffineTransformMakeTranslation(-origin.x, -origin.y))
+        path.apply(CGAffineTransform(translationX: -origin.x, y: -origin.y))
         
-        l.path = path.CGPath
+        l.path = path.cgPath
         l.frame = bounds
         return l
     }

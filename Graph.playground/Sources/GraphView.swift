@@ -29,7 +29,7 @@ public extension Graph {
         let layer: (CGRect) -> CALayer = { rect in
             let layer = CALayer();
             layer.frame = rect
-            layer.backgroundColor = UIColor.whiteColor().CGColor
+            layer.backgroundColor = UIColor.white.cgColor
             return layer
         }
         
