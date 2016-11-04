@@ -14,56 +14,20 @@ public extension Diff {
         
         typealias PE = PatchElement<T.Generator.Element>
         
-        let patchElements: [(PE, Int)] = self.indices.map { i in
+        var shift = 0
+        return self.indices.map { i in
             let element = self[i]
             switch element {
-            case let .delete(at): return (.deletion(index: at), i)
-            case let .insert(at): return (.insertion(index: at, element: b.itemOnStartIndex(advancedBy: at)), i)
-            }
-        }
-        
-        var dict: [Int:[(PE, Int)]] = [:]
-        
-        patchElements.forEach { (element) in
-            let key = element.0.index()
-            if var bucket = dict[key] {
-                bucket.append(element)
-                dict[key] = bucket
-            } else {
-                dict[key] = [element]
-            }
-        }
-        
-        let allValues = valuesSortedByKey(dict)
-        print(allValues)
-        var shift = 0
-        let update: [(Int, Int)] = allValues.map { patchElement,index in
-            switch patchElement {
-            case .deletion:
-                let result = (index, shift)
+            case let .delete(at):
                 shift -= 1
-                return result
-            case .insertion:
-                let result = (index, shift)
+                return .deletion(index: at+shift+1)
+            case let .insert(at):
                 shift += 1
-                return result
+                return .insertion(index: at, element: b.itemOnStartIndex(advancedBy: at))
             }
         }
+
         
-        var shiftedPatch = patchElements.map { element,_ in return element }
-            
-        update.forEach { i,shiftValue in
-            let element = shiftedPatch[i]
-            switch element {
-            case let .deletion(index):
-                shiftedPatch[i] = .deletion(index: (index+shiftValue) >= 0 ? (index+shiftValue) : 0)
-            case let .insertion(index, value):
-                shiftedPatch[i] = .insertion(index: (index+shiftValue) >= 0 ? (index+shiftValue) : 0, element: value)
-            }
-        }
-//            print(update)
-        
-        return shiftedPatch
     }
 }
 
