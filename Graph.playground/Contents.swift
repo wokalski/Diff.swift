@@ -1,8 +1,8 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
-let viewController = GraphViewController(string1: "Playground", string2: "Playful")
+let viewController = GraphViewController(string1: "kitten", string2: "sitting")
 viewController.view.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-XCPlaygroundPage.currentPage.liveView = viewController.view
+PlaygroundPage.current.liveView = viewController.view

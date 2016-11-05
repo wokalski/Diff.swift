@@ -112,11 +112,11 @@ extension Trace {
             let xDelta = (to.x-from.x)/20
             
             switch type() {
-            case .Deletion:
+            case .deletion:
                 return (CGPoint(x: from.x+xDelta, y: from.y), CGPoint(x: to.x-xDelta, y: to.y))
-            case .Insertion:
+            case .insertion:
                 return (CGPoint(x: from.x, y: from.y+yDelta), CGPoint(x: to.x, y: to.y-yDelta))
-            case .MatchPoint:
+            case .matchPoint:
                 return (CGPoint(x: from.x+xDelta, y: from.y+yDelta), CGPoint(x: to.x-xDelta, y: to.y-yDelta))
             }
         }()
@@ -127,11 +127,11 @@ extension Trace {
         let arrowLayer = UIBezierPath(arrow: arrow(on: graph)).shapeLayer()
         
         switch type() {
-        case .Deletion:
+        case .deletion:
             arrowLayer.fillColor = UIColor.red.cgColor
-        case .Insertion:
+        case .insertion:
             arrowLayer.fillColor = UIColor.green.cgColor
-        case .MatchPoint:
+        case .matchPoint:
             arrowLayer.fillColor = UIColor.white.cgColor
         }
         return arrowLayer
