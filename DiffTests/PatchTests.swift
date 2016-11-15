@@ -120,14 +120,21 @@ func _test(
     _ from: String,
     to: String,
     sortingFunction: SortingFunction? = nil) -> String {
+    if let sort = sortingFunction {
+        return from
+            .diff(to)
+            .patch(
+                from.characters,
+                b: to.characters,
+                sort: sort)
+            .reduce("") { $0 + $1.debugDescription }
+    }
     return from
         .diff(to)
         .patch(
             from.characters,
-            b: to.characters,
-            sort: sortingFunction)
+            b: to.characters)
         .reduce("") { $0 + $1.debugDescription }
-
 }
 
 

@@ -19,20 +19,16 @@ public enum ExtendedPatch<Element, Index> {
     case move(from: Index, to: Index)
 }
 
+typealias OrderedBefore = (_ fst: DiffElement, _ snd: DiffElement) -> Bool
+
 public extension Diff {
     
-    typealias OrderedBefore = (_ fst: DiffElement, _ snd: DiffElement) -> Bool
-
     public func patch<T: Collection>(
         _ a: T,
-        b: T,
-        sort: OrderedBefore? = nil
+        b: T
         ) -> [PatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
-        
-        typealias PE = PatchElement<T.Generator.Element>
-
         var shift = 0
-        let shiftedDiff: [PE] = self.indices.map { i in
+        return self.indices.map { i in
             let element = self[i]
             switch element {
             case let .delete(at):
@@ -43,30 +39,47 @@ public extension Diff {
                 return .insertion(index: at, element: b.itemOnStartIndex(advancedBy: at))
             }
         }
-        
-        guard let sort = sort else {
-            return shiftedDiff
-        }
-        
-        let sortedDiff = indices.map { index in
-            return (self[index], index)
-        }.sorted { (fst, snd) -> Bool in
-            return sort(fst.0, snd.0)
-        }.map { (shiftedDiff[$0.1], $0.1) }
-        
-        
-        let sortedDiffToShiftedDiffIndex =
-            zip(sortedDiff.map { $0.1 }, sortedDiff.indices)
+    }
+    
+    typealias UnprocessedPatchElement<T> = (element: PatchElement<T>, index: Diff.Index)
+    
+    private func sortedUnprocessedPatch<T>(from source: [PatchElement<T>], sortBy areInIncreasingOrder: OrderedBefore) -> [UnprocessedPatchElement<T>] {
+        return indices.map { (self[$0], $0) }
+            .sorted { areInIncreasingOrder($0.0, $1.0) }
+            .map { (source[$0.1], $0.1) }
+    }
+    
+    private func mapSortedToShiftedIndices<T>(sorted patch: [UnprocessedPatchElement<T>]) -> [Array<Any>.Index] {
+        return zip(patch.map { $0.1 }, patch.indices)
                 .sorted { $0.0 < $1.0 }
                 .map { $0.1 }
-        
-        let sortedPatchElements = shiftedDiff.indices.map {
-            PatchReorderedElement(
-                value: shiftedDiff[$0],
+    }
+    
+    private func generateTemporarySortedPatch<T>(
+        from shiftedPatch: [PatchElement<T>],
+        sortBy areInIncreasingOrder: OrderedBefore
+        ) -> [TemporaryReorderedElement<T>] {
+        let sortedToShiftedIndex = mapSortedToShiftedIndices(sorted: sortedUnprocessedPatch(from: shiftedPatch, sortBy: areInIncreasingOrder))
+        return shiftedPatch.indices.map {
+            TemporaryReorderedElement(
+                value: shiftedPatch[$0],
                 oldIndex: $0,
-                newIndex: sortedDiffToShiftedDiffIndex[$0]
+                newIndex: sortedToShiftedIndex[$0]
             )
         }
+    }
+
+    public func patch<T: Collection>(
+        _ a: T,
+        b: T,
+        sort: OrderedBefore
+        ) -> [PatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+        
+        let shiftedPatch = patch(a, b: b)
+        let sortedPatchElements = generateTemporarySortedPatch(
+            from: shiftedPatch,
+            sortBy: sort
+        )
         
         let linkedList = DoublyLinkedList(linkedList: LinkedList(array: sortedPatchElements))
         if let secondElement = linkedList?.next {
@@ -76,7 +89,7 @@ public extension Diff {
         guard let result = linkedList?.array().sorted(by: { (fst, second) -> Bool in
             return fst.newIndex < second.newIndex
         }) else {
-            return shiftedDiff
+            return shiftedPatch
         }
         return result.map { $0.value }
     }
@@ -95,7 +108,7 @@ enum EdgeType {
     case jump(direction: Direction)
 }
 
-func edgeDirection<T>(from: DoublyLinkedList<PatchReorderedElement<T>>, to: DoublyLinkedList<PatchReorderedElement<T>>) -> EdgeType {
+func edgeDirection<T>(from: DoublyLinkedList<TemporaryReorderedElement<T>>, to: DoublyLinkedList<TemporaryReorderedElement<T>>) -> EdgeType {
     let fromIndex = from.value.newIndex
     let toIndex = to.value.newIndex
     
@@ -114,7 +127,7 @@ func edgeDirection<T>(from: DoublyLinkedList<PatchReorderedElement<T>>, to: Doub
     }
 }
 
-func process<T>(node: DoublyLinkedList<PatchReorderedElement<T>>) {
+func process<T>(node: DoublyLinkedList<TemporaryReorderedElement<T>>) {
     var from = node.previous
     while let nextFrom = from, nextFrom.value.oldIndex < node.value.oldIndex {
         process(from: nextFrom, to: node)
@@ -126,7 +139,7 @@ func process<T>(node: DoublyLinkedList<PatchReorderedElement<T>>) {
     }
 }
 
-func process<T>(from: DoublyLinkedList<PatchReorderedElement<T>>, to: DoublyLinkedList<PatchReorderedElement<T>>) {
+func process<T>(from: DoublyLinkedList<TemporaryReorderedElement<T>>, to: DoublyLinkedList<TemporaryReorderedElement<T>>) {
     switch edgeDirection(from: from, to: to) {
     case .cycle:
         fatalError()
@@ -138,19 +151,19 @@ func process<T>(from: DoublyLinkedList<PatchReorderedElement<T>>, to: DoublyLink
             case (.deletion, .deletion):
                 break
             case (.insertion, .deletion(let position)):
-                to.value = PatchReorderedElement(value: .deletion(index: position - 1), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
+                to.value = TemporaryReorderedElement(value: .deletion(index: position - 1), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
             case (.deletion(let dPosition), .insertion(let iPosition, let element)):
                 if dPosition == iPosition {
-                    from.value = PatchReorderedElement(value: .deletion(index: dPosition + 1), oldIndex: from.value.oldIndex, newIndex: from.value.newIndex)
+                    from.value = TemporaryReorderedElement(value: .deletion(index: dPosition + 1), oldIndex: from.value.oldIndex, newIndex: from.value.newIndex)
                 } else if dPosition < iPosition {
-                    to.value = PatchReorderedElement(value: .insertion(index: iPosition + 1, element: element), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
+                    to.value = TemporaryReorderedElement(value: .insertion(index: iPosition + 1, element: element), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
                 }
             }
         }
     }
 }
 
-struct PatchReorderedElement<T> {
+struct TemporaryReorderedElement<T> {
     var value: PatchElement<T>
     let oldIndex: Int
     let newIndex: Int
