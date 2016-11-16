@@ -52,6 +52,7 @@ public extension Diff {
         }) else {
             return shiftedPatch
         }
+        
         return result.map { $0.value }
     }
 }
@@ -67,7 +68,7 @@ enum EdgeType {
     case jump(direction: Direction)
 }
 
-func edgeDirection<T>(from: DoublyLinkedList<TemporaryReorderedElement<T>>, to: DoublyLinkedList<TemporaryReorderedElement<T>>) -> EdgeType {
+func edgeType<T>(from: DoublyLinkedList<TemporaryReorderedElement<T>>, to: DoublyLinkedList<TemporaryReorderedElement<T>>) -> EdgeType {
     let fromIndex = from.value.newIndex
     let toIndex = to.value.newIndex
     
@@ -99,24 +100,34 @@ func process<T>(node: DoublyLinkedList<TemporaryReorderedElement<T>>) {
 }
 
 func process<T>(from: DoublyLinkedList<TemporaryReorderedElement<T>>, to: DoublyLinkedList<TemporaryReorderedElement<T>>) {
-    switch edgeDirection(from: from, to: to) {
+    let type = edgeType(from: from, to: to)
+    switch type {
     case .cycle:
         fatalError()
     case .neighbor(let direction), .jump(let direction):
         if case .left = direction {
             switch (from.value.value, to.value.value) {
-            case (.insertion, .insertion):
-                break
-            case (.deletion, .deletion):
-                break
+            case (.insertion, .insertion(let position, let element)):
+                to.value = TemporaryReorderedElement(
+                    value: .insertion(index: position - 1, element: element),
+                    oldIndex: to.value.oldIndex,
+                    newIndex: to.value.newIndex)
+            case (.deletion, .deletion(let toPosition)):
+                to.value = TemporaryReorderedElement(
+                    value: .deletion(index: toPosition + 1),
+                    oldIndex: to.value.oldIndex,
+                    newIndex: to.value.newIndex
+                    )
             case (.insertion, .deletion(let position)):
-                to.value = TemporaryReorderedElement(value: .deletion(index: position - 1), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
-            case (.deletion(let dPosition), .insertion(let iPosition, let element)):
-                if dPosition == iPosition {
-                    from.value = TemporaryReorderedElement(value: .deletion(index: dPosition + 1), oldIndex: from.value.oldIndex, newIndex: from.value.newIndex)
-                } else if dPosition < iPosition {
-                    to.value = TemporaryReorderedElement(value: .insertion(index: iPosition + 1, element: element), oldIndex: to.value.oldIndex, newIndex: to.value.newIndex)
-                }
+                to.value = TemporaryReorderedElement(
+                    value: .deletion(index: position - 1),
+                    oldIndex: to.value.oldIndex,
+                    newIndex: to.value.newIndex)
+            case (.deletion(_), .insertion(let iPosition, let element)):
+                    to.value = TemporaryReorderedElement(
+                        value: .insertion(index: iPosition + 1, element: element),
+                        oldIndex: to.value.oldIndex,
+                        newIndex: to.value.newIndex)
             }
         }
     }

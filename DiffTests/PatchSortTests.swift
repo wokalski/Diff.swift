@@ -1,5 +1,5 @@
 import XCTest
-import Diff
+@testable import Diff
 
 class PatchTests: XCTestCase {
 
@@ -32,19 +32,19 @@ class PatchTests: XCTestCase {
     func testInsertionsFirst() {
         
         let insertionsFirst = [
-            ("kitten", "sitting", "I(0,s)I(5,i)I(8,g)D(1)D(5)"),
-            ("🐩itt🍨ng", "kitten", "I(0,k)I(5,e)D(1)D(5)D(6)"),
-            ("1234", "ABCD", "I(0,A)I(1,B)I(2,C)I(3,D)D(4)D(4)D(4)D(4)"),
+            ("kitten", "sitting", "I(1,s)I(6,i)I(8,g)D(0)D(4)"),
+            ("🐩itt🍨ng", "kitten", "I(1,k)I(6,e)D(0)D(4)D(6)"),
+            ("1234", "ABCD", "I(4,A)I(5,B)I(6,C)I(7,D)D(0)D(0)D(0)D(0)"),
             ("1234", "", "D(0)D(0)D(0)D(0)"),
             ("", "1234", "I(0,1)I(1,2)I(2,3)I(3,4)"),
             ("Hi", "Oh Hi", "I(0,O)I(1,h)I(2, )"),
             ("Hi", "Hi O", "I(2, )I(3,O)"),
             ("Hi O", "Hi", "D(2)D(2)"),
-            ("Wojtek", "Wojciech", "I(3,c)I(4,i)I(7,c)I(8,h)D(5)D(8)"),
+            ("Wojtek", "Wojciech", "I(4,c)I(5,i)I(8,c)I(9,h)D(3)D(6)"),
             ("1234", "1234", ""),
             ("", "", ""),
             ("Oh Hi", "Hi Oh", "I(5, )I(6,O)I(7,h)D(0)D(0)D(0)"),
-            ("1362", "31526", "I(2,1)I(3,5)I(6,6)D(0)D(3)")
+            ("1362", "31526", "I(3,1)I(4,5)I(6,6)D(0)D(1)")
         ]
         
         let insertionsFirstSort = { (element1: DiffElement, element2: DiffElement) -> Bool in
@@ -112,6 +112,36 @@ class PatchTests: XCTestCase {
                 expectation.2)
         }
     }
+    
+    func testRandomStringPermutationRandomPatchSort() {
+        
+        let sort = { (element1: DiffElement, element2: DiffElement) -> Bool in
+            return arc4random_uniform(2) == 0
+        }
+        for _ in 0..<200 {
+            let randomString = randomAlphaNumericString(length: 30)
+            let permutation = randomAlphaNumericString(length: 30)
+            let patch = randomString.diff(permutation).patch(randomString.characters, b: permutation.characters, sort:sort)
+            let result = randomString.apply(patch)
+            XCTAssertEqual(result, permutation)
+        }
+    }
+}
+
+func randomAlphaNumericString(length: Int) -> String {
+    
+    let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let allowedCharsCount = UInt32(allowedChars.characters.count)
+    var randomString = ""
+    
+    for _ in 0..<length {
+        let randomNum = Int(arc4random_uniform(allowedCharsCount))
+        let randomIndex = allowedChars.index(allowedChars.startIndex, offsetBy: randomNum)
+        let newCharacter = allowedChars[randomIndex]
+        randomString += String(newCharacter)
+    }
+    
+    return randomString
 }
 
 typealias SortingFunction = (DiffElement, DiffElement) -> Bool
