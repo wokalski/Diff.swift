@@ -1,5 +1,5 @@
 import XCTest
-import Diff
+@testable import Diff
 
 class PatchApplyTests: XCTestCase {
     func testString() {

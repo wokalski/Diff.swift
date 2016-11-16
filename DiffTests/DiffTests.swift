@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Diff
+@testable import Diff
 
 extension Trace: Hashable {
     public var hashValue: Int {
