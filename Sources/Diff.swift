@@ -1,22 +1,78 @@
 
-public struct Diff {
+public protocol DiffProtocol: Collection, Sequence {
+    
+    associatedtype DiffElementType
+    associatedtype Index = Array<DiffElementType>.Index
+    
+    var elements: [DiffElementType] { get }
+}
+
+public struct Diff: DiffProtocol {
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+
     public let elements: [DiffElement]
 }
 
 public enum DiffElement {
-    case Insert(from: Int, at: Int)
-    case Delete(at: Int)
+    case insert(at: Int)
+    case delete(at: Int)
+}
+
+public struct ExtendedDiff: DiffProtocol {
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+
+    public let elements: [ExtendedDiffElement]
+}
+
+public enum ExtendedDiffElement {
+    case insert(at: Int)
+    case delete(at: Int)
+    case move(from: Int, to: Int)
 }
 
 extension DiffElement {
-    init?(trace: Trace) {
+    public init?(trace: Trace) {
         switch trace.type() {
-        case .Insertion:
-            self = .Insert(from: trace.from.y, at: trace.to.x-(trace.from.x-trace.from.y))
-        case .Deletion:
-            self = .Delete(at: trace.from.x)
-        case .MatchPoint:
+        case .insertion:
+            self = .insert(at: trace.from.y)
+        case .deletion:
+            self = .delete(at: trace.from.x)
+        case .matchPoint:
             return nil
+        }
+    }
+    
+    func at() -> Int {
+        switch self {
+        case let .delete(at):
+            return at
+        case let .insert(at):
+            return at
+        }
+    }
+}
+
+extension ExtendedDiffElement {
+    init(_ diffElement: DiffElement) {
+        switch diffElement {
+        case let .delete(at):
+            self = .delete(at: at)
+        case let .insert(at):
+            self = .insert(at: at)
         }
     }
 }
@@ -38,11 +94,6 @@ public struct Trace {
     public let D: Int
 }
 
-extension Trace: Hashable {
-    public var hashValue: Int {
-        return (((51 + from.x.hashValue) * 51 + from.y.hashValue) * 51 + to.x.hashValue) * 51 + to.y.hashValue
-    }
-}
 extension Trace: Equatable {}
 
 public func ==(l: Trace, r: Trace) -> Bool {
@@ -50,19 +101,19 @@ public func ==(l: Trace, r: Trace) -> Bool {
 }
 
 enum TraceType {
-    case Insertion
-    case Deletion
-    case MatchPoint
+    case insertion
+    case deletion
+    case matchPoint
 }
 
 extension Trace {
     func type() -> TraceType {
         if from.x+1 == to.x && from.y+1 == to.y {
-            return .MatchPoint
+            return .matchPoint
         } else if from.y < to.y {
-            return .Insertion
+            return .insertion
         } else {
-            return .Deletion
+            return .deletion
         }
     }
     
@@ -71,41 +122,23 @@ extension Trace {
     }
 }
 
-public extension RangeReplaceableCollectionType where Self.Generator.Element : Equatable, Self.Index : SignedIntegerType {
-
-    public func apply(patch: [PatchElement<Generator.Element, Index>]) -> Self {
-        var mutableSelf = self
-
-        for change in patch {
-            switch change {
-            case let .Insertion(index, element):
-                mutableSelf.insert(element, atIndex: index)
-            case let .Deletion(index):
-                mutableSelf.removeAtIndex(index)
-            }
-        }
-
-        return mutableSelf
-    }
-}
-
-extension ForwardIndexType {
-    func advancedByInt(x: Int) -> Self {
-        return advancedBy(Distance(x.toIntMax()))
-    }
-}
-
 public extension String {
-    public func diff(b: String) -> Diff {
+    public func diff(_ b: String) -> Diff {
         if self == b {
             return Diff(elements: [])
         }
         return characters.diff(b.characters)
     }
+    public func extendedDiff(_ other: String) -> ExtendedDiff {
+        if self == other {
+            return ExtendedDiff(elements: [])
+        }
+        return characters.extendedDiff(other.characters)
+    }
 }
 
 extension Array {
-    func value(at index: Index) -> Generator.Element? {
+    func value(at index: Index) -> Iterator.Element? {
         if (index < 0 || index >= self.count) {
             return nil
         }
@@ -113,9 +146,113 @@ extension Array {
     }
 }
 
-public extension CollectionType where Generator.Element : Equatable {
+struct TraceStep {
+    let D: Int
+    let  k: Int
+    let previousX: Int?
+    let nextX: Int?
+}
+
+public extension Collection where Iterator.Element : Equatable {
     
-    private func tracesForDeletions() -> [Trace] {
+    public func diff(_ other: Self) -> Diff {
+        return findPath(diffTraces(other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
+    }
+    
+    public func extendedDiff(_ other: Self) -> ExtendedDiff {
+        return extendedDiffFrom(diff(other), other: other)
+    }
+    
+    fileprivate func extendedDiffFrom(_ diff: Diff, other: Self) -> ExtendedDiff {
+        
+        
+        var elements = [ExtendedDiffElement]()
+        var dirtyDiffElements: Set<Diff.Index> = []
+        
+
+        // Complexity O(d^2) where d is the length of the diff
+        
+/*
+ * 1. Iterate all objects
+ * 2. For every iteration find the next matching element
+         a) if it's not found insert the element as is to the output array
+         b) if it's found calculate move as in 3
+ * 3. Calculating the move. 
+         We call the first element a *candidate* and the second element a *match*
+         1. The position of the candidate never changes
+         2. The position of the match is equal to its initial position + m where m is equal to -d + i where d = deletions between candidate and match and i = insertions between candidate and match
+ * 4. Remove the candidate and match and insert the move in the place of the candidate
+ *
+ */
+        
+        for candidateIndex in diff.indices {
+            let candidate = diff[candidateIndex]
+            let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
+            if let match = match {
+                elements.append(match.0)
+                dirtyDiffElements.insert(match.1)
+            } else if !dirtyDiffElements.contains(candidateIndex) {
+                elements.append(ExtendedDiffElement(candidate))
+            }
+        }
+        
+        return ExtendedDiff(elements: elements)
+    }
+    
+    func firstMatch(
+        _ diff: Diff,
+        dirtyIndices: Set<Diff.Index>,
+        candidate: DiffElement,
+        candidateIndex: Diff.Index,
+        other: Self) -> (ExtendedDiffElement, Diff.Index)? {
+        
+        var others = [DiffElement]()
+
+        for matchIndex in (candidateIndex + 1)..<diff.endIndex {
+            if !dirtyIndices.contains(matchIndex) {
+                let match = diff[matchIndex]
+                if let move = createMatCH(candidate, match: match, other: other) {
+                    return (move, matchIndex)
+                } else {
+                    others.append(match)
+                }
+            }
+        }
+        return nil
+    }
+    
+    func createMatCH(_ candidate: DiffElement, match: DiffElement, other: Self) -> ExtendedDiffElement? {
+        switch (candidate, match) {
+        case (.delete, .insert):
+            if itemOnStartIndex(advancedBy: candidate.at()) == other.itemOnStartIndex(advancedBy: match.at()) {
+                return .move(from: candidate.at(), to: match.at())
+            }
+        case (.insert, .delete):
+            if itemOnStartIndex(advancedBy: match.at()) == other.itemOnStartIndex(advancedBy: candidate.at()) {
+                return .move(from: match.at(), to: candidate.at())
+            }
+        default: return nil
+        }
+        return nil
+    }
+    
+    func itemOnStartIndex(advancedBy n: Int) -> Iterator.Element {
+        return self[self.index(startIndex, offsetBy: IndexDistance(n.toIntMax()))]
+    }
+    
+    public func diffTraces(_ b: Self) -> [Trace] {
+        if (self.count == 0 && b.count == 0) {
+            return []
+        } else if (self.count == 0) {
+            return tracesForInsertions(b)
+        } else if (b.count == 0) {
+            return tracesForDeletions()
+        } else {
+            return myersDiffTraces(b)
+        }
+    }
+    
+    fileprivate func tracesForDeletions() -> [Trace] {
         var traces = [Trace]()
         for index in 0..<self.count.toIntMax() {
             let intIndex = index.toIntMax()
@@ -124,7 +261,7 @@ public extension CollectionType where Generator.Element : Equatable {
         return traces
     }
     
-    private func tracesForInsertions(b: Self) -> [Trace] {
+    fileprivate func tracesForInsertions(_ b: Self) -> [Trace] {
         var traces = [Trace]()
         for index in 0..<b.count.toIntMax() {
             let intIndex = index.toIntMax()
@@ -133,85 +270,45 @@ public extension CollectionType where Generator.Element : Equatable {
         return traces
     }
     
-    public func diffTraces(b: Self) -> [Trace] {
+    fileprivate func myersDiffTraces(_ b: Self) -> [Trace] {
         
-        // Simple optimizations
-        if (self.count == 0 && b.count == 0) {
-            return []
-        } else if (self.count == 0) {
-            return tracesForInsertions(b)
-        } else if (b.count == 0) {
-            return tracesForDeletions()
-        }
-        
-        let N = Int(self.count.toIntMax())
-        let M = Int(b.count.toIntMax())
+        let fromCount = Int(self.count.toIntMax())
+        let toCount = Int(b.count.toIntMax())
         var traces = Array<Trace>()
         
-        let max = N+M // this is arbitrary, maximum difference between a and b. N+M assures that this algorithm always finds a diff
+        let max = fromCount+toCount // this is arbitrary, maximum difference between a and b. N+M assures that this algorithm always finds a diff
         
-        var V = Array(count: 2 * Int(max) + 1, repeatedValue: -1) // from [0...2*max], it is -max...max in the whitepaper
+        var vertices = Array(repeating: -1, count: 2 * Int(max) + 1) // from [0...2*max], it is -max...max in the whitepaper
         
-        V[max+1] = 0
+        vertices[max+1] = 0
         
-        for D in 0...max {
-            for k in (-D).stride(through: D, by: 2) {
+        for numberOfDifferences in 0...max {
+            for k in stride(from: (-numberOfDifferences), through: numberOfDifferences, by: 2) {
                 
                 let index = k+max
-                
-                // if x value for bigger (x-y) V[index-1] is smaller than x value for smaller (x-y) V[index+1]
-                // then return smaller (x-y)
-                // well, why??
-                // It means that y = x - k will be bigger
-                // otherwise y = x - k will be smaller
-                // What is the conclusion? Hell knows.
-                
-                
-                /*
-                 case 1: k == -D: take the furthest going k+1 trace and go greedly down. We take x of the furthest going k+1 path and go greedly down.
-                 case 2: k == D: take the furthest going k-d trace and go right. Again, k+1 is unknown so we have to take k-1. What's more k-1 is right most one trace. We add 1 so that we go 1 to the right direction and stay on the same y
-                 case 3: -D<k<D: take the rightmost one (biggest x) and if it the previous trace went right go down, otherwise (if it the trace went down) go right
-                 */
-                
-//                let trace = nextTrace(D, k: k, previousX: V.value(at: index-1), nextX: V.value(at: index+1))
-//                var x = trace.to.x
-//                var y = trace.to.y
-                
-                let trace = { _ -> Trace in
+                let traceStep = TraceStep(D: numberOfDifferences, k: k, previousX: vertices.value(at: index-1), nextX: vertices.value(at: index+1))
+                if let trace = bound(trace: nextTrace(traceStep), maxX: fromCount, maxY: toCount) {
+                    var x = trace.to.x
+                    var y = trace.to.y
                     
-                    let traceType = nextTraceType(D, k: k, previousX: V.value(at: index-1), nextX: V.value(at: index+1))
-
-                    if  traceType == .Insertion {
-                        let x = V[index+1]
-                        return Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D)
-                    } else {
-                        let x = V[index-1]+1
-                        return Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k), D: D)
-                    }
-                }()
-                
-                var x = trace.to.x
-                var y = trace.to.y
-                
-                if (x <= N && y <= M) {
                     traces.append(trace)
                     
                     // keep going as long as they match on diagonal k
-                    while x >= 0 && y >= 0 && x < N && y < M {
-                        let yIndex = b.startIndex.advancedByInt(y)
-                        let xIndex = startIndex.advancedByInt(x)
-                        if self[xIndex] == b[yIndex] {
+                    while x >= 0 && y >= 0 && x < fromCount && y < toCount {
+                        let targetItem = b.itemOnStartIndex(advancedBy: y)
+                        let baseItem = itemOnStartIndex(advancedBy: x)
+                        if baseItem == targetItem {
                             x += 1
                             y += 1
-                            traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: D))
+                            traces.append(Trace(from: Point(x: x-1, y: y-1), to: Point(x: x, y: y), D: numberOfDifferences))
                         } else {
                             break
                         }
                     }
                     
-                    V[index] = x
+                    vertices[index] = x
                     
-                    if x >= N && y >= M {
+                    if x >= fromCount && y >= toCount {
                         return traces
                     }
                 }
@@ -220,24 +317,46 @@ public extension CollectionType where Generator.Element : Equatable {
         return []
     }
     
-    private func nextTraceType(D: Int, k: Int, previousX: Int?, nextX: Int?) -> TraceType {
-        if k == -D {
-            return .Insertion
-        } else if k != D {
-            if let previousX = previousX, nextX = nextX where previousX < nextX {
-                return .Insertion
-            }
-            return .Deletion
-        } else {
-            return .Deletion
+    fileprivate func bound(trace: Trace, maxX: Int, maxY: Int) -> Trace? {
+        guard trace.to.x <= maxX && trace.to.y <= maxY else {
+            return nil
         }
-}
-    
-    public func diff(b: Self) -> Diff {
-        return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
+        return trace
     }
     
-    private func findPath(traces: [Trace], n: Int, m: Int) -> Diff {
+    fileprivate func nextTrace(_ traceStep: TraceStep) -> Trace {
+        let traceType = nextTraceType(traceStep)
+        let k = traceStep.k
+        let D = traceStep.D
+        
+        if  traceType == .insertion {
+            let x = traceStep.nextX!
+            return Trace(from: Point(x: x, y: x-k-1), to: Point(x: x, y: x-k), D: D)
+        } else {
+            let x = traceStep.previousX! + 1
+            return Trace(from: Point(x: x-1, y: x-k), to: Point(x: x, y: x-k), D: D)
+        }
+    }
+    
+    fileprivate func nextTraceType(_ traceStep: TraceStep) -> TraceType {
+        let D = traceStep.D
+        let k = traceStep.k
+        let previousX = traceStep.previousX
+        let nextX = traceStep.nextX
+        
+        if k == -D {
+            return .insertion
+        } else if k != D {
+            if let previousX = previousX, let nextX = nextX , previousX < nextX {
+                return .insertion
+            }
+            return .deletion
+        } else {
+            return .deletion
+        }
+    }
+    
+    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> Diff {
         
         guard traces.count > 0 else {
             return Diff(elements: [])
@@ -247,9 +366,9 @@ public extension CollectionType where Generator.Element : Equatable {
         var item = traces.last!
         array.append(item)
         
-        for trace in traces.reverse() {
+        for trace in traces.reversed() {
             if trace.to.x == item.from.x && trace.to.y == item.from.y {
-                array.insert(trace, atIndex: 0)
+                array.insert(trace, at: 0)
                 item = trace
                 
                 if trace.from == Point(x: 0, y: 0) {
@@ -262,8 +381,46 @@ public extension CollectionType where Generator.Element : Equatable {
             .flatMap { DiffElement(trace: $0) }
         )
     }
-    
 }
 
+extension DiffProtocol {
+    
+    public typealias IndexType = Array<DiffElementType>.Index
+    
+    public var startIndex: IndexType {
+        return elements.startIndex
+    }
+    
+    public var endIndex: IndexType {
+        return elements.endIndex
+    }
+    
+    public subscript(i: IndexType) -> DiffElementType {
+        return elements[i]
+    }
+}
 
+extension ExtendedDiffElement: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let .delete(at):
+            return "D(\(at))"
+        case let .insert(at):
+            return "I(\(at))"
+        case let .move(from, to):
+            return "M(\(from)\(to))"
+        }
+    }
+}
+
+extension DiffElement: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case let .delete(at):
+            return "D(\(at))"
+        case let .insert(at):
+            return "I(\(at))"
+        }
+    }
+}
 

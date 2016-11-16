@@ -18,16 +18,16 @@ public class GraphViewController: UIViewController {
     }()
     lazy var slider: UISlider = {
         let slider = UISlider()
-        slider.addTarget(self, action: #selector(sliderDidChange), forControlEvents: .ValueChanged)
+        slider.addTarget(self, action: #selector(sliderDidChange), for: .valueChanged)
         return slider
     }()
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.graphView, self.dValueLabel, self.kValueLabel, self.slider])
         stackView.frame = self.view.bounds
-        stackView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        stackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        stackView.layoutMarginsRelativeArrangement = true
-        stackView.axis = .Vertical
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.axis = .vertical
         return stackView
     }()
 
@@ -38,7 +38,7 @@ public class GraphViewController: UIViewController {
     }
     var graph: Graph {
         let grid = Grid(x: diffStrings.0.length(), y: diffStrings.1.length())
-        return Graph(grid: grid, bounds: CGRectInset(graphView.frame, 50, 50))
+        return Graph(grid: grid, bounds: graphView.frame.insetBy(dx: 50, dy: 50))
     }
     var arrows: [CAShapeLayer] = [] {
         didSet {
@@ -55,7 +55,7 @@ public class GraphViewController: UIViewController {
         var displayedTraces = traces
         if let range = range {
             displayedTraces = Array(displayedTraces[range])
-            slider.value = Float(range.endIndex-1)/Float(traces.count-1)
+            slider.value = Float(range.upperBound-1)/Float(traces.count-1)
         } else {
             slider.value = 1
         }
@@ -67,7 +67,7 @@ public class GraphViewController: UIViewController {
         let labels2 = diffStrings.1.characterLabels(withFrames: graph.rects(column: -1))
         (labels1 + labels2).forEach { graphView.addSubview($0) }
         
-        if let maxElement = displayedTraces.maxElement({$0.D < $1.D}) {
+        if let maxElement = displayedTraces.max(by: {$0.D < $1.D}) {
             dValueLabel.text = "Number of differences: \(maxElement.D)"
             kValueLabel.text = "k value \(maxElement.k())"
         }
@@ -75,7 +75,8 @@ public class GraphViewController: UIViewController {
     
     func sliderDidChange(sender: UISlider) {
         let maxIndex = Int(sender.value * Float(traces.count-1))
-        display(0...maxIndex)
+        let range: Range<Int> = 0..<maxIndex+1
+        display(range: range)
     }
     
     public override func viewDidLoad() {
@@ -111,11 +112,11 @@ extension Trace {
             let xDelta = (to.x-from.x)/20
             
             switch type() {
-            case .Deletion:
+            case .deletion:
                 return (CGPoint(x: from.x+xDelta, y: from.y), CGPoint(x: to.x-xDelta, y: to.y))
-            case .Insertion:
+            case .insertion:
                 return (CGPoint(x: from.x, y: from.y+yDelta), CGPoint(x: to.x, y: to.y-yDelta))
-            case .MatchPoint:
+            case .matchPoint:
                 return (CGPoint(x: from.x+xDelta, y: from.y+yDelta), CGPoint(x: to.x-xDelta, y: to.y-yDelta))
             }
         }()
@@ -126,12 +127,12 @@ extension Trace {
         let arrowLayer = UIBezierPath(arrow: arrow(on: graph)).shapeLayer()
         
         switch type() {
-        case .Deletion:
-            arrowLayer.fillColor = UIColor.redColor().CGColor
-        case .Insertion:
-            arrowLayer.fillColor = UIColor.greenColor().CGColor
-        case .MatchPoint:
-            arrowLayer.fillColor = UIColor.whiteColor().CGColor
+        case .deletion:
+            arrowLayer.fillColor = UIColor.red.cgColor
+        case .insertion:
+            arrowLayer.fillColor = UIColor.green.cgColor
+        case .matchPoint:
+            arrowLayer.fillColor = UIColor.white.cgColor
         }
         return arrowLayer
 

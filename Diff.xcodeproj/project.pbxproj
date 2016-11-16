@@ -11,6 +11,14 @@
 		C92178BF1CD00246004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838FF31D29571000691BE8 /* DiffTests.swift */; };
 		C9838FF61D29571000691BE8 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE872D1CCFCB33006BD90E /* Diff.framework */; };
+		C99118951DDB1BA800067A60 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99118941DDB1BA800067A60 /* LinkedList.swift */; };
+		C99118961DDB1C2700067A60 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99118941DDB1BA800067A60 /* LinkedList.swift */; };
+		C99118981DDB4C3000067A60 /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99118971DDB4C3000067A60 /* Patch+Sort.swift */; };
+		C99118991DDB4CA600067A60 /* Patch+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99118971DDB4C3000067A60 /* Patch+Sort.swift */; };
+		C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */; };
+		C991189C1DDB4EB100067A60 /* Patch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */; };
+		C991189E1DDB4F1100067A60 /* PatchApplyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C991189D1DDB4F1100067A60 /* PatchApplyTests.swift */; };
+		C9C9247A1DBB97130006ACC4 /* PatchSortTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C924791DBB97130006ACC4 /* PatchSortTests.swift */; };
 		C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87851CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87831CCFFB68006BD90E /* Patch.swift */; };
@@ -34,6 +42,11 @@
 		C9838FF11D29571000691BE8 /* DiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9838FF31D29571000691BE8 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTests.swift; sourceTree = "<group>"; };
 		C9838FF51D29571000691BE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C99118941DDB1BA800067A60 /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		C99118971DDB4C3000067A60 /* Patch+Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Patch+Sort.swift"; sourceTree = "<group>"; };
+		C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Patch+Apply.swift"; sourceTree = "<group>"; };
+		C991189D1DDB4F1100067A60 /* PatchApplyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchApplyTests.swift; sourceTree = "<group>"; };
+		C9C924791DBB97130006ACC4 /* PatchSortTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchSortTests.swift; sourceTree = "<group>"; };
 		C9EE87161CCFCA83006BD90E /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE872D1CCFCB33006BD90E /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE87821CCFFB68006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diff.swift; sourceTree = "<group>"; };
@@ -69,6 +82,8 @@
 		C9838FF21D29571000691BE8 /* DiffTests */ = {
 			isa = PBXGroup;
 			children = (
+				C9C924791DBB97130006ACC4 /* PatchSortTests.swift */,
+				C991189D1DDB4F1100067A60 /* PatchApplyTests.swift */,
 				C9838FF31D29571000691BE8 /* DiffTests.swift */,
 				C9838FF51D29571000691BE8 /* Info.plist */,
 			);
@@ -100,6 +115,9 @@
 			children = (
 				C9EE87821CCFFB68006BD90E /* Diff.swift */,
 				C9EE87831CCFFB68006BD90E /* Patch.swift */,
+				C99118971DDB4C3000067A60 /* Patch+Sort.swift */,
+				C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */,
+				C99118941DDB1BA800067A60 /* LinkedList.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -197,17 +215,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = wczekalski;
 				TargetAttributes = {
 					C9838FF01D29571000691BE8 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					C9EE87151CCFCA83006BD90E = {
 						CreatedOnToolsVersion = 7.3;
 					};
 					C9EE872C1CCFCB33006BD90E = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -259,6 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C991189E1DDB4F1100067A60 /* PatchApplyTests.swift in Sources */,
+				C9C9247A1DBB97130006ACC4 /* PatchSortTests.swift in Sources */,
 				C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,7 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C99118951DDB1BA800067A60 /* LinkedList.swift in Sources */,
 				C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */,
+				C99118981DDB4C3000067A60 /* Patch+Sort.swift in Sources */,
+				C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +302,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9EE87871CCFFB68006BD90E /* Patch.swift in Sources */,
+				C99118991DDB4CA600067A60 /* Patch+Sort.swift in Sources */,
 				C9EE87851CCFFB68006BD90E /* Diff.swift in Sources */,
+				C991189C1DDB4EB100067A60 /* Patch+Apply.swift in Sources */,
+				C99118961DDB1C2700067A60 /* LinkedList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +331,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -317,6 +346,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -334,8 +364,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -383,8 +415,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -404,6 +438,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -415,6 +450,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -426,6 +463,7 @@
 				PRODUCT_NAME = Diff;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -433,6 +471,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -445,14 +484,16 @@
 				PRODUCT_NAME = Diff;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		C9EE87331CCFCB33006BD90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -466,14 +507,16 @@
 				PRODUCT_NAME = Diff;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		C9EE87341CCFCB33006BD90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -488,6 +531,7 @@
 				PRODUCT_NAME = Diff;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -501,6 +545,7 @@
 				C9838FFB1D29571000691BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Diff" */ = {
 			isa = XCConfigurationList;
