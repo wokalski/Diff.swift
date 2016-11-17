@@ -34,15 +34,21 @@ public struct ExtendedDiff: DiffProtocol {
     public func index(after i: Int) -> Int {
         return i + 1
     }
-
+    
+    public let source: Diff
+    /// An array which holds indices of diff elements in the source diff (i.e. diff without moves).
+    public let reorderedIndex: [Int]
     public let elements: [ExtendedDiffElement]
+    public let moveIndices: Set<Int>
 }
+
 
 public enum ExtendedDiffElement {
     case insert(at: Int)
     case delete(at: Int)
     case move(from: Int, to: Int)
 }
+
 
 extension DiffElement {
     public init?(trace: Trace) {
@@ -129,9 +135,15 @@ public extension String {
         }
         return characters.diff(b.characters)
     }
+    
     public func extendedDiff(_ other: String) -> ExtendedDiff {
         if self == other {
-            return ExtendedDiff(elements: [])
+            return ExtendedDiff(
+                source: Diff(elements: []),
+                reorderedIndex: [],
+                elements: [],
+                moveIndices: Set()
+            )
         }
         return characters.extendedDiff(other.characters)
     }
@@ -168,6 +180,8 @@ public extension Collection where Iterator.Element : Equatable {
         
         var elements = [ExtendedDiffElement]()
         var dirtyDiffElements: Set<Diff.Index> = []
+        var sourceIndex = [Int]()
+        var moveIndices = Set<Int>()
         
 
         // Complexity O(d^2) where d is the length of the diff
@@ -189,14 +203,27 @@ public extension Collection where Iterator.Element : Equatable {
             let candidate = diff[candidateIndex]
             let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
             if let match = match {
+                sourceIndex.append(candidateIndex) // Index of the deletion
+                sourceIndex.append(match.1) // Index of the insertion
+                moveIndices.insert(candidateIndex)
                 elements.append(match.0)
                 dirtyDiffElements.insert(match.1)
             } else if !dirtyDiffElements.contains(candidateIndex) {
+                sourceIndex.append(candidateIndex)
                 elements.append(ExtendedDiffElement(candidate))
             }
         }
         
-        return ExtendedDiff(elements: elements)
+        let reorderedIndices = zip(sourceIndex, sourceIndex.indices)
+            .sorted { $0.0 < $1.0 }
+            .map { $0.1 }
+        
+        return ExtendedDiff(
+            source: diff,
+            reorderedIndex: reorderedIndices,
+            elements: elements,
+            moveIndices: moveIndices
+        )
     }
     
     func firstMatch(
@@ -205,16 +232,11 @@ public extension Collection where Iterator.Element : Equatable {
         candidate: DiffElement,
         candidateIndex: Diff.Index,
         other: Self) -> (ExtendedDiffElement, Diff.Index)? {
-        
-        var others = [DiffElement]()
-
         for matchIndex in (candidateIndex + 1)..<diff.endIndex {
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
                 if let move = createMatCH(candidate, match: match, other: other) {
                     return (move, matchIndex)
-                } else {
-                    others.append(match)
                 }
             }
         }

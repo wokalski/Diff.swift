@@ -137,5 +137,4 @@ struct TemporaryReorderedElement<T> {
     var value: PatchElement<T>
     let oldIndex: Int
     let newIndex: Int
-    
 }

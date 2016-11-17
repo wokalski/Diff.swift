@@ -13,12 +13,6 @@ public enum PatchElement<Element> {
     }
 }
 
-public enum ExtendedPatch<Element, Index> {
-    case insertion(index: Index, element: Element)
-    case deletion(index: Index)
-    case move(from: Index, to: Index)
-}
-
 public extension Diff {
     
     public func patch<T: Collection>(
@@ -26,8 +20,7 @@ public extension Diff {
         b: T
         ) -> [PatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         var shift = 0
-        return self.indices.map { i in
-            let element = self[i]
+        return map { element in
             switch element {
             case let .delete(at):
                 shift -= 1
