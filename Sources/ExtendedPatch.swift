@@ -17,7 +17,6 @@ extension ExtendedDiff {
         b: T
         ) -> [ExtendedPatch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         
-        
         let linkedList = DoublyLinkedList(linkedList: LinkedList(array: generate(a, b: b)))
         if let secondElement = linkedList?.next {
             process(node: secondElement)
