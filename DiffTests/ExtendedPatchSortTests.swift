@@ -76,6 +76,22 @@ class ExtendedPatchSortTests: XCTestCase {
                 expectation.2)
         }
     }
+    
+    func testRandomStringPermutationRandomPatchSort() {
+        
+        let sort: ExtendedSortingFunction = { _, _ in arc4random_uniform(2) == 0
+        }
+        for _ in 0..<30 {
+            let randomString = randomAlphaNumericString(length: 30)
+            let permutation = randomAlphaNumericString(length: 30)
+            let patch = randomString.extendedDiff(permutation).patch(
+                randomString.characters,
+                b: permutation.characters,
+                sort:sort)
+            let result = randomString.apply(patch)
+            XCTAssertEqual(result, permutation)
+        }
+    }
 }
 
 typealias ExtendedSortingFunction = (ExtendedDiffElement, ExtendedDiffElement) -> Bool

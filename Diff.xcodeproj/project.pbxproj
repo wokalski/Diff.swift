@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C92178BE1CD00243004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C92178BF1CD00246004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */; };
+		C96F41951DE0EEEA00B8E135 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */; };
 		C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838FF31D29571000691BE8 /* DiffTests.swift */; };
 		C9838FF61D29571000691BE8 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE872D1CCFCB33006BD90E /* Diff.framework */; };
 		C99118951DDB1BA800067A60 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99118941DDB1BA800067A60 /* LinkedList.swift */; };
@@ -44,6 +46,7 @@
 		C92178BB1CD0023E004642C7 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Diff.h; path = Framework/Diff.h; sourceTree = "<group>"; };
 		C92178BC1CD0023E004642C7 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iOS.plist; path = Framework/iOS.plist; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Mac.plist; path = Framework/Mac.plist; sourceTree = "<group>"; };
+		C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExtendedPatch+Apply.swift"; sourceTree = "<group>"; };
 		C9838FF11D29571000691BE8 /* DiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9838FF31D29571000691BE8 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTests.swift; sourceTree = "<group>"; };
 		C9838FF51D29571000691BE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 				C99118AD1DDDAFEA00067A60 /* ExtendedPatch.swift */,
 				C99118B51DE0629000067A60 /* GenericPatch.swift */,
 				C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */,
+				C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */,
 				C99118941DDB1BA800067A60 /* LinkedList.swift */,
 			);
 			path = Sources;
@@ -306,6 +310,7 @@
 				C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */,
 				C99118981DDB4C3000067A60 /* Patch+Sort.swift in Sources */,
 				C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */,
+				C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
 				C99118B01DDDB02D00067A60 /* ExtendedPatch.swift in Sources */,
 			);
@@ -321,6 +326,7 @@
 				C9EE87851CCFFB68006BD90E /* Diff.swift in Sources */,
 				C991189C1DDB4EB100067A60 /* Patch+Apply.swift in Sources */,
 				C99118961DDB1C2700067A60 /* LinkedList.swift in Sources */,
+				C96F41951DE0EEEA00B8E135 /* ExtendedPatch+Apply.swift in Sources */,
 				C99118AF1DDDB02D00067A60 /* ExtendedPatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
