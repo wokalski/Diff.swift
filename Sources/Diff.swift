@@ -160,7 +160,7 @@ extension Array {
 
 struct TraceStep {
     let D: Int
-    let  k: Int
+    let k: Int
     let previousX: Int?
     let nextX: Int?
 }
@@ -186,18 +186,18 @@ public extension Collection where Iterator.Element : Equatable {
 
         // Complexity O(d^2) where d is the length of the diff
         
-/*
- * 1. Iterate all objects
- * 2. For every iteration find the next matching element
-         a) if it's not found insert the element as is to the output array
-         b) if it's found calculate move as in 3
- * 3. Calculating the move. 
-         We call the first element a *candidate* and the second element a *match*
-         1. The position of the candidate never changes
-         2. The position of the match is equal to its initial position + m where m is equal to -d + i where d = deletions between candidate and match and i = insertions between candidate and match
- * 4. Remove the candidate and match and insert the move in the place of the candidate
- *
- */
+        /*
+         * 1. Iterate all objects
+         * 2. For every iteration find the next matching element
+                 a) if it's not found insert the element as is to the output array
+                 b) if it's found calculate move as in 3
+         * 3. Calculating the move. 
+                 We call the first element a *candidate* and the second element a *match*
+                 1. The position of the candidate never changes
+                 2. The position of the match is equal to its initial position + m where m is equal to -d + i where d = deletions between candidate and match and i = insertions between candidate and match
+         * 4. Remove the candidate and match and insert the move in the place of the candidate
+         *
+         */
         
         for candidateIndex in diff.indices {
             let candidate = diff[candidateIndex]

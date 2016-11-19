@@ -1,7 +1,7 @@
 
 public extension RangeReplaceableCollection where Self.Iterator.Element : Equatable {
 
-    public func apply(_ patch: [PatchElement<Generator.Element>]) -> Self {
+    public func apply(_ patch: [Patch<Generator.Element>]) -> Self {
         var mutableSelf = self
 
         for change in patch {
@@ -21,7 +21,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element : Equata
 
 public extension String {
     
-    public func apply(_ patch: [PatchElement<String.CharacterView.Iterator.Element>]) -> String {
+    public func apply(_ patch: [Patch<String.CharacterView.Iterator.Element>]) -> String {
         var mutableSelf = self
         
         for change in patch {

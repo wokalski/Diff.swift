@@ -33,7 +33,7 @@ class PatchApplyTests: XCTestCase {
     }
 }
 
-func stringPatch(from textualRepresentation: String) -> [PatchElement<String.CharacterView.Iterator.Element>] {
+func stringPatch(from textualRepresentation: String) -> [Patch<String.CharacterView.Iterator.Element>] {
     return textualRepresentation.components(separatedBy: ")").flatMap { string in
         if string == "" {
             return nil
@@ -51,7 +51,7 @@ func stringPatch(from textualRepresentation: String) -> [PatchElement<String.Cha
     }
 }
 
-func intPatch(from textualRepresentation: String) -> [PatchElement<Int>] {
+func intPatch(from textualRepresentation: String) -> [Patch<Int>] {
     return textualRepresentation.components(separatedBy: ")").flatMap { string in
         if string == "" {
             return nil

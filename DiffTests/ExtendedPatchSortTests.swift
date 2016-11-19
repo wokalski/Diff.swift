@@ -18,6 +18,64 @@ class ExtendedPatchSortTests: XCTestCase {
                 expectation.2)
         }
     }
+    
+    func testInsertionDeletionMove() {
+        let expectations = [
+            ("gitten", "sitting", "I(5,i)I(1,s)D(5)M(0,6)"),
+            ("1362", "31526", "I(3,5)M(0,2)M(1,4)")
+        ]
+        
+        let sort: ExtendedSortingFunction = { fst, snd in
+            switch (fst, snd) {
+            case (.insert, _):
+                return true
+            case (.delete, .insert):
+                return false
+            case (.delete, _):
+                return true
+            case (.move, _):
+                return false
+            }
+        }
+        
+        for expectation in expectations {
+            XCTAssertEqual(
+                _extendedTest(
+                    expectation.0,
+                    to: expectation.1,
+                    sortingFunction: sort),
+                expectation.2)
+        }
+    }
+    
+    func testDeletionMoveInsertion() {
+        let expectations = [
+            ("gitten", "sitting", "D(4)M(0,4)I(0,s)I(4,i)"),
+            ("1362", "31526", "M(0,2)M(1,3)I(2,5)")
+        ]
+        
+        let sort: ExtendedSortingFunction = { fst, snd in
+            switch (fst, snd) {
+            case (.delete, _):
+                return true
+            case (.insert, _):
+                return false
+            case (.move, .insert):
+                return true
+            case (.move, _):
+                return false
+            }
+        }
+        
+        for expectation in expectations {
+            XCTAssertEqual(
+                _extendedTest(
+                    expectation.0,
+                    to: expectation.1,
+                    sortingFunction: sort),
+                expectation.2)
+        }
+    }
 }
 
 typealias ExtendedSortingFunction = (ExtendedDiffElement, ExtendedDiffElement) -> Bool
@@ -25,24 +83,20 @@ typealias ExtendedSortingFunction = (ExtendedDiffElement, ExtendedDiffElement) -
 func _extendedTest(
     _ from: String,
     to: String,
-    sortingFunction: SortingFunction? = nil) -> String {
+    sortingFunction: ExtendedSortingFunction? = nil) -> String {
+    guard let sort = sortingFunction else {
+        return from
+            .extendedDiff(to)
+            .patch(
+                from.characters,
+                b: to.characters)
+            .reduce("") { $0 + $1.debugDescription }
+    }
     return from
         .extendedDiff(to)
         .patch(
             from.characters,
-            b: to.characters)
+            b: to.characters,
+            sort: sort)
         .reduce("") { $0 + $1.debugDescription }
 }
-
-func _extendedSortedTest(
-    _ from: String,
-    to: String,
-    sortingFunction: @escaping ExtendedSortingFunction) -> String {
-    return from
-        .extendedDiff(to)
-        .patch(from.characters, b: to.characters, sort: sortingFunction)
-        .reduce("") { $0 + $1.debugDescription }
-}
-
-
-

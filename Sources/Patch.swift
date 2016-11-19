@@ -1,5 +1,5 @@
 
-public enum PatchElement<Element> {
+public enum Patch<Element> {
     case insertion(index: Int, element: Element)
     case deletion(index: Int)
     
@@ -18,7 +18,7 @@ public extension Diff {
     public func patch<T: Collection>(
         _ a: T,
         b: T
-        ) -> [PatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+        ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         var shift = 0
         return map { element in
             switch element {
@@ -33,7 +33,7 @@ public extension Diff {
     }
 }
 
-extension PatchElement: CustomDebugStringConvertible {
+extension Patch: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case let .deletion(at):
