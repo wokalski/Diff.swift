@@ -47,7 +47,7 @@ class PatchTests: XCTestCase {
             ("1362", "31526", "I(3,1)I(4,5)I(6,6)D(0)D(1)")
         ]
         
-        let insertionsFirstSort = { (element1: DiffElement, element2: DiffElement) -> Bool in
+        let insertionsFirstSort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
                 return at1 < at2
@@ -89,7 +89,7 @@ class PatchTests: XCTestCase {
             ("1362", "31526", "D(0)D(1)I(1,1)I(2,5)I(4,6)")
         ]
         
-        let deletionsFirstSort = { (element1: DiffElement, element2: DiffElement) -> Bool in
+        let deletionsFirstSort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
                 return at1 < at2
@@ -115,7 +115,7 @@ class PatchTests: XCTestCase {
     
     func testRandomStringPermutationRandomPatchSort() {
         
-        let sort = { (element1: DiffElement, element2: DiffElement) -> Bool in
+        let sort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             return arc4random_uniform(2) == 0
         }
         for _ in 0..<200 {
@@ -144,7 +144,7 @@ func randomAlphaNumericString(length: Int) -> String {
     return randomString
 }
 
-typealias SortingFunction = (DiffElement, DiffElement) -> Bool
+typealias SortingFunction = (Diff.Element, Diff.Element) -> Bool
 
 func _test(
     _ from: String,

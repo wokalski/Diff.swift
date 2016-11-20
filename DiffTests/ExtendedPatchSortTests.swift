@@ -9,7 +9,8 @@ class ExtendedPatchSortTests: XCTestCase {
             ("gitten", "sitting", "M(0,5)I(0,s)D(4)I(4,i)"),
             ("Oh Hi", "Hi Oh", "M(0,4)M(0,4)M(0,2)"),
             ("12345", "12435", "M(2,3)"),
-            ("1362", "31526", "M(0,2)M(1,3)I(2,5)")
+            ("1362", "31526", "M(0,2)M(1,3)I(2,5)"),
+            ("221", "122", "M(2,0)")
         ]
         
         for expectation in expectations {
@@ -94,7 +95,7 @@ class ExtendedPatchSortTests: XCTestCase {
     }
 }
 
-typealias ExtendedSortingFunction = (ExtendedDiffElement, ExtendedDiffElement) -> Bool
+typealias ExtendedSortingFunction = (ExtendedDiff.Element, ExtendedDiff.Element) -> Bool
 
 func _extendedTest(
     _ from: String,

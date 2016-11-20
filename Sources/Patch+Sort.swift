@@ -1,7 +1,7 @@
 
 public extension Diff {
     
-    typealias OrderedBefore = (_ fst: DiffElement, _ snd: DiffElement) -> Bool
+    typealias OrderedBefore = (_ fst: Diff.Element, _ snd: Diff.Element) -> Bool
 
     private func sortedPatchElements<T>(from source: [Patch<T>], sortBy areInIncreasingOrder: OrderedBefore) -> [SortedPatchElement<T>] {
         let sorted = indices.map { (self[$0], $0) }

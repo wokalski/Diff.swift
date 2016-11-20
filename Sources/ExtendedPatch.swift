@@ -1,16 +1,16 @@
 
 enum BoxedDiffAndPatchElement<T> {
     case move(
-        diffElement: ExtendedDiffElement,
+        diffElement: ExtendedDiff.Element,
         deletion: SortedPatchElement<T>,
         insertion: SortedPatchElement<T>
     )
     case single(
-        diffElement: ExtendedDiffElement,
+        diffElement: ExtendedDiff.Element,
         patchElement: SortedPatchElement<T>
     )
     
-    var diffElement: ExtendedDiffElement {
+    var diffElement: ExtendedDiff.Element {
         switch self {
         case .move(let de, _, _):
             return de
@@ -34,7 +34,7 @@ func flip(array: [Int]) -> [Int] {
 }
 
 extension ExtendedDiff {
-    public typealias OrderedBeforeExtended = (_ fst: ExtendedDiffElement, _ snd: ExtendedDiffElement) -> Bool
+    public typealias OrderedBeforeExtended = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
     
     public func patch<T: Collection>(
         _ a: T,
@@ -48,7 +48,7 @@ extension ExtendedDiff {
         } else {
             result = shiftedPatchElements(from: generateSortedPatchElements(a, b: b))
         }
-        
+        print(self)
         return result.indices.flatMap { i -> ExtendedPatch<T.Iterator.Element>? in
             let patchElement = result[i]
             switch patchElement.value {
