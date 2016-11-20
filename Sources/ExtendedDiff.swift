@@ -18,6 +18,8 @@ public struct ExtendedDiff: DiffProtocol {
     
     public let source: Diff
     /// An array which holds indices of diff elements in the source diff (i.e. diff without moves).
+    public let sourceIndex: [Int]
+    /// An array which holds indices of diff elements in a diff where move's subelements (deletion and insertion) are ordered accordingly
     public let reorderedIndex: [Int]
     public let elements: [ExtendedDiff.Element]
     public let moveIndices: Set<Int>
@@ -44,9 +46,10 @@ public extension Collection where Iterator.Element : Equatable {
         
         
         var elements: [ExtendedDiff.Element] = []
-        var dirtyDiffElements: Set<Diff.Index> = []
+        var moveOriginIndices = Set<Int>()
+        var moveTargetIndices = Set<Int>()
+        // It maps indices after reordering (e.g. bringing move origin and target next to each other in the output) to their positions in the source Diff
         var sourceIndex = [Int]()
-        var moveIndices = Set<Int>()
         
         
         // Complexity O(d^2) where d is the length of the diff
@@ -65,14 +68,25 @@ public extension Collection where Iterator.Element : Equatable {
          */
         
         for candidateIndex in diff.indices {
-            if !dirtyDiffElements.contains(candidateIndex) {
+            if !moveTargetIndices.contains(candidateIndex) && !moveOriginIndices.contains(candidateIndex) {
                 let candidate = diff[candidateIndex]
-                let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
+                let match = firstMatch(diff, dirtyIndices: moveTargetIndices.union(moveOriginIndices), candidate: candidate, candidateIndex: candidateIndex, other: other)
                 if let match = match {
-                    sourceIndex.append(candidateIndex) // Index of the deletion
-                    sourceIndex.append(match.1) // Index of the insertion
-                    moveIndices.insert(candidateIndex)
-                    dirtyDiffElements.insert(match.1)
+                    switch match.0 {
+                    case .move(let from, _):
+                        if from == candidate.at() {
+                            sourceIndex.append(candidateIndex)
+                            sourceIndex.append(match.1)
+                            moveOriginIndices.insert(candidateIndex)
+                            moveTargetIndices.insert(match.1)
+                        } else {
+                            sourceIndex.append(match.1)
+                            sourceIndex.append(candidateIndex)
+                            moveOriginIndices.insert(match.1)
+                            moveTargetIndices.insert(candidateIndex)
+                        }
+                    default: fatalError()
+                    }
                     elements.append(match.0)
                 } else {
                     sourceIndex.append(candidateIndex)
@@ -81,15 +95,14 @@ public extension Collection where Iterator.Element : Equatable {
             }
         }
         
-        let reorderedIndices = zip(sourceIndex, sourceIndex.indices)
-            .sorted { $0.0 < $1.0 }
-            .map { $0.1 }
+        let reorderedIndices = flip(array: sourceIndex)
         
         return ExtendedDiff(
             source: diff,
+            sourceIndex: sourceIndex,
             reorderedIndex: reorderedIndices,
             elements: elements,
-            moveIndices: moveIndices
+            moveIndices: moveOriginIndices
         )
     }
     
@@ -100,10 +113,9 @@ public extension Collection where Iterator.Element : Equatable {
         candidateIndex: Diff.Index,
         other: Self) -> (ExtendedDiff.Element, Diff.Index)? {
         for matchIndex in (candidateIndex + 1)..<diff.endIndex {
-            
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
-                if let move = createMatCH(candidate, match: match, other: other) {
+                if let move = createMatch(candidate, match: match, other: other) {
                     return (move, matchIndex)
                 }
             }
@@ -111,7 +123,7 @@ public extension Collection where Iterator.Element : Equatable {
         return nil
     }
     
-    func createMatCH(_ candidate: Diff.Element, match: Diff.Element, other: Self) -> ExtendedDiff.Element? {
+    func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self) -> ExtendedDiff.Element? {
         switch (candidate, match) {
         case (.delete, .insert):
             if itemOnStartIndex(advancedBy: candidate.at()) == other.itemOnStartIndex(advancedBy: match.at()) {
@@ -129,6 +141,12 @@ public extension Collection where Iterator.Element : Equatable {
     func itemOnStartIndex(advancedBy n: Int) -> Iterator.Element {
         return self[self.index(startIndex, offsetBy: IndexDistance(n.toIntMax()))]
     }
+}
+
+func flip(array: [Int]) -> [Int] {
+    return zip(array, array.indices)
+        .sorted { $0.0 < $1.0 }
+        .map { $0.1 }
 }
 
 extension ExtendedDiff.Element: CustomDebugStringConvertible {

@@ -26,13 +26,6 @@ public enum ExtendedPatch<Element> {
     case move(from: Int, to: Int)
 }
 
-
-func flip(array: [Int]) -> [Int] {
-    return zip(array, array.indices)
-        .sorted { $0.0 < $1.0 }
-        .map { $0.1 }
-}
-
 extension ExtendedDiff {
     public typealias OrderedBeforeExtended = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
     
@@ -48,25 +41,34 @@ extension ExtendedDiff {
         } else {
             result = shiftedPatchElements(from: generateSortedPatchElements(a, b: b))
         }
-        print(self)
+        
         return result.indices.flatMap { i -> ExtendedPatch<T.Iterator.Element>? in
             let patchElement = result[i]
-            switch patchElement.value {
-            case .deletion(let index):
-                if moveIndices.contains(patchElement.sourceIndex) {
-                    let to = result[i + 1].value
+            if moveIndices.contains(patchElement.sourceIndex) {
+                let to = result[i + 1].value
+                switch patchElement.value {
+                case .deletion(let index):
                     if case let .insertion(toIndex, _) = to {
                         return .move(from: index, to: toIndex)
+                    } else {
+                        fatalError()
+                    }
+                case .insertion(let index, _):
+                    if case .deletion(let fromIndex) = to {
+                        return .move(from: fromIndex, to: index)
+                    } else {
+                        fatalError()
                     }
                 }
-                return .deletion(index: index)
-            case let .insertion(index, element):
-                let isPreviousMove = i > 0 && moveIndices.contains(result[i-1].sourceIndex)
-                if isPreviousMove {
-                    return nil
+            } else if !(i > 0 && moveIndices.contains(result[i-1].sourceIndex)) {
+                switch patchElement.value {
+                case .deletion(let index):
+                    return .deletion(index: index)
+                case let .insertion(index, element):
+                    return .insertion(index: index, element: element)
                 }
-                return .insertion(index: index, element: element)
             }
+            return nil            
         }
     }
     
@@ -95,7 +97,6 @@ extension ExtendedDiff {
     
     func generateSortedPatchElements<T: Collection>(_ a: T, b: T) -> [SortedPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         let patch = source.patch(a, b: b)
-        
         return patch.indices.map {
             SortedPatchElement(
                 value: patch[$0],
@@ -110,7 +111,6 @@ extension ExtendedDiff {
         b: T
         ) -> [BoxedDiffAndPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         let sourcePatch = generateSortedPatchElements(a, b: b)
-        let sourceIndex = flip(array: reorderedIndex)
         var indexDiff = 0
         return elements.indices.map { i in
             let diffElement = elements[i]

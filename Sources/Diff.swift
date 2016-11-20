@@ -105,6 +105,7 @@ public extension String {
         if self == other {
             return ExtendedDiff(
                 source: Diff(elements: []),
+                sourceIndex: [],
                 reorderedIndex: [],
                 elements: [],
                 moveIndices: Set()
