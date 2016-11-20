@@ -200,17 +200,19 @@ public extension Collection where Iterator.Element : Equatable {
          */
         
         for candidateIndex in diff.indices {
-            let candidate = diff[candidateIndex]
-            let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
-            if let match = match {
-                sourceIndex.append(candidateIndex) // Index of the deletion
-                sourceIndex.append(match.1) // Index of the insertion
-                moveIndices.insert(candidateIndex)
-                elements.append(match.0)
-                dirtyDiffElements.insert(match.1)
-            } else if !dirtyDiffElements.contains(candidateIndex) {
-                sourceIndex.append(candidateIndex)
-                elements.append(ExtendedDiffElement(candidate))
+            if !dirtyDiffElements.contains(candidateIndex) {
+                let candidate = diff[candidateIndex]
+                let match = firstMatch(diff, dirtyIndices: dirtyDiffElements, candidate: candidate, candidateIndex: candidateIndex, other: other)
+                if let match = match {
+                    sourceIndex.append(candidateIndex) // Index of the deletion
+                    sourceIndex.append(match.1) // Index of the insertion
+                    moveIndices.insert(candidateIndex)
+                    dirtyDiffElements.insert(match.1)
+                    elements.append(match.0)
+                } else {
+                    sourceIndex.append(candidateIndex)
+                    elements.append(ExtendedDiffElement(candidate))
+                }
             }
         }
         
@@ -233,6 +235,7 @@ public extension Collection where Iterator.Element : Equatable {
         candidateIndex: Diff.Index,
         other: Self) -> (ExtendedDiffElement, Diff.Index)? {
         for matchIndex in (candidateIndex + 1)..<diff.endIndex {
+            
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
                 if let move = createMatCH(candidate, match: match, other: other) {

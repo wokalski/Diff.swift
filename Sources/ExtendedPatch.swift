@@ -112,8 +112,8 @@ extension ExtendedDiff {
         let sourcePatch = generateSortedPatchElements(a, b: b)
         let sourceIndex = flip(array: reorderedIndex)
         var indexDiff = 0
-        return indices.map { i in
-            let diffElement = self[i]
+        return elements.indices.map { i in
+            let diffElement = elements[i]
             switch diffElement {
             case .move:
                 indexDiff += 1

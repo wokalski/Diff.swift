@@ -81,15 +81,15 @@ class ExtendedPatchSortTests: XCTestCase {
         
         let sort: ExtendedSortingFunction = { _, _ in arc4random_uniform(2) == 0
         }
-        for _ in 0..<30 {
-            let randomString = randomAlphaNumericString(length: 30)
-            let permutation = randomAlphaNumericString(length: 30)
-            let patch = randomString.extendedDiff(permutation).patch(
-                randomString.characters,
-                b: permutation.characters,
+        for _ in 0..<20 {
+            let string1 = "eakjnrsignambmcbdcdhdkmhkolpdgfedcpgabtldjkaqkoobomuhpepirdcrdrgmrmaefesoiildmtnbronpmmbuuplnfnjgdhadkbmprensshiekknhskognpbknpbepmlakducnfktjeookncjpcnpklfedrebstisalskigsuojkookhbmkdafiaftrkrccupgjapqrigbanfbboapmicabeclhentlabourhtqmlboqctgorajirchesaorsgnigattkdrenquffcutffopbjrebegbfmkeikstqsut"
+            let string2 = "mdjqtbchphncsjdkjtutagahmdtfcnjliipmqgrhgajsgotcdgidlghithdgrcmfuausmjnbtjghqblaiuldirulhllidbpcpglfbnfbkbddhdskdplsgjjsusractdplajrctgrcebhesbeneidsititlalsqkhliontgpesglkoorjqeniqaetatamneonhbhunqlfkbmfsjallnejhkcfaeapdnacqdtukcuiheiabqpudmgosssabisrrlmhcmpkgerhesqihdnfjmqgfnmulnfkmpqrsghutfsckurr"
+            let patch = string1.extendedDiff(string2).patch(
+                string1.characters,
+                b: string2.characters,
                 sort:sort)
-            let result = randomString.apply(patch)
-            XCTAssertEqual(result, permutation)
+            let result = string1.apply(patch)
+            XCTAssertEqual(result, string2)
         }
     }
 }

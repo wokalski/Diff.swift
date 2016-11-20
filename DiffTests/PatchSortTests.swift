@@ -130,7 +130,7 @@ class PatchTests: XCTestCase {
 
 func randomAlphaNumericString(length: Int) -> String {
     
-    let allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    let allowedChars = "abcdefghijklmnopqrstu"
     let allowedCharsCount = UInt32(allowedChars.characters.count)
     var randomString = ""
     
