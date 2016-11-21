@@ -33,6 +33,13 @@ public extension Diff {
     }
 }
 
+public func patch<T: Collection>(
+    from: T,
+    to: T
+    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+    return from.diff(to).patch(from: from, to: to)
+}
+
 extension Patch: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {

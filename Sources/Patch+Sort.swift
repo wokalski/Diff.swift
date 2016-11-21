@@ -1,4 +1,12 @@
 
+public func patch<T: Collection>(
+    from: T,
+    to: T,
+    sort: Diff.OrderedBefore
+    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+    return from.diff(to).patch(from: from, to: to, sort: sort)
+}
+
 public extension Diff {
 
     public typealias OrderedBefore = (_ fst: Diff.Element, _ snd: Diff.Element) -> Bool

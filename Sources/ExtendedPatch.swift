@@ -26,6 +26,14 @@ public enum ExtendedPatch<Element> {
     case move(from: Int, to: Int)
 }
 
+public func extendedPatch<T: Collection>(
+    from: T,
+    to: T,
+    sort: ExtendedDiff.OrderedBefore? = nil
+    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+    return from.extendedDiff(to).patch(from: from, to: to, sort: sort)
+}
+
 extension ExtendedDiff {
     public typealias OrderedBefore = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
     
