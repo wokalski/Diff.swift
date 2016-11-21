@@ -4,6 +4,10 @@
 
 This library generates differences between any two `Collection`s (and Strings). It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))`.
 
+## Documentation
+
+Documentation is available [here](http://wokalski.com/docs/Diff/)
+
 ## Features
 
 - `Diff.swift` supports three types of operations:
