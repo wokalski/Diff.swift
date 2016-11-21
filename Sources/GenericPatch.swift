@@ -55,13 +55,9 @@ func shiftPatchElement<T>(from: DoublyLinkedList<SortedPatchElement<T>>, to: Dou
     case .neighbor(let direction), .jump(let direction):
         if case .left = direction {
             switch (from.value.value, to.value.value) {
-            case (.insertion, .insertion):
+            case (.insertion, _):
                 to.value = to.value.decremented()
-            case (.deletion, .deletion):
-                to.value = to.value.incremented()
-            case (.insertion, .deletion):
-                to.value = to.value.decremented()
-            case (.deletion, .insertion):
+            case (.deletion, _):
                 to.value = to.value.incremented()
             }
         }

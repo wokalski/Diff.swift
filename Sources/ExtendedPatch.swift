@@ -30,7 +30,7 @@ public func extendedPatch<T: Collection>(
     from: T,
     to: T,
     sort: ExtendedDiff.OrderedBefore? = nil
-    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+    ) -> [ExtendedPatch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
     return from.extendedDiff(to).patch(from: from, to: to, sort: sort)
 }
 

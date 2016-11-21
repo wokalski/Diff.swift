@@ -57,7 +57,7 @@ class DiffTests: XCTestCase {
     func testDiffOutputs() {
         for expectation in expectations {
             XCTAssertEqual(
-                _test(expectation.0, to: expectation.1),
+                _test(from: expectation.0, to: expectation.1),
                 expectation.2)
         }
     }
@@ -65,7 +65,7 @@ class DiffTests: XCTestCase {
     func testExtendedDiffOutputs() {
         for expectation in extendedExpectations {
             XCTAssertEqual(
-                _testExtended(expectation.0, to: expectation.1),
+                _testExtended(from: expectation.0, to: expectation.1),
                 expectation.2)
         }
     }
@@ -74,20 +74,20 @@ class DiffTests: XCTestCase {
     
     func testDuplicateTraces() {
         for expectation in expectations {
-            XCTAssertFalse(duplicateTraces(expectation.0, to: expectation.1))
+            XCTAssertFalse(duplicateTraces(from: expectation.0, to: expectation.1))
         }
     }
     
     func testTracesOutOfBounds() {
         for expectation in expectations {
-            if tracesOutOfBounds(expectation.0, to: expectation.1) != [] {
+            if tracesOutOfBounds(from: expectation.0, to: expectation.1) != [] {
                 XCTFail("traces out of bounds for \(expectation.0) -> \(expectation.1)")
             }
         }
     }
     
     func duplicateTraces(from: String, to: String) -> Bool {
-        let traces = from.characters.diffTraces(to.characters)
+        let traces = from.characters.diffTraces(to: to.characters)
         let tracesSet = Set(traces)
         return !(traces.count == tracesSet.count)
     }
@@ -95,7 +95,7 @@ class DiffTests: XCTestCase {
     func tracesOutOfBounds(from: String, to: String) -> [Trace] {
         let ac = from.characters
         let bc = to.characters
-        return ac.diffTraces(bc)
+        return ac.diffTraces(to: bc)
             .filter { $0.to.y > bc.count || $0.to.x > ac.count }
     }
     
@@ -103,7 +103,7 @@ class DiffTests: XCTestCase {
         from: String,
         to: String) -> String {
         return from
-            .diff(to)
+            .diff(to: to)
             .reduce("") { $0 + $1.debugDescription }
     }
     

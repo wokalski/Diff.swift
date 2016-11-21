@@ -15,7 +15,7 @@ class ExtendedPatchSortTests: XCTestCase {
         
         for expectation in expectations {
             XCTAssertEqual(
-                _extendedTest(expectation.0, to: expectation.1),
+                _extendedTest(from: expectation.0, to: expectation.1),
                 expectation.2)
         }
     }
@@ -42,7 +42,7 @@ class ExtendedPatchSortTests: XCTestCase {
         for expectation in expectations {
             XCTAssertEqual(
                 _extendedTest(
-                    expectation.0,
+                    from: expectation.0,
                     to: expectation.1,
                     sortingFunction: sort),
                 expectation.2)
@@ -71,7 +71,7 @@ class ExtendedPatchSortTests: XCTestCase {
         for expectation in expectations {
             XCTAssertEqual(
                 _extendedTest(
-                    expectation.0,
+                    from: expectation.0,
                     to: expectation.1,
                     sortingFunction: sort),
                 expectation.2)
@@ -86,7 +86,7 @@ class ExtendedPatchSortTests: XCTestCase {
             let string1 = "eakjnrsignambmcbdcdhdkmhkolpdgfedcpgabtldjkaqkoobomuhpepirdcrdrgmrmaefesoiildmtnbronpmmbuuplnfnjgdhadkbmprensshiekknhskognpbknpbepmlakducnfktjeookncjpcnpklfedrebstisalskigsuojkookhbmkdafiaftrkrccupgjapqrigbanfbboapmicabeclhentlabourhtqmlboqctgorajirchesaorsgnigattkdrenquffcutffopbjrebegbfmkeikstqsut"
             let string2 = "mdjqtbchphncsjdkjtutagahmdtfcnjliipmqgrhgajsgotcdgidlghithdgrcmfuausmjnbtjghqblaiuldirulhllidbpcpglfbnfbkbddhdskdplsgjjsusractdplajrctgrcebhesbeneidsititlalsqkhliontgpesglkoorjqeniqaetatamneonhbhunqlfkbmfsjallnejhkcfaeapdnacqdtukcuiheiabqpudmgosssabisrrlmhcmpkgerhesqihdnfjmqgfnmulnfkmpqrsghutfsckurr"
             let patch = string1.extendedDiff(string2).patch(
-                string1.characters,
+                from: string1.characters,
                 to: string2.characters,
                 sort:sort)
             let result = string1.apply(patch)
@@ -102,17 +102,13 @@ func _extendedTest(
     to: String,
     sortingFunction: ExtendedSortingFunction? = nil) -> String {
     guard let sort = sortingFunction else {
-        return from
-            .extendedDiff(to)
-            .patch(
-                from.characters,
+        return extendedPatch(
+                from: from.characters,
                 to: to.characters)
             .reduce("") { $0 + $1.debugDescription }
     }
-    return from
-        .extendedDiff(to)
-        .patch(
-            from.characters,
+    return extendedPatch(
+            from: from.characters,
             to: to.characters,
             sort: sort)
         .reduce("") { $0 + $1.debugDescription }

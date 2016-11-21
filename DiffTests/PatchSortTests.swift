@@ -24,7 +24,7 @@ class PatchTests: XCTestCase {
         
         for expectation in defaultOrder {
             XCTAssertEqual(
-                _test(expectation.0, to: expectation.1),
+                _test(from: expectation.0, to: expectation.1),
                 expectation.2)
         }
     }
@@ -64,7 +64,7 @@ class PatchTests: XCTestCase {
         for expectation in insertionsFirst {
             XCTAssertEqual(
                 _test(
-                    expectation.0,
+                    from: expectation.0,
                     to: expectation.1,
                     sortingFunction: insertionsFirstSort),
                 expectation.2)
@@ -106,7 +106,7 @@ class PatchTests: XCTestCase {
         for expectation in deletionsFirst {
             XCTAssertEqual(
                 _test(
-                    expectation.0,
+                    from: expectation.0,
                     to: expectation.1,
                     sortingFunction: deletionsFirstSort),
                 expectation.2)
@@ -121,7 +121,7 @@ class PatchTests: XCTestCase {
         for _ in 0..<200 {
             let randomString = randomAlphaNumericString(length: 30)
             let permutation = randomAlphaNumericString(length: 30)
-            let patch = randomString.diff(permutation).patch(randomString.characters, to: permutation.characters, sort:sort)
+            let patch = randomString.diff(to: permutation).patch(from: randomString.characters, to: permutation.characters, sort:sort)
             let result = randomString.apply(patch)
             XCTAssertEqual(result, permutation)
         }
@@ -151,18 +151,14 @@ func _test(
     to: String,
     sortingFunction: SortingFunction? = nil) -> String {
     if let sort = sortingFunction {
-        return from
-            .diff(to)
-            .patch(
-                from.characters,
+        return patch(
+                from: from.characters,
                 to: to.characters,
                 sort: sort)
             .reduce("") { $0 + $1.debugDescription }
     }
-    return from
-        .diff(to)
-        .patch(
-            from.characters,
+    return patch(
+            from: from.characters,
             to: to.characters)
         .reduce("") { $0 + $1.debugDescription }
 }
