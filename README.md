@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wokalski/Diff.swift.svg?branch=master)](https://travis-ci.org/wokalski/Diff.swift)
+
 # Diff.swift
 
 This library generates differences between any two `Collection`s (and Strings). It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))`.
