@@ -150,3 +150,6 @@ However, if you need good performance and you have big differences between the i
 
 If you have any questions, you can find me on [Twitter](https://twitter.com/wokalski).
 
+## Misc
+
+If you want to learn how it works `Graph.playground` is a good place to start.
