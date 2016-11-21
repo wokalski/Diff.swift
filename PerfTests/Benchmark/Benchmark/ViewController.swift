@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let from = pathForFile(fileName: "Diff-old")
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         
         print("Both libraries are compiled with -O -whole-module-optimization\n")
         print("         | Diff.swift | Dwifft ")
-        print("-------------------------------")
+        print("---------|------------|--------")
         print(" same    |   \(diff.same)   | \(dwifft.same)")
         print(" created |   \(diff.created)   | \(dwifft.created)")
         print(" deleted |   \(diff.deleted)   | \(dwifft.deleted)")
@@ -29,6 +29,6 @@ class ViewController: UIViewController {
     }
 }
 
-func pathForFile(fileName fileName: String) -> String{
-    return NSBundle.mainBundle().pathForResource(fileName, ofType: "swift")!
+func pathForFile(fileName: String) -> String{
+    return Bundle.main.path(forResource: fileName, ofType: "swift")!
 }

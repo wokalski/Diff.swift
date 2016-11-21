@@ -9,9 +9,9 @@
 import Foundation
 import Diff
 
-func performDiff(fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
-    let old = file(path: fromFilePath)
-    let new = file(path: toFilePath)
+func performDiff(_ fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: @escaping ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
+    let old = file(fromFilePath)
+    let new = file(toFilePath)
     let compare: ([Character], [Character]) -> String = { a, b in
         var time: CFTimeInterval = 0
         for _ in 0..<repeatCount {
@@ -28,44 +28,44 @@ func performDiff(fromFilePath: String, toFilePath: String, repeatCount: Int = 10
 }
 
 func currentDirectoryPath() -> String {
-    let buffer: UnsafeMutablePointer<Int8> = UnsafeMutablePointer.alloc(Int(PATH_MAX))
+    let buffer: UnsafeMutablePointer<Int8> = UnsafeMutablePointer.allocate(capacity: Int(PATH_MAX))
     getcwd(buffer, Int(PATH_MAX))
-    let string = String.fromCString(buffer)
-    buffer.dealloc(Int(PATH_MAX))
-    return string!
+    let string = String(cString: buffer)
+    buffer.deallocate(capacity: Int(PATH_MAX))
+    return string
 }
 
-func measure(f: () -> Void) -> CFTimeInterval {
+func measure(_ f: () -> Void) -> CFTimeInterval {
     let time = CFAbsoluteTimeGetCurrent()
     f()
     return CFAbsoluteTimeGetCurrent() - time
 }
 
-func file(path path: String) -> [Character] {
+func file(_ path: String) -> [Character] {
     return try! Array(String(contentsOfFile: path).characters)
     
 }
 
-func diffSwift(a: [Character], b: [Character]) {
+func diffSwift(_ a: [Character], b: [Character]) {
     _ = _diffSwift(a, b: b)
 }
 
-private func _diffSwift(a: [Character], b: [Character]) -> Diff {
+private func _diffSwift(_ a: [Character], b: [Character]) -> Diff {
     return a.diff(b)
 }
 
 func launchPath() -> String {
-    let path = Process.arguments.first!
-    let dotIndex = path.startIndex.successor()
-    var lastSlashIndex = path.endIndex.predecessor()
+    let path = CommandLine.arguments.first!
+    let dotIndex = path.index(after: path.startIndex)
+    var lastSlashIndex = path.index(before: path.endIndex)
     let c: Character = "/"
     while path.characters[lastSlashIndex] != c {
-        lastSlashIndex = lastSlashIndex.predecessor()
+        lastSlashIndex = path.index(before: lastSlashIndex)
     }
-    return path.substringToIndex(lastSlashIndex).substringFromIndex(dotIndex)
+    return path.substring(to: lastSlashIndex).substring(from: dotIndex)
 }
 
 func proccessPath() -> String {
-    return currentDirectoryPath().stringByAppendingString(launchPath())
+    return currentDirectoryPath().appending(launchPath())
 }
 

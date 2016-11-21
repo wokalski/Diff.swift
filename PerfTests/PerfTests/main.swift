@@ -10,10 +10,10 @@
  This is a test file
  */
 
-let resourcesPath = proccessPath().stringByAppendingString("/Resources/")
-let from = resourcesPath.stringByAppendingString("Diff-old.swift")
-let to = resourcesPath.stringByAppendingString("Diff-new.swift")
-let diff = performDiff(from, toFilePath: to, repeatCount: 5, diffFunc: diffSwift)
+let resourcesPath = proccessPath().appending("/Resources/")
+let from = resourcesPath.appending("Diff-old.swift")
+let to = resourcesPath.appending("Diff-new.swift")
+let diff = performDiff(fromFilePath: from, toFilePath: to, repeatCount: 5, diffFunc: diffSwift)
 
 print("         | Diff.swift |")
 print("-----------------------")

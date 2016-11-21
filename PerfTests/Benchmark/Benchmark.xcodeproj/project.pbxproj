@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C92178C41CD01050004642C7 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; };
 		C92178C51CD01050004642C7 /* Dwifft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; };
-		C92178C91CD01085004642C7 /* Diff.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C92178C21CD01050004642C7 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C92178CA1CD01085004642C7 /* Dwifft.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C92178C31CD01050004642C7 /* Dwifft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9278AA51DE309D3009CE846 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9278AA01DE309B5009CE846 /* Diff.framework */; };
+		C9278AA61DE30B81009CE846 /* Diff.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = C9278AA01DE309B5009CE846 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C93B984A1CD114D200047B30 /* Diff-new.swift in Copy Files */ = {isa = PBXBuildFile; fileRef = C93B98461CD114C700047B30 /* Diff-new.swift */; };
 		C93B984B1CD114D200047B30 /* Diff-old.swift in Copy Files */ = {isa = PBXBuildFile; fileRef = C93B98471CD114C700047B30 /* Diff-old.swift */; };
 		C98888F41CD0A489000DA46C /* PerformanceTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98888F31CD0A489000DA46C /* PerformanceTestUtils.swift */; };
@@ -22,6 +22,30 @@
 		C9EE876D1CCFD8AD006BD90E /* Dwifft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE876C1CCFD8AD006BD90E /* Dwifft.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C9278A9F1DE309B5009CE846 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9278A991DE309B5009CE846 /* Diff.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9EE87161CCFCA83006BD90E;
+			remoteInfo = "Diff-iOS";
+		};
+		C9278AA11DE309B5009CE846 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9278A991DE309B5009CE846 /* Diff.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9EE872D1CCFCB33006BD90E;
+			remoteInfo = "Diff-Mac";
+		};
+		C9278AA31DE309B5009CE846 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9278A991DE309B5009CE846 /* Diff.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9838FF11D29571000691BE8;
+			remoteInfo = DiffTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		C92178C81CD01079004642C7 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -29,8 +53,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C92178C91CD01085004642C7 /* Diff.framework in Copy Files */,
 				C92178CA1CD01085004642C7 /* Dwifft.framework in Copy Files */,
+				C9278AA61DE30B81009CE846 /* Diff.framework in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,8 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C92178C21CD01050004642C7 /* Diff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Diff.framework; path = Carthage/Build/iOS/Diff.framework; sourceTree = SOURCE_ROOT; };
 		C92178C31CD01050004642C7 /* Dwifft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Dwifft.framework; path = Carthage/Build/iOS/Dwifft.framework; sourceTree = SOURCE_ROOT; };
+		C9278A991DE309B5009CE846 /* Diff.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diff.xcodeproj; path = ../../../Diff.xcodeproj; sourceTree = "<group>"; };
 		C93B98461CD114C700047B30 /* Diff-new.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Diff-new.swift"; path = "../../Utils/Resources/Diff-new.swift"; sourceTree = "<group>"; };
 		C93B98471CD114C700047B30 /* Diff-old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Diff-old.swift"; path = "../../Utils/Resources/Diff-old.swift"; sourceTree = "<group>"; };
 		C98888F31CD0A489000DA46C /* PerformanceTestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PerformanceTestUtils.swift; path = ../../Utils/PerformanceTestUtils.swift; sourceTree = "<group>"; };
@@ -71,7 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C92178C51CD01050004642C7 /* Dwifft.framework in Frameworks */,
-				C92178C41CD01050004642C7 /* Diff.framework in Frameworks */,
+				C9278AA51DE309D3009CE846 /* Diff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,10 +116,20 @@
 		C92178C11CD01034004642C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C92178C21CD01050004642C7 /* Diff.framework */,
+				C9278A991DE309B5009CE846 /* Diff.xcodeproj */,
 				C92178C31CD01050004642C7 /* Dwifft.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9278A9A1DE309B5009CE846 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9278AA01DE309B5009CE846 /* Diff.framework */,
+				C9278AA21DE309B5009CE846 /* Diff.framework */,
+				C9278AA41DE309B5009CE846 /* DiffTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C9EE86E11CCFBAFD006BD90E = {
@@ -172,6 +206,7 @@
 					C9EE86E91CCFBAFD006BD90E = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 25UJHK4C3S;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -186,12 +221,42 @@
 			mainGroup = C9EE86E11CCFBAFD006BD90E;
 			productRefGroup = C9EE86EB1CCFBAFD006BD90E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C9278A9A1DE309B5009CE846 /* Products */;
+					ProjectRef = C9278A991DE309B5009CE846 /* Diff.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C9EE86E91CCFBAFD006BD90E /* Benchmark */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C9278AA01DE309B5009CE846 /* Diff.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Diff.framework;
+			remoteRef = C9278A9F1DE309B5009CE846 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9278AA21DE309B5009CE846 /* Diff.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Diff.framework;
+			remoteRef = C9278AA11DE309B5009CE846 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9278AA41DE309B5009CE846 /* DiffTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DiffTests.xctest;
+			remoteRef = C9278AA31DE309B5009CE846 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C9EE86E81CCFBAFD006BD90E /* Resources */ = {
@@ -336,6 +401,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.Benchmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -352,6 +418,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.Benchmark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
