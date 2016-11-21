@@ -10,7 +10,7 @@ This library generates differences between any two `Collection`s (and Strings). 
     - Moves (if using `ExtendedDiff`)
 - Arbitrary sorting of the `Patch`
 - Utilities for `UITableView` and `UICollectionView` (if that's just what you want, [skip to examples]())
-- ⚡️ fast
+- ⚡️ [fast](#performance-notes)
 
 ## Why would I need it?
 
