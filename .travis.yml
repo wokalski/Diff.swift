@@ -2,10 +2,10 @@ osx_image: xcode8.2
 language: objective-c
 xcode_project: Diff.xcodeproj
 xcode_scheme: Diff-Mac
-before_install:
-    - gem install xcpretty
+install:
+  - gem install xcpretty
 git:
    depth: 3
-
 script:
-    - xcodebuild test -scheme DiffTests -project Diff.xcodeproj | xcpretty
+    - set pipefail
+    - xcodebuild -project Diff.xcodeproj -scheme DiffTests test | xcpretty
