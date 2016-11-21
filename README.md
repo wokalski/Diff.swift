@@ -150,6 +150,22 @@ Source code is available [here](https://github.com/wokalski/Diff.swift/blob/mast
 This algorithm works great for collections with _small_ diffs. I mean, even for big diffs, it's still better than the simple algorithm. 
 However, if you need good performance and you have big differences between the inputs consider another diffing algorithm. Look at Hunt & Szymanski's and/or Hirschberg's work.
 
+## Installation
+
+Carthage (preferred)
+
+```
+// Cartfile
+github "wokalski/Diff.swift"
+```
+
+Cocoapods
+
+```
+// podfile
+pod 'Diff'
+```
+
 ## Get in touch
 
 If you have any questions, you can find me on [Twitter](https://twitter.com/wokalski).
