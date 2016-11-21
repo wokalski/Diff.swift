@@ -7,5 +7,4 @@ install:
 git:
    depth: 3
 script:
-    - set pipefail
-    - xcodebuild -project Diff.xcodeproj -scheme DiffTests test | xcpretty
+    - set -o pipefail && xcodebuild -project Diff.xcodeproj -scheme DiffTests test | xcpretty
