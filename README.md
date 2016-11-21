@@ -7,10 +7,10 @@ This library generates differences between any two `Collection`s (and Strings). 
 - `Diff.swift` supports three types of operations:
     - Insertions
     - Deletions
-    - Moves (if using `ExtendedDiff`)
+    - Moves (use `ExtendedDiff`)
 - Arbitrary sorting of the `Patch`
-- Utilities for `UITableView` and `UICollectionView` (if that's just what you want, [skip to examples]())
-- ⚡️ fast
+- Utilities for `UITableView` and `UICollectionView` (if that's just what you want, [skip to examples](#how-to-use))
+- ⚡️ [fast](#performance-notes)
 
 ## Why would I need it?
 
@@ -51,6 +51,25 @@ In order to mitigate this issue there are two types of output:
 In practice it means that a diff to transform string `"1234"` to `"1"` is `"D(1)D(2)D(3)"` the default patch is `"D(1)D(1)D(1)"`. However, if we decide to sort it so that deletions and bigger indices happen first we get this patch: `"D(3)D(2)D(1)"`.
 
 ## How to use
+
+### `UITableView`/`UICollectionView`
+    
+```swift
+    
+// It will automatically animate deletions, insertions, and moves
+tableView.animateRowChanges(
+            oldData: old,
+            newData: new)
+
+collectionView.animateItemChanges(
+    oldData: old,
+    newData: new) 
+
+```
+
+See [examples](/Examples/) for a working example.
+
+### Using Patch and Diff
 
 When you want to get steps to transform one sequence into another (e.g. you want to animate UI according to the changes in the model)
 

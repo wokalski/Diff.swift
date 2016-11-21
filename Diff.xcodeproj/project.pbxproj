@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C92178BE1CD00243004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C92178BF1CD00246004642C7 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C9278ADE1DE32B88009CE846 /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */; };
 		C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */; };
 		C96F41951DE0EEEA00B8E135 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */; };
 		C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838FF31D29571000691BE8 /* DiffTests.swift */; };
@@ -48,6 +49,7 @@
 		C92178BB1CD0023E004642C7 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Diff.h; path = Framework/Diff.h; sourceTree = "<group>"; };
 		C92178BC1CD0023E004642C7 /* iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = iOS.plist; path = Framework/iOS.plist; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Mac.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Mac.plist; path = Framework/Mac.plist; sourceTree = "<group>"; };
+		C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
 		C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExtendedPatch+Apply.swift"; sourceTree = "<group>"; };
 		C9838FF11D29571000691BE8 /* DiffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9838FF31D29571000691BE8 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DiffTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				C9EE87821CCFFB68006BD90E /* Diff.swift */,
+				C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */,
 				C9B03FBF1DE1CA7500BC6F2A /* ExtendedDiff.swift */,
 				C9EE87831CCFFB68006BD90E /* Patch.swift */,
 				C99118971DDB4C3000067A60 /* Patch+Sort.swift */,
@@ -314,6 +317,7 @@
 				C99118B81DE062BE00067A60 /* GenericPatch.swift in Sources */,
 				C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */,
 				C99118981DDB4C3000067A60 /* Patch+Sort.swift in Sources */,
+				C9278ADE1DE32B88009CE846 /* Diff+UIKit.swift in Sources */,
 				C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */,
 				C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
