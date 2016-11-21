@@ -94,11 +94,11 @@ extension Trace {
 }
 
 public extension String {
-    public func diff(_ b: String) -> Diff {
-        if self == b {
+    public func diff(to: String) -> Diff {
+        if self == to {
             return Diff(elements: [])
         }
-        return characters.diff(b.characters)
+        return characters.diff(to.characters)
     }
     
     public func extendedDiff(_ other: String) -> ExtendedDiff {
@@ -134,18 +134,18 @@ struct TraceStep {
 public extension Collection where Iterator.Element : Equatable {
     
     public func diff(_ other: Self) -> Diff {
-        return findPath(diffTraces(other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
+        return findPath(diffTraces(to: other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
     }
         
-    public func diffTraces(_ b: Self) -> [Trace] {
-        if (self.count == 0 && b.count == 0) {
+    public func diffTraces(to: Self) -> [Trace] {
+        if (self.count == 0 && to.count == 0) {
             return []
         } else if (self.count == 0) {
-            return tracesForInsertions(b)
-        } else if (b.count == 0) {
+            return tracesForInsertions(to: to)
+        } else if (to.count == 0) {
             return tracesForDeletions()
         } else {
-            return myersDiffTraces(b)
+            return myersDiffTraces(to: to)
         }
     }
     
@@ -158,22 +158,22 @@ public extension Collection where Iterator.Element : Equatable {
         return traces
     }
     
-    fileprivate func tracesForInsertions(_ b: Self) -> [Trace] {
+    fileprivate func tracesForInsertions(to: Self) -> [Trace] {
         var traces = [Trace]()
-        for index in 0..<b.count.toIntMax() {
+        for index in 0..<to.count.toIntMax() {
             let intIndex = index.toIntMax()
             traces.append(Trace(from: Point(x: 0, y: Int(intIndex)), to: Point(x: 0, y: Int(intIndex)+1), D: 0))
         }
         return traces
     }
     
-    fileprivate func myersDiffTraces(_ b: Self) -> [Trace] {
+    fileprivate func myersDiffTraces(to: Self) -> [Trace] {
         
         let fromCount = Int(self.count.toIntMax())
-        let toCount = Int(b.count.toIntMax())
+        let toCount = Int(to.count.toIntMax())
         var traces = Array<Trace>()
         
-        let max = fromCount+toCount // this is arbitrary, maximum difference between a and b. N+M assures that this algorithm always finds a diff
+        let max = fromCount+toCount // this is arbitrary, maximum difference between from and to. N+M assures that this algorithm always finds from diff
         
         var vertices = Array(repeating: -1, count: 2 * Int(max) + 1) // from [0...2*max], it is -max...max in the whitepaper
         
@@ -192,7 +192,7 @@ public extension Collection where Iterator.Element : Equatable {
                     
                     // keep going as long as they match on diagonal k
                     while x >= 0 && y >= 0 && x < fromCount && y < toCount {
-                        let targetItem = b.itemOnStartIndex(advancedBy: y)
+                        let targetItem = to.itemOnStartIndex(advancedBy: y)
                         let baseItem = itemOnStartIndex(advancedBy: x)
                         if baseItem == targetItem {
                             x += 1

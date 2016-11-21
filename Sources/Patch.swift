@@ -16,8 +16,8 @@ public enum Patch<Element> {
 public extension Diff {
     
     public func patch<T: Collection>(
-        _ a: T,
-        b: T
+        from: T,
+        to: T
         ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         var shift = 0
         return map { element in
@@ -27,7 +27,7 @@ public extension Diff {
                 return .deletion(index: at+shift+1)
             case let .insert(at):
                 shift += 1
-                return .insertion(index: at, element: b.itemOnStartIndex(advancedBy: at))
+                return .insertion(index: at, element: to.itemOnStartIndex(advancedBy: at))
             }
         }
     }

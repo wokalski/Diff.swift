@@ -87,7 +87,7 @@ class ExtendedPatchSortTests: XCTestCase {
             let string2 = "mdjqtbchphncsjdkjtutagahmdtfcnjliipmqgrhgajsgotcdgidlghithdgrcmfuausmjnbtjghqblaiuldirulhllidbpcpglfbnfbkbddhdskdplsgjjsusractdplajrctgrcebhesbeneidsititlalsqkhliontgpesglkoorjqeniqaetatamneonhbhunqlfkbmfsjallnejhkcfaeapdnacqdtukcuiheiabqpudmgosssabisrrlmhcmpkgerhesqihdnfjmqgfnmulnfkmpqrsghutfsckurr"
             let patch = string1.extendedDiff(string2).patch(
                 string1.characters,
-                b: string2.characters,
+                to: string2.characters,
                 sort:sort)
             let result = string1.apply(patch)
             XCTAssertEqual(result, string2)
@@ -98,7 +98,7 @@ class ExtendedPatchSortTests: XCTestCase {
 typealias ExtendedSortingFunction = (ExtendedDiff.Element, ExtendedDiff.Element) -> Bool
 
 func _extendedTest(
-    _ from: String,
+    from: String,
     to: String,
     sortingFunction: ExtendedSortingFunction? = nil) -> String {
     guard let sort = sortingFunction else {
@@ -106,14 +106,14 @@ func _extendedTest(
             .extendedDiff(to)
             .patch(
                 from.characters,
-                b: to.characters)
+                to: to.characters)
             .reduce("") { $0 + $1.debugDescription }
     }
     return from
         .extendedDiff(to)
         .patch(
             from.characters,
-            b: to.characters,
+            to: to.characters,
             sort: sort)
         .reduce("") { $0 + $1.debugDescription }
 }

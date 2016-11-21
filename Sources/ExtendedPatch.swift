@@ -27,19 +27,19 @@ public enum ExtendedPatch<Element> {
 }
 
 extension ExtendedDiff {
-    public typealias OrderedBeforeExtended = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
+    public typealias OrderedBefore = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
     
     public func patch<T: Collection>(
-        _ a: T,
-        b: T,
-        sort: OrderedBeforeExtended? = nil
+        from: T,
+        to: T,
+        sort: OrderedBefore? = nil
         ) -> [ExtendedPatch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         
         let result: [SortedPatchElement<T.Iterator.Element>]
         if let sort = sort {
-            result = shiftedPatchElements(from: generateSortedPatchElements(a, b: b, sort: sort))
+            result = shiftedPatchElements(from: generateSortedPatchElements(from: from, to: to, sort: sort))
         } else {
-            result = shiftedPatchElements(from: generateSortedPatchElements(a, b: b))
+            result = shiftedPatchElements(from: generateSortedPatchElements(from: from, to: to))
         }
         
         return result.indices.flatMap { i -> ExtendedPatch<T.Iterator.Element>? in
@@ -73,15 +73,15 @@ extension ExtendedDiff {
     }
     
     func generateSortedPatchElements<T: Collection>(
-        _ a: T,
-        b: T,
-        sort: @escaping OrderedBeforeExtended
+        from: T,
+        to: T,
+        sort: @escaping OrderedBefore
         ) -> [SortedPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
         let unboxed = boxDiffAndPatchElements(
-            a,
-            b: b
-        ).sorted { a, b -> Bool in
-            return sort(a.diffElement, b.diffElement)
+            from: from,
+            to: to
+        ).sorted { from, to -> Bool in
+            return sort(from.diffElement, to.diffElement)
         }.flatMap(unbox)
         
         return unboxed.indices.map { index -> SortedPatchElement<T.Iterator.Element> in
@@ -95,8 +95,8 @@ extension ExtendedDiff {
         }
     }
     
-    func generateSortedPatchElements<T: Collection>(_ a: T, b: T) -> [SortedPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
-        let patch = source.patch(a, b: b)
+    func generateSortedPatchElements<T: Collection>(from: T, to: T) -> [SortedPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+        let patch = source.patch(from: from, to: to)
         return patch.indices.map {
             SortedPatchElement(
                 value: patch[$0],
@@ -107,10 +107,10 @@ extension ExtendedDiff {
     }
     
     func boxDiffAndPatchElements<T: Collection>(
-        _ a: T,
-        b: T
+        from: T,
+        to: T
         ) -> [BoxedDiffAndPatchElement<T.Iterator.Element>] where T.Iterator.Element : Equatable {
-        let sourcePatch = generateSortedPatchElements(a, b: b)
+        let sourcePatch = generateSortedPatchElements(from: from, to: to)
         var indexDiff = 0
         return elements.indices.map { i in
             let diffElement = elements[i]

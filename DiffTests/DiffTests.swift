@@ -74,33 +74,33 @@ class DiffTests: XCTestCase {
     
     func testDuplicateTraces() {
         for expectation in expectations {
-            XCTAssertFalse(duplicateTraces(expectation.0, b: expectation.1))
+            XCTAssertFalse(duplicateTraces(expectation.0, to: expectation.1))
         }
     }
     
     func testTracesOutOfBounds() {
         for expectation in expectations {
-            if tracesOutOfBounds(expectation.0, b: expectation.1) != [] {
+            if tracesOutOfBounds(expectation.0, to: expectation.1) != [] {
                 XCTFail("traces out of bounds for \(expectation.0) -> \(expectation.1)")
             }
         }
     }
     
-    func duplicateTraces(_ a: String, b: String) -> Bool {
-        let traces = a.characters.diffTraces(b.characters)
+    func duplicateTraces(from: String, to: String) -> Bool {
+        let traces = from.characters.diffTraces(to.characters)
         let tracesSet = Set(traces)
         return !(traces.count == tracesSet.count)
     }
     
-    func tracesOutOfBounds(_ a: String, b: String) -> [Trace] {
-        let ac = a.characters
-        let bc = b.characters
+    func tracesOutOfBounds(from: String, to: String) -> [Trace] {
+        let ac = from.characters
+        let bc = to.characters
         return ac.diffTraces(bc)
             .filter { $0.to.y > bc.count || $0.to.x > ac.count }
     }
     
     func _test(
-        _ from: String,
+        from: String,
         to: String) -> String {
         return from
             .diff(to)
@@ -108,7 +108,7 @@ class DiffTests: XCTestCase {
     }
     
     func _testExtended(
-        _ from: String,
+        from: String,
         to: String) -> String {
         return from
             .extendedDiff(to)

@@ -1,8 +1,8 @@
 
 public extension Diff {
-    
-    typealias OrderedBefore = (_ fst: Diff.Element, _ snd: Diff.Element) -> Bool
 
+    public typealias OrderedBefore = (_ fst: Diff.Element, _ snd: Diff.Element) -> Bool
+    
     private func sortedPatchElements<T>(from source: [Patch<T>], sortBy areInIncreasingOrder: OrderedBefore) -> [SortedPatchElement<T>] {
         let sorted = indices.map { (self[$0], $0) }
             .sorted { areInIncreasingOrder($0.0, $1.0) }
@@ -18,11 +18,11 @@ public extension Diff {
     }
     
     public func patch<T: Collection>(
-        _ a: T,
-        b: T,
+        from: T,
+        to: T,
         sort: OrderedBefore
         ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
-        let shiftedPatch = patch(a, b: b)
+        let shiftedPatch = patch(from: from, to: to)
         return shiftedPatchElements(from: sortedPatchElements(
             from: shiftedPatch,
             sortBy: sort
