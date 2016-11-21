@@ -1,4 +1,12 @@
 
+/**
+    A sequence of deletions, insertions, and moves where deletions point to locations in the source and insertions point to locations in the output.
+    Examples:
+        "12" -> "": D(0)D(1)
+        "" -> "12": I(0)I(1)
+    
+    SeeAlso: Diff
+*/
 public struct ExtendedDiff: DiffProtocol {
     
     public enum Element {
@@ -16,13 +24,18 @@ public struct ExtendedDiff: DiffProtocol {
         return i + 1
     }
     
+    
+    /// Diff used to compute an instance
     public let source: Diff
     /// An array which holds indices of diff elements in the source diff (i.e. diff without moves).
-    public let sourceIndex: [Int]
+    let sourceIndex: [Int]
     /// An array which holds indices of diff elements in a diff where move's subelements (deletion and insertion) are ordered accordingly
-    public let reorderedIndex: [Int]
+    let reorderedIndex: [Int]
+    
+    
+    /// An array of particular diff operations
     public let elements: [ExtendedDiff.Element]
-    public let moveIndices: Set<Int>
+    let moveIndices: Set<Int>
 }
 
 extension ExtendedDiff.Element {
@@ -38,11 +51,17 @@ extension ExtendedDiff.Element {
 
 public extension Collection where Iterator.Element : Equatable {
 
+    
+    /// Creates an extended diff between the calee and `other` collection
+    ///
+    /// - parameter other: a collection to compare the calee to
+    /// - complexity: O((N+M)*D). There's additional cost of O(D^2) to compute the moves.
+    /// - returns: ExtendedDiff between the calee and `other` collection
     public func extendedDiff(_ other: Self) -> ExtendedDiff {
         return extendedDiffFrom(diff(other), other: other)
     }
     
-    fileprivate func extendedDiffFrom(_ diff: Diff, other: Self) -> ExtendedDiff {
+    private func extendedDiffFrom(_ diff: Diff, other: Self) -> ExtendedDiff {
         
         
         var elements: [ExtendedDiff.Element] = []

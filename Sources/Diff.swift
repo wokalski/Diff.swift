@@ -7,6 +7,14 @@ public protocol DiffProtocol: Collection, Sequence {
     var elements: [DiffElementType] { get }
 }
 
+/**
+ A sequence of deletions and insertions where deletions point to locations in the source and insertions point to locations in the output.
+ Examples:
+ "12" -> "": D(0)D(1)
+ "" -> "12": I(0)I(1)
+ 
+ SeeAlso: Diff
+ */
 public struct Diff: DiffProtocol {
     
     public enum Element {
@@ -22,7 +30,8 @@ public struct Diff: DiffProtocol {
     public func index(after i: Int) -> Int {
         return i + 1
     }
-
+    
+    /// An array of particular diff operations
     public let elements: [Diff.Element]
 }
 
@@ -59,16 +68,18 @@ public func ==(l: Point, r: Point) -> Bool {
     return (l.x == r.x) && (l.y == r.y)
 }
 
+
+/// A data structure representing single trace produced by the diff algorithm. See the [paper](http://www.xmailserver.org/diff2.pdf) for more information on traces.
 public struct Trace {
     public let from: Point
     public let to: Point
     public let D: Int
 }
 
-extension Trace: Equatable {}
-
-public func ==(l: Trace, r: Trace) -> Bool {
-    return (l.from == r.from) && (l.to == r.to)
+extension Trace: Equatable {
+    static public func ==(l: Trace, r: Trace) -> Bool {
+        return (l.from == r.from) && (l.to == r.to)
+    }
 }
 
 enum TraceType {
@@ -94,6 +105,13 @@ extension Trace {
 }
 
 public extension String {
+    
+    
+    /// Creates a diff between the calee and `to` string
+    ///
+    /// - parameter to: a string to compare the calee to.
+    /// - complexity: O((N+M)*D)
+    /// - returns: a Diff between the calee and `to` string
     public func diff(to: String) -> Diff {
         if self == to {
             return Diff(elements: [])
@@ -101,6 +119,12 @@ public extension String {
         return characters.diff(to.characters)
     }
     
+    
+    /// Creates an extended diff (includes insertions, deletions, and moves) between the calee and `other` string
+    ///
+    /// - parameter other: a string to compare the calee to.
+    /// - complexity: O((N+M)*D)
+    /// - returns: an ExtendedDiff between the calee and `other` string
     public func extendedDiff(_ other: String) -> ExtendedDiff {
         if self == other {
             return ExtendedDiff(
@@ -133,10 +157,22 @@ struct TraceStep {
 
 public extension Collection where Iterator.Element : Equatable {
     
+    
+    /// Creates a diff between the calee and `other` collection
+    ///
+    /// - parameter other: a collection to compare the calee to
+    /// - complexity: O((N+M)*D)
+    /// - returns: a Diff between the calee and `other` collection
     public func diff(_ other: Self) -> Diff {
         return findPath(diffTraces(to: other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
     }
-        
+    
+    
+    /// Generates all traces required to create an output diff. See the [paper](http://www.xmailserver.org/diff2.pdf) for more information on traces.
+    ///
+    /// - parameter to: other collection
+    ///
+    /// - returns: all traces required to create an output diff
     public func diffTraces(to: Self) -> [Trace] {
         if (self.count == 0 && to.count == 0) {
             return []

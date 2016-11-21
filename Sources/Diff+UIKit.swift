@@ -32,6 +32,13 @@ struct BatchUpdate {
 }
 
 public extension UITableView {
+    
+    /// Animates rows which changed between oldData and newData.
+    ///
+    /// - parameter oldData:            Data which reflects the previous state of UITableView
+    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter deletionAnimation:  Animation type for deletions
+    /// - parameter insertionAnimation: Animation type for insertions
     public func animateRowChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -48,6 +55,11 @@ public extension UITableView {
 }
 
 public extension UICollectionView {
+    
+    /// Animates items which changed between oldData and newData.
+    ///
+    /// - parameter oldData:            Data which reflects the previous state of UITableView
+    /// - parameter newData:            Data which reflects the current state of UITableView
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T
