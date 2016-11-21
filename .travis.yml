@@ -8,5 +8,4 @@ git:
    depth: 3
 
 script:
-    - open -b com.apple.iphonesimulator
     - xcodebuild test -scheme DiffTests -project Diff.xcodeproj | xcpretty
