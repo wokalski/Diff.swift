@@ -102,6 +102,8 @@ class PatchTests: XCTestCase {
             default: fatalError()
             }
         }
+    
+        XCTAssertTrue(false)
         
         for expectation in deletionsFirst {
             XCTAssertEqual(
