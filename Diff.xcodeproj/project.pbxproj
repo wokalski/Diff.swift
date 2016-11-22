@@ -474,6 +474,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
 		};
@@ -496,6 +497,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Release;
 		};
