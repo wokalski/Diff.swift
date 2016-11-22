@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Diff"
-  s.version      = "0.1"
+  s.version      = "0.2"
   s.summary      = "The fastest Diff library in Swift. Includes UICollectionView/UITableView utils."
   s.homepage     = "https://github.com/wokalski/Diff.swift"
   s.description  = <<-DESC
@@ -12,10 +12,11 @@ This library generates differences between any two Collections (and Strings). It
   s.author             = { "Wojtek Czekalski" => "me@wczekalski.com" }
   s.social_media_url   = "https://twitter.com/wokalski"
 
-  s.platforms = { :ios => "9.0", :osx => "10.11" }
+  s.platforms = { :ios => "9.0", :osx => "10.11", :tvos => "10.0", :watchos => "3.0" }
   s.osx.exclude_files = "Sources/Diff+UIKit.swift"
-
-  s.source       = { :git => "https://github.com/wokalski/Diff.swift.git", :tag => "0.1" }
+  s.watchos.exclude_files = "Sources/Diff+UIKit.swift"
+    
+  s.source       = { :git => "https://github.com/wokalski/Diff.swift.git", :tag => "0.2" }
 
   s.source_files  = "Sources"
 end
