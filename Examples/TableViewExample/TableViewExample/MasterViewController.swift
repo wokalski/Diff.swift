@@ -3,7 +3,7 @@ import UIKit
 import Diff
 
 class MasterViewController: UITableViewController {
-    
+
     var objects = [
         "🌞",
         "🐩",
@@ -11,7 +11,7 @@ class MasterViewController: UITableViewController {
         "🦄",
         "👋🏻",
         "🙇🏽‍♀️",
-        "🔥"
+        "🔥",
     ] {
         didSet {
             tableView.animateRowChanges(
@@ -22,7 +22,6 @@ class MasterViewController: UITableViewController {
         }
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -30,40 +29,39 @@ class MasterViewController: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh(_:)))
         self.navigationItem.rightBarButtonItem = addButton
     }
-    
+
     func refresh(_ sender: Any) {
-        let moveIndices = (0...0).map { _ in (randomIndex(), randomIndex()) }
-        let insertionIndices = (0...0).map { _ in randomIndex() }
-        let deleteIndices = (0...0).map { _ in randomIndex() }
-        
-        
+        let moveIndices = (0 ... 0).map { _ in (randomIndex(), randomIndex()) }
+        let insertionIndices = (0 ... 0).map { _ in randomIndex() }
+        let deleteIndices = (0 ... 0).map { _ in randomIndex() }
+
         var mutableObjects = objects
-        
-        moveIndices.forEach { (from, to) in
+
+        moveIndices.forEach { from, to in
             let element = mutableObjects.remove(at: from)
             mutableObjects.insert(element, at: to)
         }
-        
+
         insertionIndices.forEach { index in
             mutableObjects.insert(randomEmoji(), at: index)
         }
-        
+
         deleteIndices.forEach { index in
             mutableObjects.remove(at: index)
         }
-        
+
         objects = mutableObjects
     }
-    
+
     func randomIndex() -> Int {
         return Int(arc4random_uniform(UInt32(objects.count)))
     }
 
     func randomEmoji() -> String {
-        let emojis = (UInt32(0x1F601)...UInt32(0x1F64F)).map { String(UnicodeScalar($0)!) }
+        let emojis = (UInt32(0x1F601) ... UInt32(0x1F64F)).map { String(UnicodeScalar($0)!) }
         return emojis[Int(arc4random_uniform(UInt32(emojis.count)))]
     }
-    
+
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -80,4 +78,3 @@ class MasterViewController: UITableViewController {
         return cell
     }
 }
-

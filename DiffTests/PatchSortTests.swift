@@ -4,7 +4,7 @@ import XCTest
 class PatchTests: XCTestCase {
 
     func testDefaultOrder() {
-        
+
         let defaultOrder = [
             ("kitten", "sitting", "D(0)I(0,s)D(4)I(4,i)I(6,g)"),
             ("🐩itt🍨ng", "kitten", "D(0)I(0,k)D(4)I(4,e)D(6)"),
@@ -19,18 +19,18 @@ class PatchTests: XCTestCase {
             ("", "", ""),
             ("Oh Hi", "Hi Oh", "D(0)D(0)D(0)I(2, )I(3,O)I(4,h)"),
             ("1362", "31526", "D(0)D(1)I(1,1)I(2,5)I(4,6)"),
-            ("1234b2", "ab", "D(0)D(0)D(0)D(0)I(0,a)D(2)")
+            ("1234b2", "ab", "D(0)D(0)D(0)D(0)I(0,a)D(2)"),
         ]
-        
+
         for expectation in defaultOrder {
             XCTAssertEqual(
                 _test(from: expectation.0, to: expectation.1),
                 expectation.2)
         }
     }
-    
+
     func testInsertionsFirst() {
-        
+
         let insertionsFirst = [
             ("kitten", "sitting", "I(1,s)I(6,i)I(8,g)D(0)D(4)"),
             ("🐩itt🍨ng", "kitten", "I(1,k)I(6,e)D(0)D(4)D(6)"),
@@ -44,9 +44,9 @@ class PatchTests: XCTestCase {
             ("1234", "1234", ""),
             ("", "", ""),
             ("Oh Hi", "Hi Oh", "I(5, )I(6,O)I(7,h)D(0)D(0)D(0)"),
-            ("1362", "31526", "I(3,1)I(4,5)I(6,6)D(0)D(1)")
+            ("1362", "31526", "I(3,1)I(4,5)I(6,6)D(0)D(1)"),
         ]
-        
+
         let insertionsFirstSort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
@@ -60,7 +60,7 @@ class PatchTests: XCTestCase {
             default: fatalError()
             }
         }
-        
+
         for expectation in insertionsFirst {
             XCTAssertEqual(
                 _test(
@@ -70,9 +70,9 @@ class PatchTests: XCTestCase {
                 expectation.2)
         }
     }
-    
+
     func testDeletionsFirst() {
-        
+
         let deletionsFirst = [
             ("kitten", "sitting", "D(0)D(3)I(0,s)I(4,i)I(6,g)"),
             ("🐩itt🍨ng", "kitten", "D(0)D(3)D(4)I(0,k)I(4,e)"),
@@ -86,9 +86,9 @@ class PatchTests: XCTestCase {
             ("1234", "1234", ""),
             ("", "", ""),
             ("Oh Hi", "Hi Oh", "D(0)D(0)D(0)I(2, )I(3,O)I(4,h)"),
-            ("1362", "31526", "D(0)D(1)I(1,1)I(2,5)I(4,6)")
+            ("1362", "31526", "D(0)D(1)I(1,1)I(2,5)I(4,6)"),
         ]
-        
+
         let deletionsFirstSort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
@@ -102,7 +102,7 @@ class PatchTests: XCTestCase {
             default: fatalError()
             }
         }
-        
+
         for expectation in deletionsFirst {
             XCTAssertEqual(
                 _test(
@@ -112,16 +112,16 @@ class PatchTests: XCTestCase {
                 expectation.2)
         }
     }
-    
+
     func testRandomStringPermutationRandomPatchSort() {
-        
+
         let sort = { (element1: Diff.Element, element2: Diff.Element) -> Bool in
             return arc4random_uniform(2) == 0
         }
-        for _ in 0..<200 {
+        for _ in 0 ..< 200 {
             let randomString = randomAlphaNumericString(length: 30)
             let permutation = randomAlphaNumericString(length: 30)
-            let patch = randomString.diff(to: permutation).patch(from: randomString.characters, to: permutation.characters, sort:sort)
+            let patch = randomString.diff(to: permutation).patch(from: randomString.characters, to: permutation.characters, sort: sort)
             let result = randomString.apply(patch)
             XCTAssertEqual(result, permutation)
         }
@@ -129,18 +129,18 @@ class PatchTests: XCTestCase {
 }
 
 func randomAlphaNumericString(length: Int) -> String {
-    
+
     let allowedChars = "abcdefghijklmnopqrstu"
     let allowedCharsCount = UInt32(allowedChars.characters.count)
     var randomString = ""
-    
-    for _ in 0..<length {
+
+    for _ in 0 ..< length {
         let randomNum = Int(arc4random_uniform(allowedCharsCount))
         let randomIndex = allowedChars.index(allowedChars.startIndex, offsetBy: randomNum)
         let newCharacter = allowedChars[randomIndex]
         randomString += String(newCharacter)
     }
-    
+
     return randomString
 }
 
@@ -152,16 +152,13 @@ func _test(
     sortingFunction: SortingFunction? = nil) -> String {
     if let sort = sortingFunction {
         return patch(
-                from: from.characters,
-                to: to.characters,
-                sort: sort)
+            from: from.characters,
+            to: to.characters,
+            sort: sort)
             .reduce("") { $0 + $1.debugDescription }
     }
     return patch(
-            from: from.characters,
-            to: to.characters)
+        from: from.characters,
+        to: to.characters)
         .reduce("") { $0 + $1.debugDescription }
 }
-
-
-

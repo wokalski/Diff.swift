@@ -19,7 +19,7 @@ enum EdgeType {
 func edgeType<T>(from: DoublyLinkedList<SortedPatchElement<T>>, to: DoublyLinkedList<SortedPatchElement<T>>) -> EdgeType {
     let fromIndex = from.value.sortedIndex
     let toIndex = to.value.sortedIndex
-    
+
     if fromIndex == toIndex {
         return .cycle
     } else if abs(fromIndex - toIndex) == 1 {
@@ -41,7 +41,7 @@ func shiftPatchElement<T>(node: DoublyLinkedList<SortedPatchElement<T>>) {
         shiftPatchElement(from: nextFrom, to: node)
         from = nextFrom.previous
     }
-    
+
     if let next = node.next {
         shiftPatchElement(node: next)
     }
@@ -71,6 +71,7 @@ extension SortedPatchElement {
             sourceIndex: sourceIndex,
             sortedIndex: sortedIndex)
     }
+
     func decremented() -> SortedPatchElement {
         return SortedPatchElement(
             value: value.decremented(),
@@ -80,15 +81,15 @@ extension SortedPatchElement {
 }
 
 extension Patch {
-    
+
     func incremented() -> Patch {
         return shiftedIndex(by: 1)
     }
-    
+
     func decremented() -> Patch {
         return shiftedIndex(by: -1)
     }
-    
+
     func shiftedIndex(by n: Int) -> Patch {
         switch self {
         case let .insertion(index, element):
@@ -100,15 +101,15 @@ extension Patch {
 }
 
 func shiftedPatchElements<T>(from sortedPatchElements: [SortedPatchElement<T>]) -> [SortedPatchElement<T>] {
-        let linkedList = DoublyLinkedList(linkedList: LinkedList(array: sortedPatchElements))
-        if let secondElement = linkedList?.next {
-            shiftPatchElement(node: secondElement)
-        }
-        
-        guard let result = linkedList?.array().sorted(by: { (fst, second) -> Bool in
-            return fst.sortedIndex < second.sortedIndex
-        }) else {
-            return []
-        }
-        return result
+    let linkedList = DoublyLinkedList(linkedList: LinkedList(array: sortedPatchElements))
+    if let secondElement = linkedList?.next {
+        shiftPatchElement(node: secondElement)
+    }
+
+    guard let result = linkedList?.array().sorted(by: { (fst, second) -> Bool in
+        return fst.sortedIndex < second.sortedIndex
+    }) else {
+        return []
+    }
+    return result
 }

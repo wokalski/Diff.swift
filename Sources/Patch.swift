@@ -6,7 +6,7 @@ public enum Patch<Element> {
     case insertion(index: Int, element: Element)
     /// A single patch step containing a deletion index
     case deletion(index: Int)
-    
+
     func index() -> Int {
         switch self {
         case let .insertion(index, _):
@@ -18,10 +18,10 @@ public enum Patch<Element> {
 }
 
 public extension Diff {
-    
+
     /**
      Generates a patch sequence based on a diff. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
-     
+
      - parameter from: The source collection (usually the source collecetion of the callee)
      - parameter to: The target collection (usually the target collecetion of the callee)
      - complexity: O(N)
@@ -30,13 +30,13 @@ public extension Diff {
     public func patch<T: Collection>(
         from: T,
         to: T
-        ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element: Equatable {
         var shift = 0
         return map { element in
             switch element {
             case let .delete(at):
                 shift -= 1
-                return .deletion(index: at+shift+1)
+                return .deletion(index: at + shift + 1)
             case let .insert(at):
                 shift += 1
                 return .insertion(index: at, element: to.itemOnStartIndex(advancedBy: at))
@@ -46,17 +46,17 @@ public extension Diff {
 }
 
 /**
-    Generates a patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
- 
-    - parameter from: The source collection
-    - parameter to: The target collection
-    - complexity: O((N+M)*D)
-    - returns: A sequence of steps to obtain `to` collection from the `from` one.
+ Generates a patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
+
+ - parameter from: The source collection
+ - parameter to: The target collection
+ - complexity: O((N+M)*D)
+ - returns: A sequence of steps to obtain `to` collection from the `from` one.
  */
 public func patch<T: Collection>(
     from: T,
     to: T
-    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element : Equatable {
+) -> [Patch<T.Iterator.Element>] where T.Iterator.Element: Equatable {
     return from.diff(to).patch(from: from, to: to)
 }
 

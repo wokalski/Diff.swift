@@ -21,4 +21,3 @@ print(" same    |   \(diff.same)   |")
 print(" created |   \(diff.created)   |")
 print(" deleted |   \(diff.deleted)   |")
 print(" diff    |   \(diff.changed)   |")
-

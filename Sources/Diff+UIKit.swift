@@ -5,7 +5,7 @@ struct BatchUpdate {
     let deletions: [IndexPath]
     let insertions: [IndexPath]
     let moves: [(from: IndexPath, to: IndexPath)]
-    
+
     init(diff: ExtendedDiff) {
         deletions = diff.flatMap { element -> IndexPath? in
             switch element {
@@ -32,7 +32,7 @@ struct BatchUpdate {
 }
 
 public extension UITableView {
-    
+
     /// Animates rows which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
@@ -44,7 +44,7 @@ public extension UITableView {
         newData: T,
         deletionAnimation: UITableViewRowAnimation = .automatic,
         insertionAnimation: UITableViewRowAnimation = .automatic
-        ) where T.Iterator.Element: Equatable {
+    ) where T.Iterator.Element: Equatable {
         let update = BatchUpdate(diff: oldData.extendedDiff(newData))
         beginUpdates()
         deleteRows(at: update.deletions, with: deletionAnimation)
@@ -55,7 +55,7 @@ public extension UITableView {
 }
 
 public extension UICollectionView {
-    
+
     /// Animates items which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
@@ -63,12 +63,12 @@ public extension UICollectionView {
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T
-        ) where T.Iterator.Element: Equatable {
-            performBatchUpdates({
-                let update = BatchUpdate(diff: oldData.extendedDiff(newData))
-                self.deleteItems(at: update.deletions)
-                self.insertItems(at: update.insertions)
-                update.moves.forEach { self.moveItem(at: $0.from, to: $0.to) }
-            }, completion: nil)
+    ) where T.Iterator.Element: Equatable {
+        performBatchUpdates({
+            let update = BatchUpdate(diff: oldData.extendedDiff(newData))
+            self.deleteItems(at: update.deletions)
+            self.insertItems(at: update.insertions)
+            update.moves.forEach { self.moveItem(at: $0.from, to: $0.to) }
+        }, completion: nil)
     }
 }
