@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C907E8781DE41D310020943C"
+               BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
                BuildableName = "Diff.framework"
-               BlueprintName = "Diff-watchOS"
+               BlueprintName = "Diff"
                ReferencedContainer = "container:Diff.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C907E8781DE41D310020943C"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
             BuildableName = "Diff.framework"
-            BlueprintName = "Diff-watchOS"
+            BlueprintName = "Diff"
             ReferencedContainer = "container:Diff.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C907E8781DE41D310020943C"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
             BuildableName = "Diff.framework"
-            BlueprintName = "Diff-watchOS"
+            BlueprintName = "Diff"
             ReferencedContainer = "container:Diff.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,9 +83,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C907E8781DE41D310020943C"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
             BuildableName = "Diff.framework"
-            BlueprintName = "Diff-watchOS"
+            BlueprintName = "Diff"
             ReferencedContainer = "container:Diff.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

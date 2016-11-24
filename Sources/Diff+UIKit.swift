@@ -1,3 +1,4 @@
+#if !os(macOS) && !os(watchOS)
 
 import UIKit
 
@@ -72,3 +73,5 @@ public extension UICollectionView {
         }, completion: nil)
     }
 }
+
+#endif
