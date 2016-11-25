@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900E03AA1DE7DE6E0033A799 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9278AD01DE323F6009CE846 /* Diff.framework */; };
 		C9278AB61DE31362009CE846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB51DE31362009CE846 /* AppDelegate.swift */; };
 		C9278AB81DE31362009CE846 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB71DE31362009CE846 /* MasterViewController.swift */; };
 		C9278ABD1DE31362009CE846 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9278ABB1DE31362009CE846 /* Main.storyboard */; };
 		C9278ABF1DE31362009CE846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9278ABE1DE31362009CE846 /* Assets.xcassets */; };
 		C9278AC21DE31362009CE846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9278AC01DE31362009CE846 /* LaunchScreen.storyboard */; };
-		C9278ADB1DE324BC009CE846 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9278AD01DE323F6009CE846 /* Diff.framework */; };
 		C9278ADC1DE324D0009CE846 /* Diff.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9278AD01DE323F6009CE846 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -23,13 +23,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = C9EE87161CCFCA83006BD90E;
 			remoteInfo = "Diff-iOS";
-		};
-		C9278AD11DE323F6009CE846 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9278AC91DE323F6009CE846 /* Diff.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C9EE872D1CCFCB33006BD90E;
-			remoteInfo = "Diff-Mac";
 		};
 		C9278AD31DE323F6009CE846 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -69,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9278ADB1DE324BC009CE846 /* Diff.framework in Frameworks */,
+				900E03AA1DE7DE6E0033A799 /* Diff.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				C9278AD01DE323F6009CE846 /* Diff.framework */,
-				C9278AD21DE323F6009CE846 /* Diff.framework */,
 				C9278AD41DE323F6009CE846 /* DiffTests.xctest */,
 			);
 			name = Products;
@@ -184,13 +176,6 @@
 			fileType = wrapper.framework;
 			path = Diff.framework;
 			remoteRef = C9278ACF1DE323F6009CE846 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C9278AD21DE323F6009CE846 /* Diff.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Diff.framework;
-			remoteRef = C9278AD11DE323F6009CE846 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C9278AD41DE323F6009CE846 /* DiffTests.xctest */ = {

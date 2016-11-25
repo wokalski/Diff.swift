@@ -14,13 +14,13 @@ func performDiff(_ fromFilePath: String, toFilePath: String, repeatCount: Int = 
     let new = file(toFilePath)
     let compare: ([Character], [Character]) -> String = { a, b in
         var time: CFTimeInterval = 0
-        for _ in 0..<repeatCount {
+        for _ in 0 ..< repeatCount {
             time += measure({ diffFunc(a, b) })
         }
         time = time / CFTimeInterval(repeatCount)
         return (NSString(format: "%.4f", time) as String)
     }
-    
+
     return (compare([], old),
             compare(old, []),
             compare(old, old),
@@ -43,7 +43,6 @@ func measure(_ f: () -> Void) -> CFTimeInterval {
 
 func file(_ path: String) -> [Character] {
     return try! Array(String(contentsOfFile: path).characters)
-    
 }
 
 func diffSwift(_ a: [Character], b: [Character]) {
@@ -68,4 +67,3 @@ func launchPath() -> String {
 func proccessPath() -> String {
     return currentDirectoryPath().appending(launchPath())
 }
-

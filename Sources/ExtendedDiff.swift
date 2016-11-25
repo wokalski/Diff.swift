@@ -1,20 +1,20 @@
 
 /**
-    A sequence of deletions, insertions, and moves where deletions point to locations in the source and insertions point to locations in the output.
-    Examples:
-        "12" -> "": D(0)D(1)
-        "" -> "12": I(0)I(1)
-    
-    SeeAlso: Diff
-*/
+ A sequence of deletions, insertions, and moves where deletions point to locations in the source and insertions point to locations in the output.
+ Examples:
+ "12" -> "": D(0)D(1)
+ "" -> "12": I(0)I(1)
+
+ SeeAlso: Diff
+ */
 public struct ExtendedDiff: DiffProtocol {
-    
+
     public enum Element {
         case insert(at: Int)
         case delete(at: Int)
         case move(from: Int, to: Int)
     }
-    
+
     /// Returns the position immediately after the given index.
     ///
     /// - Parameter i: A valid index of the collection. `i` must be less than
@@ -23,16 +23,14 @@ public struct ExtendedDiff: DiffProtocol {
     public func index(after i: Int) -> Int {
         return i + 1
     }
-    
-    
+
     /// Diff used to compute an instance
     public let source: Diff
     /// An array which holds indices of diff elements in the source diff (i.e. diff without moves).
     let sourceIndex: [Int]
     /// An array which holds indices of diff elements in a diff where move's subelements (deletion and insertion) are ordered accordingly
     let reorderedIndex: [Int]
-    
-    
+
     /// An array of particular diff operations
     public let elements: [ExtendedDiff.Element]
     let moveIndices: Set<Int>
@@ -49,9 +47,8 @@ extension ExtendedDiff.Element {
     }
 }
 
-public extension Collection where Iterator.Element : Equatable {
+public extension Collection where Iterator.Element: Equatable {
 
-    
     /// Creates an extended diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
@@ -60,19 +57,17 @@ public extension Collection where Iterator.Element : Equatable {
     public func extendedDiff(_ other: Self) -> ExtendedDiff {
         return extendedDiffFrom(diff(other), other: other)
     }
-    
+
     private func extendedDiffFrom(_ diff: Diff, other: Self) -> ExtendedDiff {
-        
-        
+
         var elements: [ExtendedDiff.Element] = []
         var moveOriginIndices = Set<Int>()
         var moveTargetIndices = Set<Int>()
         // It maps indices after reordering (e.g. bringing move origin and target next to each other in the output) to their positions in the source Diff
         var sourceIndex = [Int]()
-        
-        
+
         // Complexity O(d^2) where d is the length of the diff
-        
+
         /*
          * 1. Iterate all objects
          * 2. For every iteration find the next matching element
@@ -85,7 +80,7 @@ public extension Collection where Iterator.Element : Equatable {
          * 4. Remove the candidate and match and insert the move in the place of the candidate
          *
          */
-        
+
         for candidateIndex in diff.indices {
             if !moveTargetIndices.contains(candidateIndex) && !moveOriginIndices.contains(candidateIndex) {
                 let candidate = diff[candidateIndex]
@@ -113,9 +108,9 @@ public extension Collection where Iterator.Element : Equatable {
                 }
             }
         }
-        
+
         let reorderedIndices = flip(array: sourceIndex)
-        
+
         return ExtendedDiff(
             source: diff,
             sourceIndex: sourceIndex,
@@ -124,14 +119,14 @@ public extension Collection where Iterator.Element : Equatable {
             moveIndices: moveOriginIndices
         )
     }
-    
+
     func firstMatch(
         _ diff: Diff,
         dirtyIndices: Set<Diff.Index>,
         candidate: Diff.Element,
         candidateIndex: Diff.Index,
         other: Self) -> (ExtendedDiff.Element, Diff.Index)? {
-        for matchIndex in (candidateIndex + 1)..<diff.endIndex {
+        for matchIndex in (candidateIndex + 1) ..< diff.endIndex {
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
                 if let move = createMatch(candidate, match: match, other: other) {
@@ -141,7 +136,7 @@ public extension Collection where Iterator.Element : Equatable {
         }
         return nil
     }
-    
+
     func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self) -> ExtendedDiff.Element? {
         switch (candidate, match) {
         case (.delete, .insert):
@@ -156,7 +151,7 @@ public extension Collection where Iterator.Element : Equatable {
         }
         return nil
     }
-    
+
     func itemOnStartIndex(advancedBy n: Int) -> Iterator.Element {
         return self[self.index(startIndex, offsetBy: IndexDistance(n.toIntMax()))]
     }

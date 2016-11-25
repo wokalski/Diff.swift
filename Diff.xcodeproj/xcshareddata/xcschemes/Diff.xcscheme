@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C907E8781DE41D310020943C"
+               BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
                BuildableName = "Diff.framework"
-               BlueprintName = "Diff-watchOS"
+               BlueprintName = "Diff"
                ReferencedContainer = "container:Diff.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,9 +26,29 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9838FF01D29571000691BE8"
+               BuildableName = "DiffTests.xctest"
+               BlueprintName = "DiffTests"
+               ReferencedContainer = "container:Diff.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
+            BuildableName = "Diff.framework"
+            BlueprintName = "Diff"
+            ReferencedContainer = "container:Diff.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,9 +65,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C907E8781DE41D310020943C"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
             BuildableName = "Diff.framework"
-            BlueprintName = "Diff-watchOS"
+            BlueprintName = "Diff"
             ReferencedContainer = "container:Diff.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +83,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C907E8781DE41D310020943C"
+            BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
             BuildableName = "Diff.framework"
-            BlueprintName = "Diff-watchOS"
+            BlueprintName = "Diff"
             ReferencedContainer = "container:Diff.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

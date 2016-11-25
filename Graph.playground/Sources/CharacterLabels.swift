@@ -12,14 +12,14 @@ public extension String {
     func length() -> Int {
         return lengthOfBytes(using: String.Encoding.utf8)
     }
-    
+
     func characterLabels(withFrames frames: [CGRect]) -> [UILabel] {
         let characters = self.characters
-        
+
         guard characters.count == frames.count else {
             return []
         }
-        
+
         let labels = characters.map { $0.label() }
         let sizes = labels.map { $0.frame.size }
         let frames = inset(rects: frames, to: sizes)
@@ -38,7 +38,7 @@ extension Character {
     }
 }
 
-func inset(rects:[CGRect], to: [CGSize]) -> [CGRect] {
+func inset(rects: [CGRect], to: [CGSize]) -> [CGRect] {
     return zip(to, rects).map { size, rect -> CGRect in
         return rect.inset(to: size)
     }
@@ -46,6 +46,6 @@ func inset(rects:[CGRect], to: [CGSize]) -> [CGRect] {
 
 extension CGRect {
     func inset(to size: CGSize) -> CGRect {
-        return self.insetBy(dx: (self.width-size.width)/2, dy: (self.height-size.height)/2).standardized
+        return self.insetBy(dx: (self.width - size.width) / 2, dy: (self.height - size.height) / 2).standardized
     }
 }
