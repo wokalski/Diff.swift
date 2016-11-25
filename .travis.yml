@@ -1,6 +1,10 @@
 osx_image: xcode8.2
 language: objective-c
 
+branches:
+  only: 
+    - master
+
 before_install:
     - gem install cocoapods # Since Travis is not always on latest version
     - gem install xcpretty
