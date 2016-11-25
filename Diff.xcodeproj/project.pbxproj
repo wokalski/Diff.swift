@@ -28,6 +28,7 @@
 /* Begin PBXFileReference section */
 		900E039F1DE7C3370033A799 /* Universal-Framework-Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Framework-Target.xcconfig"; sourceTree = "<group>"; };
 		900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Target-Base.xcconfig"; sourceTree = "<group>"; };
+		900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
 		C92178BB1CD0023E004642C7 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Diff.h; path = Framework/Diff.h; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Framework/Info.plist; sourceTree = "<group>"; };
 		C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		900E039E1DE7C3370033A799 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */,
 				900E039F1DE7C3370033A799 /* Universal-Framework-Target.xcconfig */,
 				900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */,
 			);
@@ -273,6 +275,7 @@
 		};
 		C9EE871C1CCFCA83006BD90E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -311,23 +314,20 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.Diff;
 				PRODUCT_NAME = Diff;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
 		C9EE871D1CCFCA83006BD90E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -361,18 +361,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.Diff;
 				PRODUCT_NAME = Diff;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};

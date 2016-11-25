@@ -16,6 +16,3 @@ LD_RUNPATH_SEARCH_PATHS[sdk=watchsimulator*]   = $(inherited) '@executable_path/
 LD_RUNPATH_SEARCH_PATHS[sdk=appletvos*]        = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 LD_RUNPATH_SEARCH_PATHS[sdk=appletvsimulator*] = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 
-IPHONEOS_DEPLOYMENT_TARGET = 8.0
-MACOSX_DEPLOYMENT_TARGET = 10.11
-TVOS_DEPLOYMENT_TARGET = 9.0
