@@ -258,8 +258,6 @@
 			baseConfigurationReference = 900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = DiffTests/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -268,8 +266,6 @@
 			baseConfigurationReference = 900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = DiffTests/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wczekalski.DiffTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -315,8 +311,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.Diff;
-				PRODUCT_NAME = Diff;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wokalski.$(TARGET_NAME:c99-identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -361,8 +357,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wokalski.Diff;
-				PRODUCT_NAME = Diff;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wokalski.$(TARGET_NAME:c99-identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
