@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/wokalski/Diff.swift.svg?branch=master)](https://travis-ci.org/wokalski/Diff.swift)
+[![codecov](https://codecov.io/gh/wokalski/Diff.swift/branch/master/graph/badge.svg)](https://codecov.io/gh/wokalski/Diff.swift)
+
 
 # Diff.swift
 
