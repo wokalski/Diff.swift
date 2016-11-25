@@ -51,6 +51,6 @@ script:
     - if [ $RUN_TESTS != "YES" ]; then xcodebuild clean build -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO | xcpretty -c; fi
 
     - swift build
-
 after_success:
    - bash <(curl -s https://codecov.io/bash)
+   - sleep 5 # Workaround for https://github.com/travis-ci/travis-ci/issues/4725
