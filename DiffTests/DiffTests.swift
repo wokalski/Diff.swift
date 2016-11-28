@@ -86,6 +86,11 @@ class DiffTests: XCTestCase {
         }
     }
 
+    func testSingleElementArray() {
+        let changes = "a".diff(to: "a")
+        XCTAssertEqual(changes.elements.count, 0)
+    }
+
     func duplicateTraces(from: String, to: String) -> Bool {
         let traces = from.characters.diffTraces(to: to.characters)
         let tracesSet = Set(traces)

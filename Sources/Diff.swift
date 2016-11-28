@@ -294,13 +294,15 @@ public extension Collection where Iterator.Element: Equatable {
         var item = traces.last!
         array.append(item)
 
-        for trace in traces.reversed() {
-            if trace.to.x == item.from.x && trace.to.y == item.from.y {
-                array.insert(trace, at: 0)
-                item = trace
+        if item.from != Point(x: 0, y: 0) {
+            for trace in traces.reversed() {
+                if trace.to.x == item.from.x && trace.to.y == item.from.y {
+                    array.insert(trace, at: 0)
+                    item = trace
 
-                if trace.from == Point(x: 0, y: 0) {
-                    break
+                    if trace.from == Point(x: 0, y: 0) {
+                        break
+                    }
                 }
             }
         }
