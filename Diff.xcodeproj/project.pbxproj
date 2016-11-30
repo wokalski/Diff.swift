@@ -200,6 +200,7 @@
 					};
 					C9EE87151CCFCA83006BD90E = {
 						CreatedOnToolsVersion = 7.3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
