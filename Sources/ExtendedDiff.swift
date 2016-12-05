@@ -171,7 +171,7 @@ extension ExtendedDiff.Element: CustomDebugStringConvertible {
         case let .insert(at):
             return "I(\(at))"
         case let .move(from, to):
-            return "M(\(from)\(to))"
+            return "M(\(from),\(to))"
         }
     }
 }
