@@ -63,14 +63,15 @@ public extension UICollectionView {
     /// - parameter newData:            Data which reflects the current state of UITableView
     public func animateItemChanges<T: Collection>(
         oldData: T,
-        newData: T
+        newData: T,
+        completion: ((Bool) -> Void)? = nil
     ) where T.Iterator.Element: Equatable {
         performBatchUpdates({
             let update = BatchUpdate(diff: oldData.extendedDiff(newData))
             self.deleteItems(at: update.deletions)
             self.insertItems(at: update.insertions)
             update.moves.forEach { self.moveItem(at: $0.from, to: $0.to) }
-        }, completion: nil)
+        }, completion: completion)
     }
 }
 
