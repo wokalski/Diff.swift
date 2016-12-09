@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		900E03A41DE7C6C60033A799 /* Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		900E03A51DE7C6D60033A799 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE87161CCFCA83006BD90E /* Diff.framework */; };
+		C90CD7171DFB368200BE9114 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7161DFB368200BE9114 /* NestedDiff.swift */; };
+		C90CD7191DFB43C600BE9114 /* NestedDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */; };
 		C9278ADE1DE32B88009CE846 /* Diff+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */; };
 		C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */; };
 		C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9838FF31D29571000691BE8 /* DiffTests.swift */; };
@@ -29,6 +31,8 @@
 		900E039F1DE7C3370033A799 /* Universal-Framework-Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Framework-Target.xcconfig"; sourceTree = "<group>"; };
 		900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Target-Base.xcconfig"; sourceTree = "<group>"; };
 		900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
+		C90CD7161DFB368200BE9114 /* NestedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
+		C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiffTests.swift; sourceTree = "<group>"; };
 		C92178BB1CD0023E004642C7 /* Diff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Diff.h; path = Framework/Diff.h; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Framework/Info.plist; sourceTree = "<group>"; };
 		C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 				C991189D1DDB4F1100067A60 /* PatchApplyTests.swift */,
 				C99118AB1DDDAD6E00067A60 /* ExtendedPatchSortTests.swift */,
 				C9838FF31D29571000691BE8 /* DiffTests.swift */,
+				C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */,
 				C9838FF51D29571000691BE8 /* Info.plist */,
 			);
 			path = DiffTests;
@@ -116,6 +121,7 @@
 			children = (
 				C9EE87821CCFFB68006BD90E /* Diff.swift */,
 				C9B03FBF1DE1CA7500BC6F2A /* ExtendedDiff.swift */,
+				C90CD7161DFB368200BE9114 /* NestedDiff.swift */,
 				C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */,
 				C9EE87831CCFFB68006BD90E /* Patch.swift */,
 				C99118971DDB4C3000067A60 /* Patch+Sort.swift */,
@@ -231,6 +237,7 @@
 				C9C9247A1DBB97130006ACC4 /* PatchSortTests.swift in Sources */,
 				C9838FF41D29571000691BE8 /* DiffTests.swift in Sources */,
 				C99118AC1DDDAD6E00067A60 /* ExtendedPatchSortTests.swift in Sources */,
+				C90CD7191DFB43C600BE9114 /* NestedDiffTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +255,7 @@
 				C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
 				C99118B01DDDB02D00067A60 /* ExtendedPatch.swift in Sources */,
+				C90CD7171DFB368200BE9114 /* NestedDiff.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

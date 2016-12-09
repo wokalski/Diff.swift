@@ -2,7 +2,6 @@
 public protocol DiffProtocol: Collection, Sequence {
 
     associatedtype DiffElementType
-    associatedtype Index = Array<DiffElementType>.Index
 
     var elements: [DiffElementType] { get }
 }
