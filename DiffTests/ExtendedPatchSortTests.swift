@@ -62,8 +62,8 @@ class ExtendedPatchSortTests: XCTestCase {
                 return true
             case (.insert, _):
                 return false
-						case (.move, .insert):
-							return true
+            case (.move, .insert):
+                return true
             case (.move, _):
                 return false
             }
