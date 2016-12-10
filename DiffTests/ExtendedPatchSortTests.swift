@@ -53,6 +53,7 @@ class ExtendedPatchSortTests: XCTestCase {
         let expectations = [
             ("gitten", "sitting", "D(4)M(0,4)I(0,s)I(4,i)"),
             ("1362", "31526", "M(0,2)M(1,3)I(2,5)"),
+            ("12345", "54321suvx", "M(0,4)M(0,3)M(0,2)M(0,1)I(5,s)I(6,u)I(7,v)I(8,x)")
         ]
 
         let sort: ExtendedSortingFunction = { fst, snd in

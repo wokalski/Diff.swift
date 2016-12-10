@@ -80,9 +80,7 @@ class DiffTests: XCTestCase {
 
     func testTracesOutOfBounds() {
         for expectation in expectations {
-            if tracesOutOfBounds(from: expectation.0, to: expectation.1) != [] {
-                XCTFail("traces out of bounds for \(expectation.0) -> \(expectation.1)")
-            }
+					XCTAssertEqual(tracesOutOfBounds(from: expectation.0, to: expectation.1), [], "traces out of bounds for \(expectation.0) -> \(expectation.1)")
         }
     }
 

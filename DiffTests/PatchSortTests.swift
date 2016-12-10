@@ -51,13 +51,12 @@ class PatchTests: XCTestCase {
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
                 return at1 < at2
-            case (.insert, .delete):
+            case (.insert(_), .delete(_)):
                 return true
-            case (.delete, .insert):
+            case (.delete(_), .insert(_)):
                 return false
             case (.delete(let at1), .delete(let at2)):
                 return at1 < at2
-            default: fatalError()
             }
         }
 
@@ -93,13 +92,12 @@ class PatchTests: XCTestCase {
             switch (element1, element2) {
             case (.insert(let at1), .insert(let at2)):
                 return at1 < at2
-            case (.insert, .delete):
+            case (.insert(_), .delete(_)):
                 return false
-            case (.delete, .insert):
+            case (.delete(_), .insert(_)):
                 return true
             case (.delete(let at1), .delete(let at2)):
                 return at1 < at2
-            default: fatalError()
             }
         }
 
