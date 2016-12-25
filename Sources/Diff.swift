@@ -159,7 +159,10 @@ public extension Collection where Iterator.Element: Equatable {
     /// - complexity: O((N+M)*D)
     /// - returns: a Diff between the calee and `other` collection
     public func diff(_ other: Self) -> Diff {
-        return findPath(diffTraces(to: other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
+        let diffPath = outputDiffPathTraces(to: other)
+        return  Diff(elements: diffPath
+            .flatMap { Diff.Element(trace: $0) }
+        )
     }
 
     /// Generates all traces required to create an output diff. See the [paper](http://www.xmailserver.org/diff2.pdf) for more information on traces.
@@ -178,7 +181,15 @@ public extension Collection where Iterator.Element: Equatable {
             return myersDiffTraces(to: to)
         }
     }
-
+    
+    public func outputDiffPathTraces(to: Self) -> [Trace] {
+        return findPath(
+            diffTraces(to: to),
+            n: Int(self.count.toIntMax()),
+            m: Int(to.count.toIntMax())
+        )
+    }
+    
     fileprivate func tracesForDeletions() -> [Trace] {
         var traces = [Trace]()
         for index in 0 ..< self.count.toIntMax() {
@@ -283,10 +294,10 @@ public extension Collection where Iterator.Element: Equatable {
         }
     }
 
-    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> Diff {
+    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> [Trace] {
 
         guard traces.count > 0 else {
-            return Diff(elements: [])
+            return []
         }
 
         var array = [Trace]()
@@ -305,10 +316,7 @@ public extension Collection where Iterator.Element: Equatable {
                 }
             }
         }
-
-        return Diff(elements: array
-            .flatMap { Diff.Element(trace: $0) }
-        )
+        return array
     }
 }
 
@@ -326,6 +334,12 @@ extension DiffProtocol {
 
     public subscript(i: IndexType) -> DiffElementType {
         return elements[i]
+    }
+}
+
+extension Diff {
+    init(traces: [Trace]) {
+        elements = traces.flatMap { Diff.Element(trace: $0) }
     }
 }
 

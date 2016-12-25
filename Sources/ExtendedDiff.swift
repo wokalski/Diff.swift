@@ -151,7 +151,9 @@ public extension Collection where Iterator.Element: Equatable {
         }
         return nil
     }
+}
 
+extension Collection {
     func itemOnStartIndex(advancedBy n: Int) -> Iterator.Element {
         return self[self.index(startIndex, offsetBy: IndexDistance(n.toIntMax()))]
     }
