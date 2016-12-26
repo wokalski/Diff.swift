@@ -21,20 +21,28 @@ public struct NestedDiff: DiffProtocol {
 }
 
 public extension Collection
-    where Iterator.Element: Collection,
-    Iterator.Element: Equatable,
-    Iterator.Element.Iterator.Element: Equatable {
-    func nestedDiff(to: Self) -> NestedDiff {
-
-        let diffTraces = outputDiffPathTraces(to: to)
+    where Iterator.Element: Collection {
+    
+    typealias ElementEqualityChecker = (Iterator.Element.Iterator.Element, Iterator.Element.Iterator.Element) -> Bool
+    
+    /// Creates a diff between the callee and `other` collection. It diffs elements two levels deep (therefore "nested")
+    ///
+    /// - parameter other: a collection to compare the calee to
+    /// - returns: a `NestedDiff` between the calee and `other` collection
+    public func nestedDiff(
+        to: Self,
+        isEqualSection: EqualityChecker,
+        isEqualElement: ElementEqualityChecker
+        ) -> NestedDiff {
+        let diffTraces = outputDiffPathTraces(to: to, isEqual: isEqualSection)
         
         // Diff sections
         let sectionDiff = Diff(traces: diffTraces).map { element -> NestedDiff.Element in
             switch(element) {
-                case let .delete(at):
-                    return .deleteSection(at)
-                case let .insert(at):
-                    return .insertSection(at)
+            case let .delete(at):
+                return .deleteSection(at)
+            case let .insert(at):
+                return .insertSection(at)
             }
         }
         
@@ -61,7 +69,7 @@ public extension Collection
         
         let elementDiff = zip(zip(fromSections, toSections), matchingSectionTraces)
             .flatMap { sections, trace -> [NestedDiff.Element] in
-                return sections.0.diff(sections.1).map { diffElement -> NestedDiff.Element in
+                return sections.0.diff(sections.1, isEqual: isEqualElement).map { diffElement -> NestedDiff.Element in
                     switch diffElement {
                     case let .delete(at):
                         return .deleteRow(at, section: trace.from.x)
@@ -75,13 +83,52 @@ public extension Collection
     }
 }
 
-func sectionOffsets<T: Collection>(in array: Array<T>) -> [Int] {
-    return array
-        .flatMap { $0.count }
-        .dropLast()
-        .reduce([0]) { prev, item in
-            let prevCount = prev.last ?? 0
-            return prev + [(prevCount + Int(item.toIntMax()))]
+public extension Collection
+    where Iterator.Element: Collection,
+    Iterator.Element.Iterator.Element: Equatable {
+
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    public func nestedDiff(
+        to: Self,
+        isEqualSection: EqualityChecker
+        ) -> NestedDiff {
+        return nestedDiff(
+            to: to,
+            isEqualSection: isEqualSection,
+            isEqualElement: { $0 == $1 }
+        )
+    }
+}
+
+public extension Collection
+    where Iterator.Element: Collection,
+    Iterator.Element: Equatable {
+
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    public func nestedDiff(
+        to: Self,
+        isEqualElement: ElementEqualityChecker
+        ) -> NestedDiff {
+        return nestedDiff(
+            to: to,
+            isEqualSection: { $0 == $1 },
+            isEqualElement: isEqualElement
+        )
+    }
+}
+
+public extension Collection
+    where Iterator.Element: Collection,
+    Iterator.Element: Equatable,
+Iterator.Element.Iterator.Element: Equatable {
+    
+    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    public func nestedDiff(to: Self) -> NestedDiff {
+        return nestedDiff(
+            to: to,
+            isEqualSection: { $0 == $1 },
+            isEqualElement: { $0 == $1 }
+        )
     }
 }
 
@@ -95,6 +142,7 @@ extension NestedDiff.Element: CustomDebugStringConvertible {
         case let .insertRow(row, section):
             return "IR(\(row),\(section))"
         case let .insertSection(section):
-            return "IS(\(section))"        }
+            return "IS(\(section))"
+        }
     }
 }

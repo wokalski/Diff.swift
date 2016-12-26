@@ -47,18 +47,18 @@ extension ExtendedDiff.Element {
     }
 }
 
-public extension Collection where Iterator.Element: Equatable {
-
+public extension Collection {
+    
     /// Creates an extended diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
     /// - complexity: O((N+M)*D). There's additional cost of O(D^2) to compute the moves.
     /// - returns: ExtendedDiff between the calee and `other` collection
-    public func extendedDiff(_ other: Self) -> ExtendedDiff {
-        return extendedDiffFrom(diff(other), other: other)
+    public func extendedDiff(_ other: Self, isEqual: EqualityChecker) -> ExtendedDiff {
+        return extendedDiffFrom(diff(other, isEqual: isEqual), other: other, isEqual: isEqual)
     }
 
-    private func extendedDiffFrom(_ diff: Diff, other: Self) -> ExtendedDiff {
+    private func extendedDiffFrom(_ diff: Diff, other: Self, isEqual: EqualityChecker) -> ExtendedDiff {
 
         var elements: [ExtendedDiff.Element] = []
         var moveOriginIndices = Set<Int>()
@@ -84,7 +84,7 @@ public extension Collection where Iterator.Element: Equatable {
         for candidateIndex in diff.indices {
             if !moveTargetIndices.contains(candidateIndex) && !moveOriginIndices.contains(candidateIndex) {
                 let candidate = diff[candidateIndex]
-                let match = firstMatch(diff, dirtyIndices: moveTargetIndices.union(moveOriginIndices), candidate: candidate, candidateIndex: candidateIndex, other: other)
+                let match = firstMatch(diff, dirtyIndices: moveTargetIndices.union(moveOriginIndices), candidate: candidate, candidateIndex: candidateIndex, other: other, isEqual: isEqual)
                 if let match = match {
                     switch match.0 {
                     case .move(let from, _):
@@ -125,11 +125,13 @@ public extension Collection where Iterator.Element: Equatable {
         dirtyIndices: Set<Diff.Index>,
         candidate: Diff.Element,
         candidateIndex: Diff.Index,
-        other: Self) -> (ExtendedDiff.Element, Diff.Index)? {
+        other: Self,
+        isEqual: EqualityChecker
+        ) -> (ExtendedDiff.Element, Diff.Index)? {
         for matchIndex in (candidateIndex + 1) ..< diff.endIndex {
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
-                if let move = createMatch(candidate, match: match, other: other) {
+                if let move = createMatch(candidate, match: match, other: other, isEqual: isEqual) {
                     return (move, matchIndex)
                 }
             }
@@ -137,19 +139,27 @@ public extension Collection where Iterator.Element: Equatable {
         return nil
     }
 
-    func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self) -> ExtendedDiff.Element? {
+    func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self, isEqual: EqualityChecker) -> ExtendedDiff.Element? {
         switch (candidate, match) {
         case (.delete, .insert):
-            if itemOnStartIndex(advancedBy: candidate.at()) == other.itemOnStartIndex(advancedBy: match.at()) {
+            if isEqual(itemOnStartIndex(advancedBy: candidate.at()), other.itemOnStartIndex(advancedBy: match.at())) {
                 return .move(from: candidate.at(), to: match.at())
             }
         case (.insert, .delete):
-            if itemOnStartIndex(advancedBy: match.at()) == other.itemOnStartIndex(advancedBy: candidate.at()) {
+            if isEqual(itemOnStartIndex(advancedBy: match.at()), other.itemOnStartIndex(advancedBy: candidate.at())) {
                 return .move(from: match.at(), to: candidate.at())
             }
         default: return nil
         }
         return nil
+    }
+}
+
+public extension Collection where Iterator.Element: Equatable {
+    
+    /// - seealso: `extendedDiff(_:isEqual:)`
+    public func extendedDiff(_ other: Self) -> ExtendedDiff {
+        return extendedDiff(other, isEqual: { $0 == $1 })
     }
 }
 

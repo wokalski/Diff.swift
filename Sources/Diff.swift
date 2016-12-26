@@ -151,16 +151,25 @@ struct TraceStep {
     let nextX: Int?
 }
 
-public extension Collection where Iterator.Element: Equatable {
+public extension Collection {
 
+    typealias EqualityChecker = (Iterator.Element, Iterator.Element) -> Bool
+    
     /// Creates a diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
     /// - complexity: O((N+M)*D)
     /// - returns: a Diff between the calee and `other` collection
-    public func diff(_ other: Self) -> Diff {
-        let diffPath = outputDiffPathTraces(to: other)
-        return  Diff(elements: diffPath
+    public func diff(
+        _ other: Self,
+        isEqual: EqualityChecker
+        ) -> Diff {
+        let diffPath = outputDiffPathTraces(
+            to: other,
+            isEqual: isEqual
+        )
+        return  Diff(elements:
+            diffPath
             .flatMap { Diff.Element(trace: $0) }
         )
     }
@@ -170,7 +179,10 @@ public extension Collection where Iterator.Element: Equatable {
     /// - parameter to: other collection
     ///
     /// - returns: all traces required to create an output diff
-    public func diffTraces(to: Self) -> [Trace] {
+    public func diffTraces(
+        to: Self,
+        isEqual: EqualityChecker
+        ) -> [Trace] {
         if self.count == 0 && to.count == 0 {
             return []
         } else if self.count == 0 {
@@ -178,13 +190,17 @@ public extension Collection where Iterator.Element: Equatable {
         } else if to.count == 0 {
             return tracesForDeletions()
         } else {
-            return myersDiffTraces(to: to)
+            return myersDiffTraces(to: to, isEqual: isEqual)
         }
     }
     
-    public func outputDiffPathTraces(to: Self) -> [Trace] {
+    /// Returns the traces which mark the shortest diff path.
+    public func outputDiffPathTraces(
+        to: Self,
+        isEqual: EqualityChecker
+        ) -> [Trace] {
         return findPath(
-            diffTraces(to: to),
+            diffTraces(to: to, isEqual: isEqual),
             n: Int(self.count.toIntMax()),
             m: Int(to.count.toIntMax())
         )
@@ -208,7 +224,10 @@ public extension Collection where Iterator.Element: Equatable {
         return traces
     }
 
-    fileprivate func myersDiffTraces(to: Self) -> [Trace] {
+    fileprivate func myersDiffTraces(
+        to: Self,
+        isEqual: (Iterator.Element, Iterator.Element) -> Bool
+        ) -> [Trace] {
 
         let fromCount = Int(self.count.toIntMax())
         let toCount = Int(to.count.toIntMax())
@@ -235,7 +254,7 @@ public extension Collection where Iterator.Element: Equatable {
                     while x >= 0 && y >= 0 && x < fromCount && y < toCount {
                         let targetItem = to.itemOnStartIndex(advancedBy: y)
                         let baseItem = itemOnStartIndex(advancedBy: x)
-                        if baseItem == targetItem {
+                        if isEqual(baseItem, targetItem) {
                             x += 1
                             y += 1
                             traces.append(Trace(from: Point(x: x - 1, y: y - 1), to: Point(x: x, y: y), D: numberOfDifferences))
@@ -320,6 +339,31 @@ public extension Collection where Iterator.Element: Equatable {
     }
 }
 
+
+public extension Collection where Iterator.Element: Equatable {
+    
+    /// - seealso: `diff(_:isEqual:)`
+    public func diff(
+        _ other: Self
+        ) -> Diff {
+        return diff(other, isEqual: { $0 == $1 })
+    }
+    
+    /// - seealso: `diffTraces(to:isEqual:)`
+    public func diffTraces(
+        to: Self
+        ) -> [Trace] {
+        return diffTraces(to: to, isEqual: { $0 == $1 })
+    }
+    
+    /// - seealso: `outputDiffPathTraces(to:isEqual:)`
+    public func outputDiffPathTraces(
+        to: Self
+        ) -> [Trace] {
+        return outputDiffPathTraces(to: to, isEqual: { $0 == $1 })
+    }
+}
+
 extension DiffProtocol {
 
     public typealias IndexType = Array<DiffElementType>.Index
@@ -337,8 +381,8 @@ extension DiffProtocol {
     }
 }
 
-extension Diff {
-    init(traces: [Trace]) {
+public extension Diff {
+    public init(traces: [Trace]) {
         elements = traces.flatMap { Diff.Element(trace: $0) }
     }
 }
