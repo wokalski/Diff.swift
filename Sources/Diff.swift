@@ -151,9 +151,9 @@ struct TraceStep {
     let nextX: Int?
 }
 
-public extension Collection {
+public typealias EqualityChecker<T: Collection> = (T.Iterator.Element, T.Iterator.Element) -> Bool
 
-    typealias EqualityChecker = (Iterator.Element, Iterator.Element) -> Bool
+public extension Collection {
     
     /// Creates a diff between the calee and `other` collection
     ///
@@ -162,7 +162,7 @@ public extension Collection {
     /// - returns: a Diff between the calee and `other` collection
     public func diff(
         _ other: Self,
-        isEqual: EqualityChecker
+        isEqual: EqualityChecker<Self>
         ) -> Diff {
         let diffPath = outputDiffPathTraces(
             to: other,
@@ -181,7 +181,7 @@ public extension Collection {
     /// - returns: all traces required to create an output diff
     public func diffTraces(
         to: Self,
-        isEqual: EqualityChecker
+        isEqual: EqualityChecker<Self>
         ) -> [Trace] {
         if self.count == 0 && to.count == 0 {
             return []
@@ -197,7 +197,7 @@ public extension Collection {
     /// Returns the traces which mark the shortest diff path.
     public func outputDiffPathTraces(
         to: Self,
-        isEqual: EqualityChecker
+        isEqual: EqualityChecker<Self>
         ) -> [Trace] {
         return findPath(
             diffTraces(to: to, isEqual: isEqual),

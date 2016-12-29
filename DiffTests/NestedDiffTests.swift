@@ -59,7 +59,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [1], key: 0),
                     KeyedIntArray(elements: [], key: 1)
                 ],
-                "DR(0,0)IR(0,0)DR(0,1)"
+                "DE(0,0)IE(0,0)DE(0,1)"
             ),
             (
                 [
@@ -71,7 +71,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [1], key: 0),
                     KeyedIntArray(elements: [], key: 1)
                 ],
-                "DS(1)DR(0,0)IR(0,0)DR(0,2)"
+                "DS(1)DE(0,0)IE(0,0)DE(0,2)"
             ),
             (
                 [
@@ -83,7 +83,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [1], key: 0),
                     KeyedIntArray(elements: [], key: 1)
                 ],
-                "DS(1)DR(0,0)IR(0,0)DR(0,2)"
+                "DS(1)DE(0,0)IE(0,0)DE(0,2)"
             ),
             (
                 [
@@ -95,7 +95,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [2, 3], key: 0),
                     KeyedIntArray(elements: [1, 2], key: 1)
                 ],
-                "DS(1)IR(1,0)IR(1,1)"
+                "DS(1)IE(1,0)IE(1,1)"
             ),
             (
                 [
@@ -106,7 +106,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [2, 1], key: 0),
                     KeyedIntArray(elements: [], key: 1)
                 ],
-                "IR(1,0)DR(0,1)"
+                "IE(1,0)DE(0,1)"
             ),
             (
                 [
@@ -117,7 +117,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [2], key: 0),
                     KeyedIntArray(elements: [], key: 1)
                 ],
-                "IR(0,0)DR(0,1)DR(1,1)"
+                "IE(0,0)DE(0,1)DE(1,1)"
             ),
             (
                 [
@@ -128,7 +128,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [], key: 0),
                     KeyedIntArray(elements: [1], key: 1)
                 ],
-                "DR(0,0)DR(1,0)IR(0,1)"
+                "DE(0,0)DE(1,0)IE(0,1)"
             ),
             (
                 [
@@ -141,7 +141,7 @@ class NestedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [], key: 1),
                     KeyedIntArray(elements: [], key: 2)
                 ],
-                "IR(0,0)IR(1,0)DR(0,1)DR(0,2)"
+                "IE(0,0)IE(1,0)DE(0,1)DE(0,2)"
             ),
             
         ]
@@ -171,7 +171,7 @@ class NestedDiffTests: XCTestCase {
             (
                 [[1, 2], [1, 4]],
                 [[5, 2], [10, 4, 8]],
-                "DS(1)IS(1)DR(0,0)IR(0,0)"
+                "DS(1)IS(1)DE(0,0)IE(0,0)"
             ),
             (
                 [[1]],
@@ -181,7 +181,7 @@ class NestedDiffTests: XCTestCase {
             (
                 [[1]],
                 [[], [2]],
-                "IS(0)DR(0,0)IR(0,1)"
+                "IS(0)DE(0,0)IE(0,1)"
             ),
 
         ]

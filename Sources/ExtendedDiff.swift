@@ -52,13 +52,21 @@ public extension Collection {
     /// Creates an extended diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
+    /// - parameter isEqual: instance comparator closure
     /// - complexity: O((N+M)*D). There's additional cost of O(D^2) to compute the moves.
     /// - returns: ExtendedDiff between the calee and `other` collection
-    public func extendedDiff(_ other: Self, isEqual: EqualityChecker) -> ExtendedDiff {
-        return extendedDiffFrom(diff(other, isEqual: isEqual), other: other, isEqual: isEqual)
+    public func extendedDiff(_ other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff {
+        return extendedDiff(from: diff(other, isEqual: isEqual), other: other, isEqual: isEqual)
     }
-
-    private func extendedDiffFrom(_ diff: Diff, other: Self, isEqual: EqualityChecker) -> ExtendedDiff {
+    
+    /// Creates an extended diff between the calee and `other` collection
+    ///
+    /// - parameter diff: source diff
+    /// - parameter other: a collection to compare the calee to
+    /// - parameter isEqual: instance comparator closure
+    /// - complexity: O(D^2). where D is number of elements in diff.
+    /// - returns: ExtendedDiff between the calee and `other` collection
+    public func extendedDiff(from diff: Diff, other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff {
 
         var elements: [ExtendedDiff.Element] = []
         var moveOriginIndices = Set<Int>()
@@ -126,7 +134,7 @@ public extension Collection {
         candidate: Diff.Element,
         candidateIndex: Diff.Index,
         other: Self,
-        isEqual: EqualityChecker
+        isEqual: EqualityChecker<Self>
         ) -> (ExtendedDiff.Element, Diff.Index)? {
         for matchIndex in (candidateIndex + 1) ..< diff.endIndex {
             if !dirtyIndices.contains(matchIndex) {
@@ -139,7 +147,7 @@ public extension Collection {
         return nil
     }
 
-    func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self, isEqual: EqualityChecker) -> ExtendedDiff.Element? {
+    func createMatch(_ candidate: Diff.Element, match: Diff.Element, other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff.Element? {
         switch (candidate, match) {
         case (.delete, .insert):
             if isEqual(itemOnStartIndex(advancedBy: candidate.at()), other.itemOnStartIndex(advancedBy: match.at())) {
