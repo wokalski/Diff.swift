@@ -1,6 +1,8 @@
 
 public struct NestedDiff: DiffProtocol {
 
+    public typealias Index = Int
+    
     public enum Element {
         case deleteSection(Int)
         case insertSection(Int)

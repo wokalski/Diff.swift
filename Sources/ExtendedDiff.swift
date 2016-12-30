@@ -8,6 +8,8 @@
  SeeAlso: Diff
  */
 public struct ExtendedDiff: DiffProtocol {
+    
+    public typealias Index = Int
 
     public enum Element {
         case insert(at: Int)
