@@ -8,7 +8,7 @@
  SeeAlso: Diff
  */
 public struct ExtendedDiff: DiffProtocol {
-    
+
     public typealias Index = Int
 
     public enum Element {
@@ -50,7 +50,7 @@ extension ExtendedDiff.Element {
 }
 
 public extension Collection {
-    
+
     /// Creates an extended diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
@@ -60,7 +60,7 @@ public extension Collection {
     public func extendedDiff(_ other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff {
         return extendedDiff(from: diff(other, isEqual: isEqual), other: other, isEqual: isEqual)
     }
-    
+
     /// Creates an extended diff between the calee and `other` collection
     ///
     /// - parameter diff: source diff
@@ -137,7 +137,7 @@ public extension Collection {
         candidateIndex: Diff.Index,
         other: Self,
         isEqual: EqualityChecker<Self>
-        ) -> (ExtendedDiff.Element, Diff.Index)? {
+    ) -> (ExtendedDiff.Element, Diff.Index)? {
         for matchIndex in (candidateIndex + 1) ..< diff.endIndex {
             if !dirtyIndices.contains(matchIndex) {
                 let match = diff[matchIndex]
@@ -166,7 +166,7 @@ public extension Collection {
 }
 
 public extension Collection where Iterator.Element: Equatable {
-    
+
     /// - seealso: `extendedDiff(_:isEqual:)`
     public func extendedDiff(_ other: Self) -> ExtendedDiff {
         return extendedDiff(other, isEqual: { $0 == $1 })

@@ -155,7 +155,7 @@ struct TraceStep {
 public typealias EqualityChecker<T: Collection> = (T.Iterator.Element, T.Iterator.Element) -> Bool
 
 public extension Collection {
-    
+
     /// Creates a diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
@@ -164,12 +164,12 @@ public extension Collection {
     public func diff(
         _ other: Self,
         isEqual: EqualityChecker<Self>
-        ) -> Diff {
+    ) -> Diff {
         let diffPath = outputDiffPathTraces(
             to: other,
             isEqual: isEqual
         )
-        return  Diff(elements:
+        return Diff(elements:
             diffPath
             .flatMap { Diff.Element(trace: $0) }
         )
@@ -183,7 +183,7 @@ public extension Collection {
     public func diffTraces(
         to: Self,
         isEqual: EqualityChecker<Self>
-        ) -> [Trace] {
+    ) -> [Trace] {
         if self.count == 0 && to.count == 0 {
             return []
         } else if self.count == 0 {
@@ -194,19 +194,19 @@ public extension Collection {
             return myersDiffTraces(to: to, isEqual: isEqual)
         }
     }
-    
+
     /// Returns the traces which mark the shortest diff path.
     public func outputDiffPathTraces(
         to: Self,
         isEqual: EqualityChecker<Self>
-        ) -> [Trace] {
+    ) -> [Trace] {
         return findPath(
             diffTraces(to: to, isEqual: isEqual),
             n: Int(self.count.toIntMax()),
             m: Int(to.count.toIntMax())
         )
     }
-    
+
     fileprivate func tracesForDeletions() -> [Trace] {
         var traces = [Trace]()
         for index in 0 ..< self.count.toIntMax() {
@@ -228,7 +228,7 @@ public extension Collection {
     fileprivate func myersDiffTraces(
         to: Self,
         isEqual: (Iterator.Element, Iterator.Element) -> Bool
-        ) -> [Trace] {
+    ) -> [Trace] {
 
         let fromCount = Int(self.count.toIntMax())
         let toCount = Int(to.count.toIntMax())
@@ -340,27 +340,26 @@ public extension Collection {
     }
 }
 
-
 public extension Collection where Iterator.Element: Equatable {
-    
+
     /// - seealso: `diff(_:isEqual:)`
     public func diff(
         _ other: Self
-        ) -> Diff {
+    ) -> Diff {
         return diff(other, isEqual: { $0 == $1 })
     }
-    
+
     /// - seealso: `diffTraces(to:isEqual:)`
     public func diffTraces(
         to: Self
-        ) -> [Trace] {
+    ) -> [Trace] {
         return diffTraces(to: to, isEqual: { $0 == $1 })
     }
-    
+
     /// - seealso: `outputDiffPathTraces(to:isEqual:)`
     public func outputDiffPathTraces(
         to: Self
-        ) -> [Trace] {
+    ) -> [Trace] {
         return outputDiffPathTraces(to: to, isEqual: { $0 == $1 })
     }
 }
