@@ -106,7 +106,8 @@ public extension UITableView {
     public func animateRowChanges<T: Collection>(
         oldData: T,
         newData: T,
-        isEqual: EqualityChecker<T>,
+        // https://twitter.com/dgregor79/status/570068545561735169
+        isEqual: (EqualityChecker<T>),
         deletionAnimation: UITableViewRowAnimation = .automatic,
         insertionAnimation: UITableViewRowAnimation = .automatic
         ) {
@@ -167,7 +168,8 @@ public extension UITableView {
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
-        isEqualElement: NestedElementEqualityChecker<T>,
+        // https://twitter.com/dgregor79/status/570068545561735169
+        isEqualElement: (NestedElementEqualityChecker<T>),
         rowDeletionAnimation: UITableViewRowAnimation = .automatic,
         rowInsertionAnimation: UITableViewRowAnimation = .automatic,
         sectionDeletionAnimation: UITableViewRowAnimation = .automatic,
@@ -196,7 +198,8 @@ public extension UITableView {
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
-        isEqualSection: EqualityChecker<T>,
+        // https://twitter.com/dgregor79/status/570068545561735169
+        isEqualSection: (EqualityChecker<T>),
         rowDeletionAnimation: UITableViewRowAnimation = .automatic,
         rowInsertionAnimation: UITableViewRowAnimation = .automatic,
         sectionDeletionAnimation: UITableViewRowAnimation = .automatic,
@@ -228,7 +231,8 @@ public extension UITableView {
         oldData: T,
         newData: T,
         isEqualSection: EqualityChecker<T>,
-        isEqualElement: NestedElementEqualityChecker<T>,
+        // https://twitter.com/dgregor79/status/570068545561735169
+        isEqualElement: (NestedElementEqualityChecker<T>),
         rowDeletionAnimation: UITableViewRowAnimation = .automatic,
         rowInsertionAnimation: UITableViewRowAnimation = .automatic,
         sectionDeletionAnimation: UITableViewRowAnimation = .automatic,
