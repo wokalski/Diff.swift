@@ -132,7 +132,7 @@ public extension UITableView {
         endUpdates()
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates rows and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -159,7 +159,7 @@ public extension UITableView {
     }
     
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates rows and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -189,7 +189,7 @@ public extension UITableView {
             )
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates rows and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -219,7 +219,7 @@ public extension UITableView {
             )
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates rows and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableVie
@@ -290,7 +290,7 @@ public extension UICollectionView {
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
-    /// - parameter isEqual:     A function comparing two elements of `T`
+    /// - parameter isEqual:            A function comparing two elements of `T`
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -313,7 +313,7 @@ public extension UICollectionView {
         }, completion: completion)
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates items and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -333,7 +333,7 @@ public extension UICollectionView {
             )
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates items and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -357,7 +357,7 @@ public extension UICollectionView {
             )
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates items and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -381,7 +381,7 @@ public extension UICollectionView {
         )
     }
     
-    /// Animates rows which changed between oldData and newData.
+    /// Animates items and sections which changed between oldData and newData.
     ///
     /// - parameter oldData:            Data which reflects the previous state of UITableView
     /// - parameter newData:            Data which reflects the current state of UITableView
@@ -413,12 +413,12 @@ public extension UICollectionView {
         ) {
         performBatchUpdates({ 
             let update = NestedBatchUpdate(diff: diff)
+            self.insertSections(update.sectionInsertions)
+            self.deleteSections(update.sectionDeletions)
+            update.sectionMoves.forEach { self.moveSection($0.from, toSection: $0.to) }
             self.deleteItems(at: update.itemDeletions)
             self.insertItems(at: update.itemInsertions)
             update.itemMoves.forEach { self.moveItem(at: $0.from, to: $0.to) }
-            self.deleteSections(update.sectionDeletions)
-            self.insertSections(update.sectionInsertions)
-            update.sectionMoves.forEach { self.moveSection($0.from, toSection: $0.to) }
         }, completion: completion)
     }
 }
