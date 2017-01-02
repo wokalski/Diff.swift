@@ -19,6 +19,7 @@ Documentation is available [here](http://wokalski.com/docs/Diff/)
 - Arbitrary sorting of the `Patch`
 - Utilities for `UITableView` and `UICollectionView` (if that's just what you want, [skip to examples](#how-to-use))
 - ⚡️ [fast](#performance-notes)
+- Diffing collections containing collections (use `NestedDiff`)
 
 ## Why would I need it?
 
@@ -71,7 +72,20 @@ tableView.animateRowChanges(
 
 collectionView.animateItemChanges(
     oldData: old,
-    newData: new) 
+    newData: new,
+    completion: {_ in}) 
+
+// Works with sections, too
+
+tableView.animateRowAndSectionChanges(
+    oldData: old,
+    newData: new
+)
+
+collectionView.animateItemAndSectionChanges(
+    oldData: old,
+    newData: new
+)
 
 ```
 

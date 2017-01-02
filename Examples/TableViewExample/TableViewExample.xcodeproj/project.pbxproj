@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		900E03AA1DE7DE6E0033A799 /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9278AD01DE323F6009CE846 /* Diff.framework */; };
 		C9278AB61DE31362009CE846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB51DE31362009CE846 /* AppDelegate.swift */; };
-		C9278AB81DE31362009CE846 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB71DE31362009CE846 /* MasterViewController.swift */; };
+		C9278AB81DE31362009CE846 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB71DE31362009CE846 /* TableViewController.swift */; };
 		C9278ABD1DE31362009CE846 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9278ABB1DE31362009CE846 /* Main.storyboard */; };
 		C9278ABF1DE31362009CE846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9278ABE1DE31362009CE846 /* Assets.xcassets */; };
 		C9278AC21DE31362009CE846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9278AC01DE31362009CE846 /* LaunchScreen.storyboard */; };
 		C9278ADC1DE324D0009CE846 /* Diff.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C9278AD01DE323F6009CE846 /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C93448FF1E195C570035E956 /* NestedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93448FE1E195C570035E956 /* NestedTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,12 +50,13 @@
 /* Begin PBXFileReference section */
 		C9278AB21DE31362009CE846 /* TableViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9278AB51DE31362009CE846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C9278AB71DE31362009CE846 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		C9278AB71DE31362009CE846 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C9278ABC1DE31362009CE846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9278ABE1DE31362009CE846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9278AC11DE31362009CE846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9278AC31DE31362009CE846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9278AC91DE323F6009CE846 /* Diff.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diff.xcodeproj; path = ../../Diff.xcodeproj; sourceTree = "<group>"; };
+		C93448FE1E195C570035E956 /* NestedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				C9278AB51DE31362009CE846 /* AppDelegate.swift */,
-				C9278AB71DE31362009CE846 /* MasterViewController.swift */,
+				C9278AB71DE31362009CE846 /* TableViewController.swift */,
+				C93448FE1E195C570035E956 /* NestedTableViewController.swift */,
 				C9278ABB1DE31362009CE846 /* Main.storyboard */,
 				C9278ABE1DE31362009CE846 /* Assets.xcassets */,
 				C9278AC01DE31362009CE846 /* LaunchScreen.storyboard */,
@@ -205,7 +208,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9278AB81DE31362009CE846 /* MasterViewController.swift in Sources */,
+				C93448FF1E195C570035E956 /* NestedTableViewController.swift in Sources */,
+				C9278AB81DE31362009CE846 /* TableViewController.swift in Sources */,
 				C9278AB61DE31362009CE846 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

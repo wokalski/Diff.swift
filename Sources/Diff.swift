@@ -2,7 +2,7 @@
 public protocol DiffProtocol: Collection, Sequence {
 
     associatedtype DiffElementType
-    associatedtype Index = Array<DiffElementType>.Index
+    typealias Index = Int
 
     var elements: [DiffElementType] { get }
 }
@@ -152,15 +152,27 @@ struct TraceStep {
     let nextX: Int?
 }
 
-public extension Collection where Iterator.Element: Equatable {
+public typealias EqualityChecker<T: Collection> = (T.Iterator.Element, T.Iterator.Element) -> Bool
+
+public extension Collection {
 
     /// Creates a diff between the calee and `other` collection
     ///
     /// - parameter other: a collection to compare the calee to
     /// - complexity: O((N+M)*D)
     /// - returns: a Diff between the calee and `other` collection
-    public func diff(_ other: Self) -> Diff {
-        return findPath(diffTraces(to: other), n: Int(self.count.toIntMax()), m: Int(other.count.toIntMax()))
+    public func diff(
+        _ other: Self,
+        isEqual: EqualityChecker<Self>
+    ) -> Diff {
+        let diffPath = outputDiffPathTraces(
+            to: other,
+            isEqual: isEqual
+        )
+        return Diff(elements:
+            diffPath
+            .flatMap { Diff.Element(trace: $0) }
+        )
     }
 
     /// Generates all traces required to create an output diff. See the [paper](http://www.xmailserver.org/diff2.pdf) for more information on traces.
@@ -168,7 +180,10 @@ public extension Collection where Iterator.Element: Equatable {
     /// - parameter to: other collection
     ///
     /// - returns: all traces required to create an output diff
-    public func diffTraces(to: Self) -> [Trace] {
+    public func diffTraces(
+        to: Self,
+        isEqual: EqualityChecker<Self>
+    ) -> [Trace] {
         if self.count == 0 && to.count == 0 {
             return []
         } else if self.count == 0 {
@@ -176,8 +191,20 @@ public extension Collection where Iterator.Element: Equatable {
         } else if to.count == 0 {
             return tracesForDeletions()
         } else {
-            return myersDiffTraces(to: to)
+            return myersDiffTraces(to: to, isEqual: isEqual)
         }
+    }
+
+    /// Returns the traces which mark the shortest diff path.
+    public func outputDiffPathTraces(
+        to: Self,
+        isEqual: EqualityChecker<Self>
+    ) -> [Trace] {
+        return findPath(
+            diffTraces(to: to, isEqual: isEqual),
+            n: Int(self.count.toIntMax()),
+            m: Int(to.count.toIntMax())
+        )
     }
 
     fileprivate func tracesForDeletions() -> [Trace] {
@@ -198,7 +225,10 @@ public extension Collection where Iterator.Element: Equatable {
         return traces
     }
 
-    fileprivate func myersDiffTraces(to: Self) -> [Trace] {
+    fileprivate func myersDiffTraces(
+        to: Self,
+        isEqual: (Iterator.Element, Iterator.Element) -> Bool
+    ) -> [Trace] {
 
         let fromCount = Int(self.count.toIntMax())
         let toCount = Int(to.count.toIntMax())
@@ -225,7 +255,7 @@ public extension Collection where Iterator.Element: Equatable {
                     while x >= 0 && y >= 0 && x < fromCount && y < toCount {
                         let targetItem = to.itemOnStartIndex(advancedBy: y)
                         let baseItem = itemOnStartIndex(advancedBy: x)
-                        if baseItem == targetItem {
+                        if isEqual(baseItem, targetItem) {
                             x += 1
                             y += 1
                             traces.append(Trace(from: Point(x: x - 1, y: y - 1), to: Point(x: x, y: y), D: numberOfDifferences))
@@ -284,10 +314,10 @@ public extension Collection where Iterator.Element: Equatable {
         }
     }
 
-    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> Diff {
+    fileprivate func findPath(_ traces: [Trace], n: Int, m: Int) -> [Trace] {
 
         guard traces.count > 0 else {
-            return Diff(elements: [])
+            return []
         }
 
         var array = [Trace]()
@@ -306,10 +336,31 @@ public extension Collection where Iterator.Element: Equatable {
                 }
             }
         }
+        return array
+    }
+}
 
-        return Diff(elements: array
-            .flatMap { Diff.Element(trace: $0) }
-        )
+public extension Collection where Iterator.Element: Equatable {
+
+    /// - seealso: `diff(_:isEqual:)`
+    public func diff(
+        _ other: Self
+    ) -> Diff {
+        return diff(other, isEqual: { $0 == $1 })
+    }
+
+    /// - seealso: `diffTraces(to:isEqual:)`
+    public func diffTraces(
+        to: Self
+    ) -> [Trace] {
+        return diffTraces(to: to, isEqual: { $0 == $1 })
+    }
+
+    /// - seealso: `outputDiffPathTraces(to:isEqual:)`
+    public func outputDiffPathTraces(
+        to: Self
+    ) -> [Trace] {
+        return outputDiffPathTraces(to: to, isEqual: { $0 == $1 })
     }
 }
 
@@ -327,6 +378,12 @@ extension DiffProtocol {
 
     public subscript(i: IndexType) -> DiffElementType {
         return elements[i]
+    }
+}
+
+public extension Diff {
+    public init(traces: [Trace]) {
+        elements = traces.flatMap { Diff.Element(trace: $0) }
     }
 }
 
