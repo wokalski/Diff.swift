@@ -262,12 +262,14 @@ public extension UITableView {
         
         let update = NestedBatchUpdate(diff: diff)
         
+        beginUpdates()
         deleteRows(at: update.itemDeletions, with: rowDeletionAnimation)
         insertRows(at: update.itemInsertions, with: rowInsertionAnimation)
         update.itemMoves.forEach { moveRow(at: $0.from, to: $0.to) }
         deleteSections(update.sectionDeletions, with: sectionDeletionAnimation)
         insertSections(update.sectionInsertions, with: sectionInsertionAnimation)
         update.sectionMoves.forEach { moveSection($0.from, toSection: $0.to) }
+        endUpdates()
     }
 }
 
