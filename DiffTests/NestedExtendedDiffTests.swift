@@ -70,6 +70,88 @@ class NestedExtendedDiffTests: XCTestCase {
                 ],
                 "IS(0)"
             ),
+            (
+                [
+                    KeyedIntArray(
+                        elements: [
+                            0,
+                            1,
+                            ],
+                        key: 0
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            2,
+                            3,
+                            ],
+                        key: 1
+                    ),
+                ],
+                [
+                    KeyedIntArray(
+                        elements: [
+                            3,
+                            2,
+                            ],
+                        key: 1
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            0,
+                            1
+                        ],
+                        key: 0
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            12
+                        ],
+                        key: 2
+                    ),
+                ],
+                "MS(0,1)IS(2)ME((0, 1),(1, 0))"
+            ),
+            (
+                [
+                    KeyedIntArray(
+                        elements: [
+                            3,
+                            2,
+                            ],
+                        key: 1
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            0,
+                            1
+                        ],
+                        key: 0
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            12
+                        ],
+                        key: 2
+                    ),
+                    ],
+                [
+                    KeyedIntArray(
+                        elements: [
+                            0,
+                            1,
+                            ],
+                        key: 0
+                    ),
+                    KeyedIntArray(
+                        elements: [
+                            2,
+                            3,
+                            ],
+                        key: 1
+                    ),
+                    ],
+                "MS(0,1)DS(2)ME((0, 0),(1, 1))"
+            )
         ]
 
         for expectation in expectations {

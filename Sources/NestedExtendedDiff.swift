@@ -74,13 +74,15 @@ public extension Collection
                 }
                 return nil
             }.flatMap { move -> [NestedExtendedDiff.Element] in
-                return itemOnStartIndex(advancedBy: move.0).diff(to.itemOnStartIndex(advancedBy: move.1), isEqual: isEqualElement)
+                return itemOnStartIndex(advancedBy: move.0).extendedDiff(to.itemOnStartIndex(advancedBy: move.1), isEqual: isEqualElement)
                     .map { diffElement -> NestedExtendedDiff.Element in
                         switch diffElement {
                         case let .insert(at):
                             return .insertElement(at, section: move.1)
                         case let .delete(at):
                             return .deleteElement(at, section: move.0)
+                        case let .move(from, to):
+                            return .moveElement(from: (from, move.0), to: (to, move.1))
                         }
                     }
             }
