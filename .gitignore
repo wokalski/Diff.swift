@@ -19,7 +19,6 @@ DerivedData
 
 */Carthage/Checkouts/
 */Carthage/Build/
-PerfTests/Benchmark/Cartfile.resolved
 PerfTests/Benchmark/Carthage/Checkouts/
 
 #SPM
