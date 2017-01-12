@@ -17,9 +17,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 
-*/Carthage/Checkouts/
-*/Carthage/Build/
-PerfTests/Benchmark/Carthage/Checkouts/
+**/Carthage/Checkouts
+**/Carthage/Build
 
 #SPM
 .build/
