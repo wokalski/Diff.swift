@@ -7,25 +7,28 @@ struct BatchUpdate {
     let insertions: [IndexPath]
     let moves: [(from: IndexPath, to: IndexPath)]
 
-    init(diff: ExtendedDiff) {
+    init(
+		diff: ExtendedDiff,
+		indexPathTransform: (IndexPath) -> IndexPath = { $0 }
+	) {
         deletions = diff.flatMap { element -> IndexPath? in
             switch element {
             case .delete(let at):
-                return IndexPath(row: at, section: 0)
+                return indexPathTransform(IndexPath(row: at, section: 0))
             default: return nil
             }
         }
         insertions = diff.flatMap { element -> IndexPath? in
             switch element {
             case .insert(let at):
-                return IndexPath(row: at, section: 0)
+                return indexPathTransform(IndexPath(row: at, section: 0))
             default: return nil
             }
         }
         moves = diff.flatMap { element -> (IndexPath, IndexPath)? in
             switch element {
             case let .move(from, to):
-                return (IndexPath(row: from, section: 0), IndexPath(row: to, section: 0))
+                return (indexPathTransform(IndexPath(row: from, section: 0)), indexPathTransform(IndexPath(row: to, section: 0)))
             default: return nil
             }
         }
@@ -87,12 +90,14 @@ public extension UITableView {
         oldData: T,
         newData: T,
         deletionAnimation: UITableViewRowAnimation = .automatic,
-        insertionAnimation: UITableViewRowAnimation = .automatic
+        insertionAnimation: UITableViewRowAnimation = .automatic,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
     ) where T.Iterator.Element: Equatable {
         apply(
             oldData.extendedDiff(newData),
             deletionAnimation: deletionAnimation,
-            insertionAnimation: insertionAnimation
+            insertionAnimation: insertionAnimation,
+            indexPathTransform: indexPathTransform
         )
     }
     
@@ -109,21 +114,24 @@ public extension UITableView {
         // https://twitter.com/dgregor79/status/570068545561735169
         isEqual: (EqualityChecker<T>),
         deletionAnimation: UITableViewRowAnimation = .automatic,
-        insertionAnimation: UITableViewRowAnimation = .automatic
+        insertionAnimation: UITableViewRowAnimation = .automatic,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
         apply(
             oldData.extendedDiff(newData, isEqual: isEqual),
             deletionAnimation: deletionAnimation,
-            insertionAnimation: insertionAnimation
+            insertionAnimation: insertionAnimation,
+            indexPathTransform: indexPathTransform
         )
     }
     
     private func apply(
         _ diff: ExtendedDiff,
         deletionAnimation: UITableViewRowAnimation = .automatic,
-        insertionAnimation: UITableViewRowAnimation = .automatic
+        insertionAnimation: UITableViewRowAnimation = .automatic,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
-        let update = BatchUpdate(diff: diff)
+		let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
 
         beginUpdates()
         deleteRows(at: update.deletions, with: deletionAnimation)
@@ -282,7 +290,8 @@ public extension UICollectionView {
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T,
-        completion: ((Bool) -> Void)? = nil
+        completion: ((Bool) -> Void)? = nil,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
     ) where T.Iterator.Element: Equatable {
         let diff = oldData.extendedDiff(newData)
         apply(diff, completion: completion)
@@ -297,7 +306,8 @@ public extension UICollectionView {
         oldData: T,
         newData: T,
         isEqual: EqualityChecker<T>,
-        completion: ((Bool) -> Swift.Void)? = nil
+        completion: ((Bool) -> Swift.Void)? = nil,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
         let diff = oldData.extendedDiff(newData, isEqual: isEqual)
         apply(diff, completion: completion)
@@ -305,10 +315,11 @@ public extension UICollectionView {
     
     public func apply(
         _ diff: ExtendedDiff,
-        completion: ((Bool) -> Swift.Void)? = nil
+        completion: ((Bool) -> Swift.Void)? = nil,
+        indexPathTransform: @escaping (IndexPath) -> IndexPath = { $0 }
         ) {
         performBatchUpdates({
-            let update = BatchUpdate(diff: diff)
+			let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
             self.deleteItems(at: update.deletions)
             self.insertItems(at: update.insertions)
             update.moves.forEach { self.moveItem(at: $0.from, to: $0.to) }
