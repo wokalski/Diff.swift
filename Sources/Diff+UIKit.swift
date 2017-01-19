@@ -86,11 +86,11 @@ public extension UITableView {
 
     /// Animates rows which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
-    /// - parameter indexPathTransform: Closure which transforms
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
     public func animateRowChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -108,11 +108,12 @@ public extension UITableView {
     
     /// Animates rows which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter isEqual:            A function comparing two elements of `T`
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
     public func animateRowChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -147,10 +148,12 @@ public extension UITableView {
     
     /// Animates rows and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -178,10 +181,12 @@ public extension UITableView {
     
     /// Animates rows and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter isEqualElement:     A function comparing two items (elements of `T.Iterator.Element`)    /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -212,10 +217,12 @@ public extension UITableView {
     
     /// Animates rows and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter isEqualSection:     A function comparing two sections (elements of `T`)
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -246,12 +253,14 @@ public extension UITableView {
     
     /// Animates rows and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableVie
+    /// - parameter oldData:            Data which reflects the previous state of `UITableView`
+    /// - parameter newData:            Data which reflects the current state of `UITableView`
     /// - parameter isEqualSection:     A function comparing two sections (elements of `T`)
     /// - parameter isEqualElement:     A function comparing two items (elements of `T.Iterator.Element`)
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateRowAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -308,8 +317,9 @@ public extension UICollectionView {
 
     /// Animates items which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -322,9 +332,10 @@ public extension UICollectionView {
     
     /// Animates items which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
     /// - parameter isEqual:            A function comparing two elements of `T`
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
     public func animateItemChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -351,10 +362,12 @@ public extension UICollectionView {
     
     /// Animates items and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateItemAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -375,11 +388,13 @@ public extension UICollectionView {
     
     /// Animates items and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
     /// - parameter isEqualElement:     A function comparing two items (elements of `T.Iterator.Element`)
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateItemAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -403,11 +418,13 @@ public extension UICollectionView {
     
     /// Animates items and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
     /// - parameter isEqualSection:     A function comparing two sections (elements of `T`)
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateItemAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
@@ -431,12 +448,14 @@ public extension UICollectionView {
     
     /// Animates items and sections which changed between oldData and newData.
     ///
-    /// - parameter oldData:            Data which reflects the previous state of UITableView
-    /// - parameter newData:            Data which reflects the current state of UITableView
+    /// - parameter oldData:            Data which reflects the previous state of `UICollectionView`
+    /// - parameter newData:            Data which reflects the current state of `UICollectionView`
     /// - parameter isEqualSection:     A function comparing two sections (elements of `T`)
     /// - parameter isEqualElement:     A function comparing two items (elements of `T.Iterator.Element`)
     /// - parameter deletionAnimation:  Animation type for deletions
     /// - parameter insertionAnimation: Animation type for insertions
+    /// - parameter indexPathTransform: Closure which transforms zero-based `IndexPath` to desired  `IndexPath`
+    /// - parameter sectionTransform:   Closure which transforms zero-based section(`Int`) into desired section(`Int`)
     public func animateItemAndSectionChanges<T: Collection>(
         oldData: T,
         newData: T,
