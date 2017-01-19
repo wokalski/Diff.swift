@@ -131,7 +131,7 @@ public extension UITableView {
         insertionAnimation: UITableViewRowAnimation = .automatic,
         indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
-		let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
+        let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
 
         beginUpdates()
         deleteRows(at: update.deletions, with: deletionAnimation)
