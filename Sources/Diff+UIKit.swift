@@ -301,7 +301,6 @@ public extension UITableView {
         ) {
         
         let update = NestedBatchUpdate(diff: diff, indexPathTransform: indexPathTransform, sectionTransform: sectionTransform)
-		
         beginUpdates()
         deleteRows(at: update.itemDeletions, with: rowDeletionAnimation)
         insertRows(at: update.itemInsertions, with: rowInsertionAnimation)
