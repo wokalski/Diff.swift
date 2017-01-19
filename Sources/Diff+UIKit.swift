@@ -125,11 +125,11 @@ public extension UITableView {
         )
     }
     
-    private func apply(
+    public func apply(
         _ diff: ExtendedDiff,
         deletionAnimation: UITableViewRowAnimation = .automatic,
         insertionAnimation: UITableViewRowAnimation = .automatic,
-        indexPathTransform: (IndexPath) -> IndexPath
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
 		let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
 
@@ -316,7 +316,7 @@ public extension UICollectionView {
     public func apply(
         _ diff: ExtendedDiff,
         completion: ((Bool) -> Swift.Void)? = nil,
-        indexPathTransform: @escaping (IndexPath) -> IndexPath
+        indexPathTransform: @escaping (IndexPath) -> IndexPath = { $0 }
         ) {
         performBatchUpdates({
             let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
