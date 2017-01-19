@@ -8,9 +8,9 @@ struct BatchUpdate {
     let moves: [(from: IndexPath, to: IndexPath)]
 
     init(
-		diff: ExtendedDiff,
-		indexPathTransform: (IndexPath) -> IndexPath = { $0 }
-		) {
+        diff: ExtendedDiff,
+        indexPathTransform: (IndexPath) -> IndexPath = { $0 }
+        ) {
         deletions = diff.flatMap { element -> IndexPath? in
             switch element {
             case .delete(let at):
