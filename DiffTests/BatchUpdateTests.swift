@@ -48,19 +48,19 @@ class BatchUpdateTests: XCTestCase {
             XCTAssertEqual(batch.moves, expectation.2.2.map { (transform($0.0), transform($0.1)) })
         }
     }
-
-    // MARK: Performance Tests
-    func testCellsPerformance() {
-        self.measure {
-            self._testCells()
-        }
-    }
-
-    func testCellsWithTransformPerformance() {
-        self.measure {
-            self._testCellsWithTransform()
-        }
-    }
+//
+//    // MARK: Performance Tests
+//    func testCellsPerformance() {
+//        self.measure {
+//            self._testCells()
+//        }
+//    }
+//
+//    func testCellsWithTransformPerformance() {
+//        self.measure {
+//            self._testCellsWithTransform()
+//        }
+//    }
 }
 
 // #endif
