@@ -24,7 +24,7 @@ public struct NestedExtendedDiff: DiffProtocol {
     public let elements: [Element]
 }
 
-typealias NestedElementEqualityChecker<T: Collection> = (T.Iterator.Element.Iterator.Element, T.Iterator.Element.Iterator.Element) -> Bool where T.Iterator.Element: Collection
+public typealias NestedElementEqualityChecker<T: Collection> = (T.Iterator.Element.Iterator.Element, T.Iterator.Element.Iterator.Element) -> Bool where T.Iterator.Element: Collection
 
 public extension Collection
     where Iterator.Element: Collection {
