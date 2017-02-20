@@ -1,7 +1,11 @@
 
 public struct NestedExtendedDiff: DiffProtocol {
 
+    #if swift(>=3.1)
+    // The duplicate typealias is not required in Swift 3.1
+    #else
     public typealias Index = Int
+    #endif
 
     public enum Element {
         case deleteSection(Int)
