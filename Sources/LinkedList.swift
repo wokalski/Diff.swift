@@ -9,7 +9,7 @@ class LinkedList<T> {
     }
 
     init?(array: [T]) {
-        let reversed = Array(array.reversed())
+        let reversed = array.reversed()
         guard let first = array.first else {
             return nil
         }
@@ -17,7 +17,7 @@ class LinkedList<T> {
         var tailLinkedList: LinkedList?
 
         for i in 0 ..< reversed.count - 1 {
-            tailLinkedList = LinkedList(next: tailLinkedList, value: reversed[i])
+            tailLinkedList = LinkedList(next: tailLinkedList, value: reversed.itemOnStartIndex(advancedBy: i))
         }
 
         self.next = tailLinkedList
@@ -51,7 +51,7 @@ class DoublyLinkedList<T> {
     }
 
     init?(array: [T]) {
-        let reversed = Array(array.reversed())
+        let reversed = array.reversed()
         guard let first = array.first else {
             return nil
         }
@@ -59,7 +59,7 @@ class DoublyLinkedList<T> {
         var tailDoublyLinkedList: DoublyLinkedList?
 
         for i in 0 ..< reversed.count - 1 {
-            let nextTail = DoublyLinkedList(next: tailDoublyLinkedList, value: reversed[i])
+            let nextTail = DoublyLinkedList(next: tailDoublyLinkedList, value: reversed.itemOnStartIndex(advancedBy: i))
             tailDoublyLinkedList?.previous = nextTail
             tailDoublyLinkedList = nextTail
         }
