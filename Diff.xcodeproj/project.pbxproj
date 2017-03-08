@@ -27,6 +27,7 @@
 		C9D4BC961E1124CE00C79537 /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4BC951E1124CE00C79537 /* NestedExtendedDiff.swift */; };
 		C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87831CCFFB68006BD90E /* Patch.swift */; };
+		E2F1C8561E3A14DF00FBE786 /* BatchUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		C9EE87161CCFCA83006BD90E /* Diff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE87821CCFFB68006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Diff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9EE87831CCFFB68006BD90E /* Patch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Patch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BatchUpdateTests.swift; path = DiffTests/BatchUpdateTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */,
 				C921BF701E15448300747566 /* NestedExtendedDiffTests.swift */,
 				C9838FF51D29571000691BE8 /* Info.plist */,
+				E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */,
 			);
 			path = DiffTests;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				C99118AC1DDDAD6E00067A60 /* ExtendedPatchSortTests.swift in Sources */,
 				C921BF711E15448300747566 /* NestedExtendedDiffTests.swift in Sources */,
 				C90CD7191DFB43C600BE9114 /* NestedDiffTests.swift in Sources */,
+				E2F1C8561E3A14DF00FBE786 /* BatchUpdateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
