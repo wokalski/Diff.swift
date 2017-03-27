@@ -156,12 +156,12 @@ This library is fast. Most other libraries use a simple `O(n*m)` algorithm which
 
 Source code is available [here](https://github.com/wokalski/Diff.swift/blob/master/PerfTests/Utils/PerformanceTestUtils.swift). The result of a measurement is mean diff time in seconds over 10 runs on an iPhone 6.
 
-         | Diff.swift | Dwifft 
----------|------------|--------
- same    |   0.0555   | 19.8632
- created |   0.0511   | 2.4461
- deleted |   0.0502   | 2.4260
- diff    |   0.2807   | 21.9684
+             | Diff.swift | Dwifft 
+    ---------|------------|--------
+     same    |   0.0555   | 19.8632
+     created |   0.0511   | 2.4461
+     deleted |   0.0502   | 2.4260
+     diff    |   0.2807   | 21.9684
 
 This algorithm works great for collections with _small_ diffs. I mean, even for big diffs, it's still better than the simple algorithm. 
 However, if you need good performance and you have big differences between the inputs consider another diffing algorithm. Look at Hunt & Szymanski's and/or Hirschberg's work.
