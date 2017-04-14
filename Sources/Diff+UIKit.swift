@@ -2,12 +2,12 @@
 
 import UIKit
 
-struct BatchUpdate {
-    let deletions: [IndexPath]
-    let insertions: [IndexPath]
-    let moves: [(from: IndexPath, to: IndexPath)]
+public struct BatchUpdate {
+    public let deletions: [IndexPath]
+    public let insertions: [IndexPath]
+    public let moves: [(from: IndexPath, to: IndexPath)]
 
-    init(
+    public init(
         diff: ExtendedDiff,
         indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
