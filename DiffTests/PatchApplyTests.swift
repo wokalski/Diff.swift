@@ -12,7 +12,8 @@ class PatchApplyTests: XCTestCase {
             ("A", "I(0,B)D(0)", "A"),
         ]
 
-        testCases.forEach { seed, patchString, result in
+        testCases.forEach { (args) in
+            let (seed, patchString, result) = args
             XCTAssertEqual(seed.apply(stringPatch(from: patchString)), result)
         }
     }
@@ -27,7 +28,8 @@ class PatchApplyTests: XCTestCase {
             ([0], "I(0,1)D(0)", [0]),
         ]
 
-        testCases.forEach { seed, patchString, result in
+        testCases.forEach { (args) in
+            let (seed, patchString, result) = args
             XCTAssertEqual(seed.apply(intPatch(from: patchString)), result)
         }
     }
