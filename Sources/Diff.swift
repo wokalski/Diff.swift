@@ -1,5 +1,5 @@
 
-public protocol DiffProtocol: Collection, Sequence {
+public protocol DiffProtocol: Collection {
 
     associatedtype DiffElementType
 
