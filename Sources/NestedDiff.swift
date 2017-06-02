@@ -68,7 +68,8 @@ public extension Collection
         }
 
         let elementDiff = zip(zip(fromSections, toSections), matchingSectionTraces)
-            .flatMap { sections, trace -> [NestedDiff.Element] in
+            .flatMap { (args) -> [NestedDiff.Element] in
+                let (sections, trace) = args
                 return sections.0.diff(sections.1, isEqual: isEqualElement).map { diffElement -> NestedDiff.Element in
                     switch diffElement {
                     case let .delete(at):
