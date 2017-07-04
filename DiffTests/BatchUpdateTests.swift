@@ -9,7 +9,7 @@ func IP(_ row: Int, _ section: Int) -> IndexPath {
 
 class BatchUpdateTests: XCTestCase {
 
-    let cellExpectations = [
+    let cellExpectations: [([Int], [Int], ([IndexPath], [IndexPath], [(from: IndexPath, to: IndexPath)]))] = [
         ([1, 2, 3, 4], [1, 2, 3, 4], ([], [], [])),
         ([1, 2, 3, 4], [4, 2, 3, 1], ([], [], [(IP(0, 0), IP(3, 0)), (IP(3, 0), IP(0, 0))])),
         ([1, 2, 3, 4], [2, 3, 1], ([IP(3, 0)], [], [(IP(0, 0), IP(2, 0))])),
