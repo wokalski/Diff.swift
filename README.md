@@ -182,6 +182,10 @@ Cocoapods
 pod 'Diff'
 ```
 
+### Swift 4.0
+
+There's a `swift-4.0` branch with the patches by @tonyarnold.
+
 ## Get in touch
 
 If you have any questions, you can find me on [Twitter](https://twitter.com/wokalski).
