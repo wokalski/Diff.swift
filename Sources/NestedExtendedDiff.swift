@@ -179,7 +179,7 @@ extension NestedExtendedDiff.Element: CustomDebugStringConvertible {
         case let .insertSection(section):
             return "IS(\(section))"
         case let .moveElement(from, to):
-            return "ME(\(from),\(to))"
+            return "ME((\(from.item),\(from.section)),(\(to.item),\(to.section)))"
         case let .moveSection(from, to):
             return "MS(\(from),\(to))"
         }

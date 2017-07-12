@@ -34,7 +34,7 @@ class LinkedList<T> {
 
 class DoublyLinkedList<T> {
     let next: DoublyLinkedList?
-    private(set) var previous: DoublyLinkedList?
+    private(set) weak var previous: DoublyLinkedList?
     var head: DoublyLinkedList {
         guard let previous = previous else {
             return self
