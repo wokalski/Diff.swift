@@ -48,7 +48,7 @@ class NestedExtendedDiffTests: XCTestCase {
                     KeyedIntArray(elements: [1, 2], key: 0),
                     KeyedIntArray(elements: [1], key: 1),
                 ],
-                "MS(0,1)ME((0, 1),(1, 0))"
+                "MS(0,1)ME((0,1),(1,0))"
             ),
             (
                 [
@@ -109,7 +109,7 @@ class NestedExtendedDiffTests: XCTestCase {
                         key: 2
                     ),
                 ],
-                "MS(0,1)IS(2)ME((0, 1),(1, 0))"
+                "MS(0,1)IS(2)ME((0,1),(1,0))"
             ),
             (
                 [
@@ -150,7 +150,7 @@ class NestedExtendedDiffTests: XCTestCase {
                         key: 1
                     ),
                     ],
-                "MS(0,1)DS(2)ME((0, 0),(1, 1))"
+                "MS(0,1)DS(2)ME((0,0),(1,1))"
             )
         ]
 
