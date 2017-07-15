@@ -1,3 +1,4 @@
+
 //
 //  ViewController.swift
 //  Benchmark
@@ -16,13 +17,13 @@ class ViewController: UIViewController {
         let from = pathForFile(fileName: "Diff-old")
         let to = pathForFile(fileName: "Diff-new")
 
-        let dwifft = performDiff(from, toFilePath: to, diffFunc: performDwifft)
-        let diff = performDiff(from, toFilePath: to, diffFunc: diffSwift)
+        let dwifft = performDiff(fromFilePath: from, toFilePath: to, diffFunc: performDwifft)
+        let diff = performDiff(fromFilePath: from, toFilePath: to, diffFunc: diffSwift)
 
         print("Both libraries are compiled with -O -whole-module-optimization\n")
         print("         | Diff.swift | Dwifft ")
         print("---------|------------|--------")
-        print(" same    |   \(diff.same)   | \(dwifft.same)")
+        print(" same    |   \(diff.same   )   | \(dwifft.same   )")
         print(" created |   \(diff.created)   | \(dwifft.created)")
         print(" deleted |   \(diff.deleted)   | \(dwifft.deleted)")
         print(" diff    |   \(diff.changed)   | \(dwifft.changed)")
