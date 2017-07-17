@@ -9,7 +9,7 @@
 import Foundation
 import Diff
 
-func performDiff(_ fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: @escaping ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
+func performDiff(fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: @escaping ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
     let old = file(fromFilePath)
     let new = file(toFilePath)
     let compare: ([Character], [Character]) -> String = { a, b in
