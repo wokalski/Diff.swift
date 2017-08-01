@@ -119,7 +119,7 @@ When you need additional control over ordering
 
 ```swift
 
-let insertionsFirst = { fst, snd -> Bool in 
+let insertionsFirst = { element1, element2 -> Bool in 
     switch (element1, element2) {
     case (.insert(let at1), .insert(let at2)):
         return at1 < at2
