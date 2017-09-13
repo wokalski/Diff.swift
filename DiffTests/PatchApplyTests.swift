@@ -40,12 +40,14 @@ func stringPatch(from textualRepresentation: String) -> [Patch<String.CharacterV
         if string == "" {
             return nil
         }
-        let type = string.substring(to: string.index(after: string.startIndex))
+        let type = string.prefix(1)
         if type == "D" {
-            let index = Int(string.substring(from: string.index(string.startIndex, offsetBy: 2)))!
+            let startIndex = string.index(string.startIndex, offsetBy: 2)
+            let index = Int(string[startIndex...])!
             return .deletion(index: index)
         } else if type == "I" {
-            let indexAndElement = string.substring(from: string.index(string.startIndex, offsetBy: 2)).components(separatedBy: ",")
+            let startIndex = string.index(string.startIndex, offsetBy: 2)
+            let indexAndElement = string[startIndex...].components(separatedBy: ",")
             return .insertion(index: Int(indexAndElement[0])!, element: indexAndElement[1].characters.first!)
         } else {
             return nil
@@ -58,12 +60,14 @@ func intPatch(from textualRepresentation: String) -> [Patch<Int>] {
         if string == "" {
             return nil
         }
-        let type = string.substring(to: string.index(after: string.startIndex))
+        let type = string.prefix(1)
         if type == "D" {
-            let index = Int(string.substring(from: string.index(string.startIndex, offsetBy: 2)))!
+            let startIndex = string.index(string.startIndex, offsetBy: 2)
+            let index = Int(string[startIndex...])!
             return .deletion(index: index)
         } else if type == "I" {
-            let indexAndElement = string.substring(from: string.index(string.startIndex, offsetBy: 2)).components(separatedBy: ",")
+            let startIndex = string.index(string.startIndex, offsetBy: 2)
+            let indexAndElement = string[startIndex...].components(separatedBy: ",")
             let index = Int(indexAndElement[0])!
             let element = Int(indexAndElement[1])!
             return .insertion(index: index, element: element)
