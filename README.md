@@ -10,6 +10,28 @@ This library generates differences between any two `Collection`s (and Strings). 
 
 Documentation is available [here](http://wokalski.com/docs/Diff/)
 
+If you want to learn how this library works, `Graph.playground` is a good place to start.
+
+## Requirements
+
+This project requires Swift 4 / Xcode 9 or later to compile.
+
+## Installation
+
+### Carthage
+
+```ruby
+// Cartfile
+github "tonyarnold/Diff"
+```
+
+### CocoaPods
+
+```ruby
+// Podfile
+pod 'Diff'
+```
+
 ## Features
 
 - `Diff.swift` supports three types of operations:
@@ -165,31 +187,3 @@ Source code is available [here](https://github.com/wokalski/Diff.swift/blob/mast
 
 This algorithm works great for collections with _small_ diffs. I mean, even for big diffs, it's still better than the simple algorithm.
 However, if you need good performance and you have big differences between the inputs consider another diffing algorithm. Look at Hunt & Szymanski's and/or Hirschberg's work.
-
-## Installation
-
-Carthage (preferred)
-
-```
-// Cartfile
-github "tonyarnold/Diff"
-```
-
-Cocoapods
-
-```
-// podfile
-pod 'Diff'
-```
-
-## Requirements
-
-This project requires Swift 4 / Xcode 9 or later to compile.
-
-## Get in touch
-
-If you have any questions, you can find me on [Twitter](https://twitter.com/wokalski).
-
-## Misc
-
-If you want to learn how it works `Graph.playground` is a good place to start.
