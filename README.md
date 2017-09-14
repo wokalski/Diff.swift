@@ -62,9 +62,9 @@ In practice it means that a diff to transform string `"1234"` to `"1"` is `"D(1)
 ## How to use
 
 ### `UITableView`/`UICollectionView`
-    
+
 ```swift
-    
+
 // It will automatically animate deletions, insertions, and moves
 tableView.animateRowChanges(
             oldData: old,
@@ -73,7 +73,7 @@ tableView.animateRowChanges(
 collectionView.animateItemChanges(
     oldData: old,
     newData: new,
-    completion: {_ in}) 
+    completion: {_ in})
 
 // Works with sections, too
 
@@ -119,7 +119,7 @@ When you need additional control over ordering
 
 ```swift
 
-let insertionsFirst = { fst, snd -> Bool in 
+let insertionsFirst = { fst, snd -> Bool in
     switch (element1, element2) {
     case (.insert(let at1), .insert(let at2)):
         return at1 < at2
@@ -130,7 +130,7 @@ let insertionsFirst = { fst, snd -> Bool in
     case (.delete(let at1), .delete(let at2)):
         return at1 < at2
     default: fatalError() // unreachable
-    }    
+    }
 }
 
 // Results in a [Patch] with insertions preceeding deletions
@@ -152,18 +152,18 @@ let patch = diff.patch(from: from, to: to)
 
 ## Performance notes
 
-This library is fast. Most other libraries use a simple `O(n*m)` algorithm which allocates a 2 dimensional array and goes through all elements. It takes _a lot_ of memory. In the benchmark it is an order of magnitude difference. 
+This library is fast. Most other libraries use a simple `O(n*m)` algorithm which allocates a 2 dimensional array and goes through all elements. It takes _a lot_ of memory. In the benchmark it is an order of magnitude difference.
 
 Source code is available [here](https://github.com/wokalski/Diff.swift/blob/master/PerfTests/Utils/PerformanceTestUtils.swift). The result of a measurement is mean diff time in seconds over 10 runs on an iPhone 6.
 
-             | Diff.swift | Dwifft 
+             | Diff.swift | Dwifft
     ---------|------------|--------
      same    |   0.0555   | 19.8632
      created |   0.0511   | 2.4461
      deleted |   0.0502   | 2.4260
      diff    |   0.2807   | 21.9684
 
-This algorithm works great for collections with _small_ diffs. I mean, even for big diffs, it's still better than the simple algorithm. 
+This algorithm works great for collections with _small_ diffs. I mean, even for big diffs, it's still better than the simple algorithm.
 However, if you need good performance and you have big differences between the inputs consider another diffing algorithm. Look at Hunt & Szymanski's and/or Hirschberg's work.
 
 ## Installation
@@ -182,9 +182,9 @@ Cocoapods
 pod 'Diff'
 ```
 
-### Swift 4.0
+## Requirements
 
-There's a `swift-4.0` branch with the patches by @tonyarnold.
+Diff.swift requires Swift 4 / Xcode 9 or later to compile.
 
 ## Get in touch
 
