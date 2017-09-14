@@ -2,9 +2,8 @@ osx_image: xcode9
 language: swift
 
 branches:
-  only: 
+  only:
     - master
-    - swift-4.0
 
 before_install:
     - gem install cocoapods # Since Travis is not always on latest version
