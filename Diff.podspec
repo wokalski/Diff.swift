@@ -17,23 +17,11 @@ Also included are utilities for easily applying diffs and patches to `UICollecti
     "Wojtek Czekalski" => "me@wczekalski.com"
   }
 
-  s.platforms = { :ios => "8.0", :osx => "10.10", :tvos => "9.0", :watchos => "3.0" }
-  s.osx.exclude_files = "Sources/Diff/Diff+UIKit.swift"
-  s.watchos.exclude_files = "Sources/Diff/Diff+UIKit.swift"
-
   s.source = { :git => "https://github.com/tonyarnold/Diff.git", :tag => "0.6" }
-
   s.source_files = "Sources/Diff"
 
-  post_install do |installer|
-    targets = ['Diff']
-
-    installer.pods_project.targets.each do |target|
-      if targets.include? target.name
-        target.build_configurations.each do |config|
-          config.build_settings['SWIFT_VERSION'] = '4.0'
-        end
-      end
-    end
-  end
+  s.platforms = { :ios => "8.0", :osx => "10.10", :tvos => "9.0", :watchos => "3.0" }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.osx.exclude_files = "Sources/Diff/Diff+UIKit.swift"
+  s.watchos.exclude_files = "Sources/Diff/Diff+UIKit.swift"
 end
