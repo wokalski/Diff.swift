@@ -163,7 +163,7 @@ If you'd like to learn more about how this library works, `Graph.playground` is 
 
 This library is **fast**. Many of the other Swift diff libraries use a simple `O(n*m)` algorithm, which allocates a 2 dimensional array and then walks through every element. This can use _a lot_ of memory.
 
-In the [bundled benchmarks](https://github.com/tonyarnold/Diff/blob/master/PerfTests/Utils/PerformanceTestUtils.swift), you should see an order of magnitude difference in calculation time between the two algorithms.
+In the bundled benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
 
 Each measurement is the mean time in seconds it takes to calculate a diff, over 10 runs on an iPhone 6.
 
@@ -173,8 +173,14 @@ Each measurement is the mean time in seconds it takes to calculate a diff, over 
 	 created |  0.0188   | 0.0033
 	 deleted |  0.0184   | 0.0050
 	 diff    |  0.1320   | 63.4084
+	 
+You can run these benchmarks yourself:
 
-That being said, the algorithm used by Diff works great for collections with _small_ diffs. Even for big diffs it's still going to be faster than the simple `O(n*m)` algorithm. If you need _good_ performance with large differences between collections, please consider implementing something more suitable such as [Hunt & Szymanski's algorithm](http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php) and/or [Hirschberg's algorithm](https://en.wikipedia.org/wiki/Hirschberg%27s_algorithm).
+```sh
+swift run -c release PerformanceTester Sources/PerformanceTester/Samples/Diff-old.swift Sources/PerformanceTester/Samples/Diff-new.swift 
+```
+
+All of the above being said, the algorithm used by Diff works best for collections with _small_ differences between them. However, even for big differences this library is still likely to be faster than those that use the simple `O(n*m)` algorithm. If you need better performance with large differences between collections, please consider implementing a more suitable approach such as [Hunt & Szymanski's algorithm](http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php) and/or [Hirschberg's algorithm](https://en.wikipedia.org/wiki/Hirschberg%27s_algorithm).
 
 ## Requirements
 

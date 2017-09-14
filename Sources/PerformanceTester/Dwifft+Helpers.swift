@@ -1,4 +1,3 @@
-
 import Dwifft
 
 func performDwifft(_ a: [Character], b: [Character]) {

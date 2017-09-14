@@ -61,7 +61,7 @@ func launchPath() -> String {
     while path.characters[lastSlashIndex] != c {
         lastSlashIndex = path.index(before: lastSlashIndex)
     }
-    return path.substring(to: lastSlashIndex).substring(from: dotIndex)
+    return String(path[dotIndex...lastSlashIndex])
 }
 
 func proccessPath() -> String {
