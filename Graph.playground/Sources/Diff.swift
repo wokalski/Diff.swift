@@ -1,1 +1,1 @@
-../../Sources/Diff.swift
+../../Sources/Diff/Diff.swift

@@ -14,12 +14,12 @@ This library generates differences between any two Collections (and Strings). It
   }
 
   s.platforms = { :ios => "8.0", :osx => "10.10", :tvos => "9.0", :watchos => "3.0" }
-  s.osx.exclude_files = "Sources/Diff+UIKit.swift"
-  s.watchos.exclude_files = "Sources/Diff+UIKit.swift"
+  s.osx.exclude_files = "Sources/Diff/Diff+UIKit.swift"
+  s.watchos.exclude_files = "Sources/Diff/Diff+UIKit.swift"
 
   s.source = { :git => "https://github.com/tonyarnold/Diff.swift.git", :tag => "0.6" }
 
-  s.source_files = "Sources"
+  s.source_files = "Sources/Diff"
 
   post_install do |installer|
     targets = ['Diff']

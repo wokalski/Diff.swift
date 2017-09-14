@@ -1,8 +1,14 @@
+// swift-tools-version:4.0
 import PackageDescription
 
 let package = Package(
     name: "Diff",
-    dependencies: []
+    products: [
+    	.library(name: "Diff", targets: ["Diff"])
+    ],
+    targets: [
+	    .target(name: "Diff"),
+	    .testTarget(name: "DiffTests", dependencies: ["Diff"]),
+    ],
+    swiftLanguageVersions: [4]
 )
-
-products.append(Product(name: "Diff", type: .Library(.Dynamic), modules: ["Diff"]))
