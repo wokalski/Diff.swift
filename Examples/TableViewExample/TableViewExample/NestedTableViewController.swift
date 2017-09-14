@@ -90,7 +90,7 @@ class NestedTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = addButton
     }
     
-    func refresh(_ sender: Any) {
+    @IBAction func refresh(_ sender: Any) {
         currentConfiguration = currentConfiguration == 0 ? 1 : 0;
     }
     

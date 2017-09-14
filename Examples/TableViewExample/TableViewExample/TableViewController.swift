@@ -43,7 +43,7 @@ class TableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = addButton
     }
 
-    func refresh(_ sender: Any) {
+    @IBAction func refresh(_ sender: Any) {
         currentObjects = currentObjects == 0 ? 1 : 0;
     }
 
