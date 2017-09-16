@@ -29,26 +29,26 @@ Calculating and acting on differences should also aid you in making a clear sepa
 
 Let's consider a simple example of using a patch to transform string `"a"` into `"b"`. The following steps describe the patches required to move between these states:
 
-	 Change                          | Result
-	:--------------------------------|:-------------
-	Delete the item at index 0       | `""`
-	Insert `b` at index 0            | `"b"`
+ Change                          | Result
+:--------------------------------|:-------------
+Delete the item at index 0       | `""`
+Insert `b` at index 0            | `"b"`
 
 If we want to perform these operations in different order, simple reordering of the existing patches won't work:
 
-	 Change                           | Result
-	:---------------------------------|:-------
-	Insert `b` at index 0             | `"ba"`
-	Delete the item at index 0        | `"a"`
+ Change                           | Result
+:---------------------------------|:-------
+Insert `b` at index 0             | `"ba"`
+Delete the item at index 0        | `"a"`
 
 ...whoops!
 
 To get to the correct outcome, we need to shift the order of insertions and deletions so that we get this:
 
-	 Change                           | Result
-	:---------------------------------|:------
-	Insert `b` at index 1             | `"ab"`
-	Delete the item at index 0        | `"b"`
+ Change                           | Result
+:---------------------------------|:------
+Insert `b` at index 1             | `"ab"`
+Delete the item at index 0        | `"b"`
 
 ### Solution
 
@@ -167,17 +167,17 @@ In the bundled benchmarks, you should see an order of magnitude difference in ca
 
 Each measurement is the mean time in seconds it takes to calculate a diff, over 10 runs on an iPhone 6.
 
-	         |   Diff    | Dwifft
-	---------|:----------|:-------
-	 same    |  0.0213   | 52.3642
-	 created |  0.0188   | 0.0033
-	 deleted |  0.0184   | 0.0050
-	 diff    |  0.1320   | 63.4084
-	 
+|         |   Diff    | Dwifft  |
+|---------|:----------|:--------|
+| same    |  0.0213   | 52.3642 |
+| created |  0.0188   | 0.0033  |
+| deleted |  0.0184   | 0.0050  |
+| diff    |  0.1320   | 63.4084 |
+
 You can run these benchmarks yourself:
 
 ```sh
-swift run -c release PerformanceTester Sources/PerformanceTester/Samples/Diff-old.swift Sources/PerformanceTester/Samples/Diff-new.swift 
+swift run -c release PerformanceTester Sources/PerformanceTester/Samples/Diff-old.swift Sources/PerformanceTester/Samples/Diff-new.swift
 ```
 
 All of the above being said, the algorithm used by Diff works best for collections with _small_ differences between them. However, even for big differences this library is still likely to be faster than those that use the simple `O(n*m)` algorithm. If you need better performance with large differences between collections, please consider implementing a more suitable approach such as [Hunt & Szymanski's algorithm](http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php) and/or [Hirschberg's algorithm](https://en.wikipedia.org/wiki/Hirschberg%27s_algorithm).
