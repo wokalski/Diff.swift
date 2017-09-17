@@ -1,13 +1,12 @@
-/**
- Generates arbitrarly sorted patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
- The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
-
- - parameter from: The source collection
- - parameter to: The target collection
- - parameter sort: A sorting function
- - complexity: O((N+M)*D)
- - returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
- */
+/// Generates arbitrarly sorted patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one. The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
+///
+/// - Complexity: O((N+M)*D)
+///
+/// - Parameters:
+///   - from: The source collection
+///   - to: The target collection
+///   - sort: A sorting function
+/// - Returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
 public func patch<T: Collection>(
     from: T,
     to: T,
@@ -20,16 +19,15 @@ public extension Diff {
 
     public typealias OrderedBefore = (_ fst: Diff.Element, _ snd: Diff.Element) -> Bool
 
-    /**
-     Generates arbitrarly sorted patch sequence based on the callee. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
-     The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
-
-     - parameter from: The source collection (usually the source collecetion of the callee)
-     - parameter to: The target collection (usually the target collecetion of the callee)
-     - parameter sort: A sorting function
-     - complexity: O(D^2)
-     - returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
-     */
+    /// Generates arbitrarly sorted patch sequence based on the callee. It is a list of steps to be applied to obtain the `to` collection from the `from` one. The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
+    ///
+    /// - Complexity: O(D^2)
+    ///
+    /// - Parameters:
+    ///   - from: The source collection (usually the source collecetion of the callee)
+    ///   - to: The target collection (usually the target collecetion of the callee)
+    ///   - sort: A sorting function
+    /// - Returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
     public func patch<T: Collection>(
         from: T,
         to: T,

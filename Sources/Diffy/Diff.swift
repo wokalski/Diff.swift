@@ -5,14 +5,13 @@ public protocol DiffProtocol: Collection {
     var elements: [DiffElementType] { get }
 }
 
-/**
- A sequence of deletions and insertions where deletions point to locations in the source and insertions point to locations in the output.
- Examples:
- "12" -> "": D(0)D(1)
- "" -> "12": I(0)I(1)
-
- SeeAlso: Diff
- */
+/// A sequence of deletions and insertions where deletions point to locations in the source and insertions point to locations in the output.
+/// Examples:
+/// ```
+/// "12" -> "": D(0)D(1)
+/// "" -> "12": I(0)I(1)
+/// ```
+/// - SeeAlso: Diff
 public struct Diff: DiffProtocol {
 
     public enum Element {
@@ -22,7 +21,8 @@ public struct Diff: DiffProtocol {
 
     /// Returns the position immediately after the given index.
     ///
-    /// - Parameter i: A valid index of the collection. `i` must be less than
+    /// - Parameters:
+    ///   - i: A valid index of the collection. `i` must be less than
     ///   `endIndex`.
     /// - Returns: The index value immediately after `i`.
     public func index(after i: Int) -> Int {
@@ -105,9 +105,11 @@ public extension String {
 
     /// Creates a diff between the calee and `to` string
     ///
-    /// - parameter to: a string to compare the calee to.
-    /// - complexity: O((N+M)*D)
-    /// - returns: a Diff between the calee and `to` string
+    /// - Complexity: O((N+M)*D)
+    ///
+    /// - Parameters:
+    ///   - to: a string to compare the calee to.
+    /// - Returns: a Diff between the calee and `to` string
     public func diff(to: String) -> Diff {
         if self == to {
             return Diff(elements: [])
@@ -117,9 +119,11 @@ public extension String {
 
     /// Creates an extended diff (includes insertions, deletions, and moves) between the calee and `other` string
     ///
-    /// - parameter other: a string to compare the calee to.
-    /// - complexity: O((N+M)*D)
-    /// - returns: an ExtendedDiff between the calee and `other` string
+    /// - Complexity: O((N+M)*D)
+    ///
+    /// - Parameters:
+    ///   - other: a string to compare the calee to.
+    /// - Returns: an ExtendedDiff between the calee and `other` string
     public func extendedDiff(_ other: String) -> ExtendedDiff {
         if self == other {
             return ExtendedDiff(
@@ -156,9 +160,11 @@ public extension Collection {
 
     /// Creates a diff between the calee and `other` collection
     ///
-    /// - parameter other: a collection to compare the calee to
-    /// - complexity: O((N+M)*D)
-    /// - returns: a Diff between the calee and `other` collection
+    /// - Complexity: O((N+M)*D)
+    /// 
+    /// - Parameters:
+    ///   - other: a collection to compare the calee to
+    /// - Returns: a Diff between the calee and `other` collection
     public func diff(
         _ other: Self,
         isEqual: EqualityChecker<Self>
@@ -175,9 +181,9 @@ public extension Collection {
 
     /// Generates all traces required to create an output diff. See the [paper](http://www.xmailserver.org/diff2.pdf) for more information on traces.
     ///
-    /// - parameter to: other collection
-    ///
-    /// - returns: all traces required to create an output diff
+    /// - Parameters:
+    ///   - to: other collection
+    /// - Returns: all traces required to create an output diff
     public func diffTraces(
         to: Self,
         isEqual: EqualityChecker<Self>
@@ -340,21 +346,21 @@ public extension Collection {
 
 public extension Collection where Iterator.Element: Equatable {
 
-    /// - seealso: `diff(_:isEqual:)`
+    /// - SeeAlso: `diff(_:isEqual:)`
     public func diff(
         _ other: Self
     ) -> Diff {
         return diff(other, isEqual: { $0 == $1 })
     }
 
-    /// - seealso: `diffTraces(to:isEqual:)`
+    /// - SeeAlso: `diffTraces(to:isEqual:)`
     public func diffTraces(
         to: Self
     ) -> [Trace] {
         return diffTraces(to: to, isEqual: { $0 == $1 })
     }
 
-    /// - seealso: `outputDiffPathTraces(to:isEqual:)`
+    /// - SeeAlso: `outputDiffPathTraces(to:isEqual:)`
     public func outputDiffPathTraces(
         to: Self
     ) -> [Trace] {

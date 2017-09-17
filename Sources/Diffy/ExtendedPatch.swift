@@ -21,25 +21,27 @@ enum BoxedDiffAndPatchElement<T> {
 
 /// Single step in a patch sequence.
 ///
-/// - insertion:      A single patch step containing an insertion index and an element to be inserted
-/// - deletion:       A single patch step containing a deletion index
-/// - move:           A single patch step containing the origin and target of a move
+/// - insertion: A single patch step containing an insertion index and an element to be inserted
+/// - deletion: A single patch step containing a deletion index
+/// - move: A single patch step containing the origin and target of a move
 public enum ExtendedPatch<Element> {
+    /// A single patch step containing the origin and target of a move
     case insertion(index: Int, element: Element)
+    /// A single patch step containing a deletion index
     case deletion(index: Int)
+    /// A single patch step containing the origin and target of a move
     case move(from: Int, to: Int)
 }
 
-/**
- Generates a patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
- The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
-
- - parameter from: The source collection
- - parameter to: The target collection
- - parameter sort: A sorting function
- - complexity: O((N+M)*D)
- - returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
- */
+/// Generates a patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one. The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
+///
+/// - Complexity: O((N+M)*D)
+///
+/// - Parameters:
+///   - from: The source collection
+///   - to: The target collection
+///   - sort: A sorting function
+/// - Returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
 public func extendedPatch<T: Collection>(
     from: T,
     to: T,
@@ -51,16 +53,15 @@ public func extendedPatch<T: Collection>(
 extension ExtendedDiff {
     public typealias OrderedBefore = (_ fst: ExtendedDiff.Element, _ snd: ExtendedDiff.Element) -> Bool
 
-    /**
-     Generates a patch sequence based on the callee. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
-     The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
-
-     - parameter from: The source collection (usually the source collecetion of the callee)
-     - parameter to: The target collection (usually the target collecetion of the callee)
-     - parameter sort: A sorting function
-     - complexity: O(D^2)
-     - returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
-     */
+    /// Generates a patch sequence based on the callee. It is a list of steps to be applied to obtain the `to` collection from the `from` one. The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
+    ///
+    /// - Complexity: O(D^2)
+    ///
+    /// - Parameters:
+    ///   - from: The source collection (usually the source collecetion of the callee)
+    ///   - to: The target collection (usually the target collecetion of the callee)
+    ///   - sort: A sorting function
+    /// - Returns: Arbitrarly sorted sequence of steps to obtain `to` collection from the `from` one.
     public func patch<T: Collection>(
         from: T,
         to: T,

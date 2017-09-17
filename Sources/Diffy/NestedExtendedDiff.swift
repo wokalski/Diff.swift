@@ -13,8 +13,8 @@ public struct NestedExtendedDiff: DiffProtocol {
 
     /// Returns the position immediately after the given index.
     ///
-    /// - Parameter i: A valid index of the collection. `i` must be less than
-    ///   `endIndex`.
+    /// - Parameters:
+    ///   - i: A valid index of the collection. `i` must be less than `endIndex`.
     /// - Returns: The index value immediately after `i`.
     public func index(after i: Int) -> Int {
         return i + 1
@@ -30,8 +30,9 @@ public extension Collection
 
     /// Creates a diff between the callee and `other` collection. It diffs elements two levels deep (therefore "nested")
     ///
-    /// - parameter other: a collection to compare the calee to
-    /// - returns: a `NestedDiff` between the calee and `other` collection
+    /// - Parameters:
+    ///   - other: a collection to compare the calee to
+    /// - Returns: a `NestedDiff` between the calee and `other` collection
     public func nestedExtendedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>,
@@ -122,7 +123,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(
         to: Self,
         isEqualSection: EqualityChecker<Self>
@@ -139,7 +140,7 @@ public extension Collection
     where Iterator.Element: Collection,
     Iterator.Element: Equatable {
 
-    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(
         to: Self,
         isEqualElement: NestedElementEqualityChecker<Self>
@@ -157,7 +158,7 @@ public extension Collection
     Iterator.Element: Equatable,
     Iterator.Element.Iterator.Element: Equatable {
 
-    /// - seealso: `nestedDiff(to:isEqualSection:isEqualElement:)`
+    /// - SeeAlso: `nestedDiff(to:isEqualSection:isEqualElement:)`
     public func nestedExtendedDiff(to: Self) -> NestedExtendedDiff {
         return nestedExtendedDiff(
             to: to,
