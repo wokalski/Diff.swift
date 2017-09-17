@@ -2,13 +2,6 @@ public protocol DiffProtocol: Collection {
 
     associatedtype DiffElementType
 
-    #if swift(>=3.1)
-        // The typealias is causing crashes in SourceKitService under Swift 3.1 snapshots.
-    #else
-        // TODO: Verify that the typealias workaround is still required when Xcode 8.3 is released.
-        typealias Index = Int
-    #endif
-
     var elements: [DiffElementType] { get }
 }
 
