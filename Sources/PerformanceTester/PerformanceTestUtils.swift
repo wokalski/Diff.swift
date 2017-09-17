@@ -1,13 +1,5 @@
-//
-//  PerformanceTest.swift
-//  Benchmark
-//
-//  Created by Wojciech Czekalski on 27.04.2016.
-//  Copyright © 2016 wczekalski. All rights reserved.
-//
-
 import Foundation
-import Diff
+import Diffy
 
 func performDiff(fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: @escaping ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
     let old = file(fromFilePath)
@@ -61,7 +53,7 @@ func launchPath() -> String {
     while path.characters[lastSlashIndex] != c {
         lastSlashIndex = path.index(before: lastSlashIndex)
     }
-    return String(path[dotIndex...lastSlashIndex])
+    return String(path[dotIndex ... lastSlashIndex])
 }
 
 func proccessPath() -> String {

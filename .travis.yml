@@ -5,8 +5,8 @@ env:
     global:
         - LANG=en_US.UTF-8
 
-        - PROJECT="Diff.xcodeproj"
-        - SCHEME="Diff"
+        - PROJECT="Diffy.xcodeproj"
+        - SCHEME="Diffy"
 
         - IOS_SDK=iphonesimulator11.0
         - OSX_SDK=macosx10.13

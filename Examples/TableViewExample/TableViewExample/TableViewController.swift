@@ -1,6 +1,5 @@
-
+import Diffy
 import UIKit
-import Diff
 
 class TableViewController: UITableViewController {
 

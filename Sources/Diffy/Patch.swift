@@ -1,5 +1,3 @@
-
-
 /// Single step in a patch sequence.
 public enum Patch<Element> {
     /// A single patch step containing an insertion index and an element to be inserted

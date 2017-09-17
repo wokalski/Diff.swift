@@ -55,13 +55,13 @@ public extension Graph {
 
     func rects(row y: Int) -> [CGRect] {
         return (0 ..< grid.x).map {
-            return rect(at: Point(x: $0, y: y))
+            rect(at: Point(x: $0, y: y))
         }
     }
 
     func rects(column x: Int) -> [CGRect] {
         return (0 ..< grid.y).map {
-            return rect(at: Point(x: x, y: $0))
+            rect(at: Point(x: x, y: $0))
         }
     }
 

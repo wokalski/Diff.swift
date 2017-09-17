@@ -1,13 +1,5 @@
-//
-//  DiffTests.swift
-//  DiffTests
-//
-//  Created by Wojciech Czekalski on 03.07.2016.
-//  Copyright © 2016 wczekalski. All rights reserved.
-//
-
 import XCTest
-@testable import Diff
+@testable import Diffy
 
 extension Trace: Hashable {
     public var hashValue: Int {
@@ -31,7 +23,7 @@ class DiffTests: XCTestCase {
         ("1234", "1234", ""),
         ("", "", ""),
         ("Oh Hi", "Hi Oh", "D(0)D(1)D(2)I(2)I(3)I(4)"),
-        ("1362", "31526", "D(0)D(2)I(1)I(2)I(4)"),
+        ("1362", "31526", "D(0)D(2)I(1)I(2)I(4)")
     ]
 
     let extendedExpectations = [
@@ -51,7 +43,7 @@ class DiffTests: XCTestCase {
         ("Oh Hi", "Hi Oh", "M(0,3)M(1,4)M(2,2)"),
         ("Hi Oh", "Oh Hi", "M(0,3)M(1,4)M(2,2)"),
         ("12345", "12435", "M(2,3)"),
-        ("1362", "31526", "M(0,1)M(2,4)I(2)"),
+        ("1362", "31526", "M(0,1)M(2,4)I(2)")
     ]
 
     func testDiffOutputs() {

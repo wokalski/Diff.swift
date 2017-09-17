@@ -1,6 +1,3 @@
-
-// TODO: Fix ugly copy paste :/
-
 public extension RangeReplaceableCollection where Self.Iterator.Element: Equatable {
 
     public func apply(_ patch: [ExtendedPatch<Iterator.Element>]) -> Self {

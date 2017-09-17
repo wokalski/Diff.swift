@@ -1,15 +1,15 @@
-# Diff
+# Diffy
 
-[![Build Status](https://travis-ci.org/tonyarnold/Diff.svg?branch=master)](https://travis-ci.org/tonyarnold/Diff) [![codecov](https://codecov.io/gh/tonyarnold/Diff/branch/master/graph/badge.svg)](https://codecov.io/gh/tonyarnold/Diff)
+[![Build Status](https://travis-ci.org/tonyarnold/Diffy.svg?branch=master)](https://travis-ci.org/tonyarnold/Diffy) [![codecov](https://codecov.io/gh/tonyarnold/Diffy/branch/master/graph/badge.svg)](https://codecov.io/gh/tonyarnold/Diffy)
 
-This library generates the differences between `Collection` instances (this includes Strings!).
+Diffy generates the differences between `Collection` instances (this includes Strings!).
 
 It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))` to do this.
 
 ## Features
 
 - ⚡️ [It is fast](#performance-notes)
-- Diff supports three types of operations:
+- Diffy supports three types of operations:
     - Insertions
     - Deletions
     - Moves (when using `ExtendedDiff`)
@@ -55,7 +55,7 @@ Delete the item at index 0        | `"b"`
 In order to mitigate this issue, there are two types of output:
 
 - *Diff*
-    - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. `Diff.swift` produces just one `Diff`.
+    - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. Diffy produces just one `Diff`.
 - *Patch*
     - An _ordered sequence_ of steps to be applied to the source collection that will result in the second collection. This is based on a `Diff`, but it can be arbitrarily sorted.
 
@@ -161,7 +161,7 @@ If you'd like to learn more about how this library works, `Graph.playground` is 
 
 ## Performance notes
 
-This library is **fast**. Many of the other Swift diff libraries use a simple `O(n*m)` algorithm, which allocates a 2 dimensional array and then walks through every element. This can use _a lot_ of memory.
+Diffy is **fast**. Many of the other Swift diff libraries use a simple `O(n*m)` algorithm, which allocates a 2 dimensional array and then walks through every element. This can use _a lot_ of memory.
 
 In the bundled benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
 
@@ -184,26 +184,26 @@ All of the above being said, the algorithm used by Diff works best for collectio
 
 ## Requirements
 
-This project requires Swift 4 / Xcode 9 or later to compile.
+Diffy requires Swift 4 / Xcode 9 or later to compile.
 
 ## Installation
 
-You can add Diff to your project using Carthage, CocoaPods, Swift Package Manager, or as an Xcode subproject.
+You can add Diffy to your project using Carthage, CocoaPods, Swift Package Manager, or as an Xcode subproject.
 
 ### Carthage
 
 ```ruby
-github "tonyarnold/Diff"
+github "tonyarnold/Diffy"
 ```
 
 ### CocoaPods
 
 ```ruby
-pod 'Diff'
+pod 'Diffy'
 ```
 
 ## Acknowledgements
 
-This library is a modified fork of [Wojtek Czekalski's](https://github.com/wokalski) [Diff.swift](https://github.com/wokalski/Diff.swift) - he deserves all the credit for implementation, I am merely a custodian.
+Diffy is a modified fork of [Wojtek Czekalski's](https://github.com/wokalski) [Diff.swift](https://github.com/wokalski/Diff.swift) - Wojtek deserves all the credit for the original implementation, I am merely it's present custodian.
 
-Please, [file issues with this fork here in this repository](/tonyarnold/Diff/issues/new), not in Wojtek's.
+Please, [file issues with this fork here in this repository](/tonyarnold/Diff/issues/new), not in Wojtek's original repository.

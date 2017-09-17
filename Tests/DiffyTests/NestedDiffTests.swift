@@ -1,6 +1,5 @@
-
 import XCTest
-@testable import Diff
+@testable import Diffy
 
 struct KeyedIntArray: Equatable {
     let elements: [Int]
@@ -46,18 +45,18 @@ class NestedDiffTests: XCTestCase {
                 [],
                 [
                     KeyedIntArray(elements: [1, 2], key: 0),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 "IS(0)IS(1)"
             ),
             (
                 [
                     KeyedIntArray(elements: [2], key: 0),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [1], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 "DE(0,0)IE(0,0)DE(0,1)"
             ),
@@ -65,11 +64,11 @@ class NestedDiffTests: XCTestCase {
                 [
                     KeyedIntArray(elements: [2], key: 0),
                     KeyedIntArray(elements: [0], key: 5),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [1], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 "DS(1)DE(0,0)IE(0,0)DE(0,2)"
             ),
@@ -77,11 +76,11 @@ class NestedDiffTests: XCTestCase {
                 [
                     KeyedIntArray(elements: [2], key: 0),
                     KeyedIntArray(elements: [0], key: 5),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [1], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 "DS(1)DE(0,0)IE(0,0)DE(0,2)"
             ),
@@ -89,44 +88,44 @@ class NestedDiffTests: XCTestCase {
                 [
                     KeyedIntArray(elements: [2], key: 0),
                     KeyedIntArray(elements: [1, 2, 3], key: -1),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [2, 3], key: 0),
-                    KeyedIntArray(elements: [1, 2], key: 1),
+                    KeyedIntArray(elements: [1, 2], key: 1)
                 ],
                 "DS(1)IE(1,0)IE(1,1)"
             ),
             (
                 [
                     KeyedIntArray(elements: [2], key: 0),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [2, 1], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 "IE(1,0)DE(0,1)"
             ),
             (
                 [
                     KeyedIntArray(elements: [], key: 0),
-                    KeyedIntArray(elements: [1, 2], key: 1),
+                    KeyedIntArray(elements: [1, 2], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [2], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 "IE(0,0)DE(0,1)DE(1,1)"
             ),
             (
                 [
                     KeyedIntArray(elements: [1, 2], key: 0),
-                    KeyedIntArray(elements: [], key: 1),
+                    KeyedIntArray(elements: [], key: 1)
                 ],
                 [
                     KeyedIntArray(elements: [], key: 0),
-                    KeyedIntArray(elements: [1], key: 1),
+                    KeyedIntArray(elements: [1], key: 1)
                 ],
                 "DE(0,0)DE(1,0)IE(0,1)"
             ),
@@ -134,15 +133,15 @@ class NestedDiffTests: XCTestCase {
                 [
                     KeyedIntArray(elements: [], key: 0),
                     KeyedIntArray(elements: [1], key: 1),
-                    KeyedIntArray(elements: [2], key: 2),
+                    KeyedIntArray(elements: [2], key: 2)
                 ],
                 [
                     KeyedIntArray(elements: [1, 2], key: 0),
                     KeyedIntArray(elements: [], key: 1),
-                    KeyedIntArray(elements: [], key: 2),
+                    KeyedIntArray(elements: [], key: 2)
                 ],
                 "IE(0,0)IE(1,0)DE(0,1)DE(0,2)"
-            ),
+            )
         ]
 
         let expectations: [([[Int]], [[Int]], String)] = [
@@ -150,14 +149,14 @@ class NestedDiffTests: XCTestCase {
                 [],
                 [
                     [1, 2],
-                    [1],
+                    [1]
                 ],
                 "IS(0)IS(1)"
             ),
             (
                 [
                     [1, 2],
-                    [],
+                    []
                 ],
                 [],
                 "DS(0)DS(1)"
@@ -181,7 +180,7 @@ class NestedDiffTests: XCTestCase {
                 [[1]],
                 [[], [2]],
                 "IS(0)DE(0,0)IE(0,1)"
-            ),
+            )
         ]
 
         for expectation in expectations {

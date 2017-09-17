@@ -15,9 +15,23 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
-               BuildableName = "Diff.framework"
-               BlueprintName = "Diff"
-               ReferencedContainer = "container:Diff.xcodeproj">
+               BuildableName = "Diffy.framework"
+               BlueprintName = "Diffy"
+               ReferencedContainer = "container:Diffy.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C9838FF01D29571000691BE8"
+               BuildableName = "DiffyTests.xctest"
+               BlueprintName = "DiffyTests"
+               ReferencedContainer = "container:Diffy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,9 +49,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C9838FF01D29571000691BE8"
-               BuildableName = "DiffTests.xctest"
-               BlueprintName = "DiffTests"
-               ReferencedContainer = "container:Diff.xcodeproj">
+               BuildableName = "DiffyTests.xctest"
+               BlueprintName = "DiffyTests"
+               ReferencedContainer = "container:Diffy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,9 +59,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
-            ReferencedContainer = "container:Diff.xcodeproj">
+            BuildableName = "Diffy.framework"
+            BlueprintName = "Diffy"
+            ReferencedContainer = "container:Diffy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
-            ReferencedContainer = "container:Diff.xcodeproj">
+            BuildableName = "Diffy.framework"
+            BlueprintName = "Diffy"
+            ReferencedContainer = "container:Diffy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -86,9 +100,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9EE87151CCFCA83006BD90E"
-            BuildableName = "Diff.framework"
-            BlueprintName = "Diff"
-            ReferencedContainer = "container:Diff.xcodeproj">
+            BuildableName = "Diffy.framework"
+            BlueprintName = "Diffy"
+            ReferencedContainer = "container:Diffy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

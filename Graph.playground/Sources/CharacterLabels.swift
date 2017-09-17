@@ -40,12 +40,12 @@ extension Character {
 
 func inset(rects: [CGRect], to: [CGSize]) -> [CGRect] {
     return zip(to, rects).map { size, rect -> CGRect in
-        return rect.inset(to: size)
+        rect.inset(to: size)
     }
 }
 
 extension CGRect {
     func inset(to size: CGSize) -> CGRect {
-        return self.insetBy(dx: (self.width - size.width) / 2, dy: (self.height - size.height) / 2).standardized
+        return insetBy(dx: (width - size.width) / 2, dy: (height - size.height) / 2).standardized
     }
 }

@@ -1,5 +1,3 @@
-
-
 public struct Diff {
     let elements: [DiffElement]
 }
@@ -88,7 +86,7 @@ public extension CollectionType where Generator.Element: Equatable, Index: Signe
 
     public func diffTraces(b: Self) -> Array<Trace> {
 
-        let N = Int(self.count.toIntMax())
+        let N = Int(count.toIntMax())
         let M = Int(b.count.toIntMax())
         var traces = Array<Trace>()
 
@@ -148,7 +146,7 @@ public extension CollectionType where Generator.Element: Equatable, Index: Signe
     }
 
     func diff(b: Self) -> Diff {
-        return findPath(diffTraces(b), n: Int(self.count.toIntMax()), m: Int(b.count.toIntMax()))
+        return findPath(diffTraces(b), n: Int(count.toIntMax()), m: Int(b.count.toIntMax()))
     }
 
     private func findPath(traces: Array<Trace>, n: Int, m: Int) -> Diff {

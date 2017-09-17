@@ -1,4 +1,3 @@
-
 /**
  Generates arbitrarly sorted patch sequence. It is a list of steps to be applied to obtain the `to` collection from the `from` one.
  The sorting function lets you sort the output e.g. you might want the output patch to have insertions first.
@@ -53,7 +52,7 @@ public extension Diff {
                 sourceIndex: p.1,
                 sortedIndex: i)
         }.sorted(by: { (fst, snd) -> Bool in
-            return fst.sourceIndex < snd.sourceIndex
+            fst.sourceIndex < snd.sourceIndex
         })
     }
 }

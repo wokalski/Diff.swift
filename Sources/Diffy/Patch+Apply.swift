@@ -1,4 +1,3 @@
-
 public extension RangeReplaceableCollection where Self.Iterator.Element: Equatable {
 
     public func apply(_ patch: [Patch<Iterator.Element>]) -> Self {

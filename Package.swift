@@ -2,18 +2,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "Diff",
+    name: "Diffy",
     products: [
-    	.library(name: "Diff", targets: ["Diff"]),
-        .executable(name: "PerformanceTester", targets: ["PerformanceTester"]),
+        .library(name: "Diffy", targets: ["Diffy"]),
+        .executable(name: "PerformanceTester", targets: ["PerformanceTester"])
     ],
     dependencies: [
         .package(url: "https://github.com/jflinter/Dwifft.git", from: "0.0.0")
     ],
     targets: [
-	    .target(name: "Diff"),
-	    .testTarget(name: "DiffTests", dependencies: ["Diff"]),
-	    .target(name: "PerformanceTester", dependencies: ["Diff", "Dwifft"], exclude: ["Samples"])
+        .target(name: "Diffy"),
+        .testTarget(name: "DiffyTests", dependencies: ["Diffy"]),
+        .target(name: "PerformanceTester", dependencies: ["Diffy", "Dwifft"], exclude: ["Samples"])
     ],
     swiftLanguageVersions: [4]
 )

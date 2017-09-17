@@ -1,5 +1,5 @@
 import XCTest
-@testable import Diff
+@testable import Diffy
 
 class PatchApplyTests: XCTestCase {
     func testString() {
@@ -9,10 +9,10 @@ class PatchApplyTests: XCTestCase {
             ("", "I(0,A)I(1,B)I(1,C)", "ACB"),
             ("AB", "D(1)I(1,B)I(1,C)", "ACB"),
             ("AB", "I(1,B)D(0)I(1,C)", "BCB"),
-            ("A", "I(0,B)D(0)", "A"),
+            ("A", "I(0,B)D(0)", "A")
         ]
 
-        testCases.forEach { (args) in
+        testCases.forEach { args in
             let (seed, patchString, result) = args
             XCTAssertEqual(seed.apply(stringPatch(from: patchString)), result)
         }
@@ -25,10 +25,10 @@ class PatchApplyTests: XCTestCase {
             ([], "I(0,0)I(1,1)I(1,2)", [0, 2, 1]),
             ([0, 1], "D(1)I(1,1)I(1,2)", [0, 2, 1]),
             ([0, 1], "I(1,1)D(0)I(1,2)", [1, 2, 1]),
-            ([0], "I(0,1)D(0)", [0]),
+            ([0], "I(0,1)D(0)", [0])
         ]
 
-        testCases.forEach { (args) in
+        testCases.forEach { args in
             let (seed, patchString, result) = args
             XCTAssertEqual(seed.apply(intPatch(from: patchString)), result)
         }

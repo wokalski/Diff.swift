@@ -15,14 +15,12 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.6</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2016 wczekalski. All rights reserved.</string>
-	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>Copyright © 2017 Tony Arnold. All rights reserved.</string>
 </dict>
 </plist>

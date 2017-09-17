@@ -1,4 +1,3 @@
-
 enum BoxedDiffAndPatchElement<T> {
     case move(
         diffElement: ExtendedDiff.Element,
@@ -12,9 +11,9 @@ enum BoxedDiffAndPatchElement<T> {
 
     var diffElement: ExtendedDiff.Element {
         switch self {
-        case .move(let de, _, _):
+        case let .move(de, _, _):
             return de
-        case .single(let de, _):
+        case let .single(de, _):
             return de
         }
     }
@@ -80,14 +79,14 @@ extension ExtendedDiff {
             if moveIndices.contains(patchElement.sourceIndex) {
                 let to = result[i + 1].value
                 switch patchElement.value {
-                case .deletion(let index):
+                case let .deletion(index):
                     if case let .insertion(toIndex, _) = to {
                         return .move(from: index, to: toIndex)
                     } else {
                         fatalError()
                     }
-                case .insertion(let index, _):
-                    if case .deletion(let fromIndex) = to {
+                case let .insertion(index, _):
+                    if case let .deletion(fromIndex) = to {
                         return .move(from: fromIndex, to: index)
                     } else {
                         fatalError()
@@ -95,7 +94,7 @@ extension ExtendedDiff {
                 }
             } else if !(i > 0 && moveIndices.contains(result[i - 1].sourceIndex)) {
                 switch patchElement.value {
-                case .deletion(let index):
+                case let .deletion(index):
                     return .deletion(index: index)
                 case let .insertion(index, element):
                     return .insertion(index: index, element: element)
@@ -124,7 +123,7 @@ extension ExtendedDiff {
                 sourceIndex: old.sourceIndex,
                 sortedIndex: index)
         }.sorted { (fst, snd) -> Bool in
-            return fst.sourceIndex < snd.sourceIndex
+            fst.sourceIndex < snd.sourceIndex
         }
     }
 

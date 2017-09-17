@@ -42,7 +42,7 @@ public extension UIBezierPath {
         let l = CAShapeLayer()
         let bounds = self.bounds
         let origin = bounds.origin
-        let path = self.copy() as! UIBezierPath
+        let path = copy() as! UIBezierPath
 
         path.apply(CGAffineTransform(translationX: -origin.x, y: -origin.y))
 

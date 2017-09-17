@@ -5,5 +5,5 @@ func performDwifft(_ a: [Character], b: [Character]) {
 }
 
 private func dwifft(_ a: [Character], b: [Character]) -> [DiffStep<Character>] {
-    return Dwifft.diff(a, b);
+    return Dwifft.diff(a, b)
 }

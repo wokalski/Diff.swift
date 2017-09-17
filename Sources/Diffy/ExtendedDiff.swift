@@ -1,4 +1,3 @@
-
 /**
  A sequence of deletions, insertions, and moves where deletions point to locations in the source and insertions point to locations in the output.
  Examples:
@@ -97,7 +96,7 @@ public extension Collection {
                 let match = firstMatch(diff, dirtyIndices: moveTargetIndices.union(moveOriginIndices), candidate: candidate, candidateIndex: candidateIndex, other: other, isEqual: isEqual)
                 if let match = match {
                     switch match.0 {
-                    case .move(let from, _):
+                    case let .move(from, _):
                         if from == candidate.at() {
                             sourceIndex.append(candidateIndex)
                             sourceIndex.append(match.1)

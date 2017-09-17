@@ -1,13 +1,12 @@
-
 public protocol DiffProtocol: Collection {
 
     associatedtype DiffElementType
 
     #if swift(>=3.1)
-    // The typealias is causing crashes in SourceKitService under Swift 3.1 snapshots.
+        // The typealias is causing crashes in SourceKitService under Swift 3.1 snapshots.
     #else
-    // TODO: Verify that the typealias workaround is still required when Xcode 8.3 is released.
-    typealias Index = Int
+        // TODO: Verify that the typealias workaround is still required when Xcode 8.3 is released.
+        typealias Index = Int
     #endif
 
     var elements: [DiffElementType] { get }
@@ -144,7 +143,7 @@ public extension String {
 
 extension Array {
     func value(at index: Index) -> Iterator.Element? {
-        if index < 0 || index >= self.count {
+        if index < 0 || index >= count {
             return nil
         }
         return self[index]
@@ -190,9 +189,9 @@ public extension Collection {
         to: Self,
         isEqual: EqualityChecker<Self>
     ) -> [Trace] {
-        if self.count == 0 && to.count == 0 {
+        if count == 0 && to.count == 0 {
             return []
-        } else if self.count == 0 {
+        } else if count == 0 {
             return tracesForInsertions(to: to)
         } else if to.count == 0 {
             return tracesForDeletions()
@@ -208,14 +207,14 @@ public extension Collection {
     ) -> [Trace] {
         return findPath(
             diffTraces(to: to, isEqual: isEqual),
-            n: Int(self.count),
+            n: Int(count),
             m: Int(to.count)
         )
     }
 
     fileprivate func tracesForDeletions() -> [Trace] {
         var traces = [Trace]()
-        for index in 0 ..< Int(self.count) {
+        for index in 0 ..< Int(count) {
             let intIndex = Int(index)
             traces.append(Trace(from: Point(x: Int(intIndex), y: 0), to: Point(x: Int(intIndex) + 1, y: 0), D: 0))
         }
@@ -236,7 +235,7 @@ public extension Collection {
         isEqual: (Iterator.Element, Iterator.Element) -> Bool
     ) -> [Trace] {
 
-        let fromCount = Int(self.count)
+        let fromCount = Int(count)
         let toCount = Int(to.count)
         var traces = Array<Trace>()
 

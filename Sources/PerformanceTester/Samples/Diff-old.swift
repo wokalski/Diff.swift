@@ -1,5 +1,3 @@
-
-
 public struct Diff {
     let elements: [DiffElement]
 }
@@ -65,7 +63,7 @@ public extension CollectionType where Generator.Element: Equatable, Index: Signe
 
     public func diff(b: Self) -> Diff {
 
-        let N = Int(self.count.toIntMax())
+        let N = Int(count.toIntMax())
         let M = Int(b.count.toIntMax())
         var traces = Array<Trace>()
 
