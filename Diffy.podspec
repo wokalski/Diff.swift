@@ -11,7 +11,7 @@ It uses a fast algorithm `(O((N+M)*D))` to do this.
 Also included are utilities for easily applying diffs and patches to `UICollectionView`/`UITableView`.
                    DESC
 
-  s.license = { :type => "MIT", :file => "LICENSE" }
+  s.license = { :type => "MIT", :file => "LICENSE.md" }
   s.authors = {
     "Tony Arnold" => "tony@thecocoabots.com"
   }
