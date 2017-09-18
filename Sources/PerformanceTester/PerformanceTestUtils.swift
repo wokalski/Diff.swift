@@ -1,5 +1,5 @@
 import Foundation
-import Diffy
+import Differ
 
 func performDiff(fromFilePath: String, toFilePath: String, repeatCount: Int = 10, diffFunc: @escaping ([Character], [Character]) -> Void) -> (created: String, deleted: String, same: String, changed: String) {
     let old = file(fromFilePath)

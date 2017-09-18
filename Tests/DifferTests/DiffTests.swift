@@ -1,5 +1,5 @@
 import XCTest
-@testable import Diffy
+@testable import Differ
 
 extension Trace: Hashable {
     public var hashValue: Int {

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		907FFBA91F6E9203007F75D0 /* Diffy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907FFBA31F6E91EF007F75D0 /* Diffy.framework */; };
-		907FFBAA1F6E9203007F75D0 /* Diffy.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 907FFBA31F6E91EF007F75D0 /* Diffy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9098C1781F6FE89700026404 /* Differ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9098C1721F6FE88500026404 /* Differ.framework */; };
+		9098C1791F6FE89700026404 /* Differ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9098C1721F6FE88500026404 /* Differ.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9278AB61DE31362009CE846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB51DE31362009CE846 /* AppDelegate.swift */; };
 		C9278AB81DE31362009CE846 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9278AB71DE31362009CE846 /* TableViewController.swift */; };
 		C9278ABD1DE31362009CE846 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9278ABB1DE31362009CE846 /* Main.storyboard */; };
@@ -18,26 +18,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		907FFBA21F6E91EF007F75D0 /* PBXContainerItemProxy */ = {
+		9098C1711F6FE88500026404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */;
+			containerPortal = C9278AC91DE323F6009CE846 /* Differ.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C9EE87161CCFCA83006BD90E;
-			remoteInfo = Diffy;
+			remoteInfo = Differ;
 		};
-		907FFBA41F6E91EF007F75D0 /* PBXContainerItemProxy */ = {
+		9098C1731F6FE88500026404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */;
+			containerPortal = C9278AC91DE323F6009CE846 /* Differ.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C9838FF11D29571000691BE8;
-			remoteInfo = DiffyTests;
+			remoteInfo = DifferTests;
 		};
-		907FFBAB1F6E9203007F75D0 /* PBXContainerItemProxy */ = {
+		9098C17A1F6FE89700026404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */;
+			containerPortal = C9278AC91DE323F6009CE846 /* Differ.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = C9EE87151CCFCA83006BD90E;
-			remoteInfo = Diffy;
+			remoteInfo = Differ;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -48,7 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				907FFBAA1F6E9203007F75D0 /* Diffy.framework in CopyFiles */,
+				9098C1791F6FE89700026404 /* Differ.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 		C9278ABE1DE31362009CE846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9278AC11DE31362009CE846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9278AC31DE31362009CE846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diffy.xcodeproj; path = ../../Diffy.xcodeproj; sourceTree = "<group>"; };
+		C9278AC91DE323F6009CE846 /* Differ.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Differ.xcodeproj; path = ../../Differ.xcodeproj; sourceTree = "<group>"; };
 		C93448FE1E195C570035E956 /* NestedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,18 +71,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				907FFBA91F6E9203007F75D0 /* Diffy.framework in Frameworks */,
+				9098C1781F6FE89700026404 /* Differ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		907FFB9E1F6E91EF007F75D0 /* Products */ = {
+		9098C16D1F6FE88500026404 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				907FFBA31F6E91EF007F75D0 /* Diffy.framework */,
-				907FFBA51F6E91EF007F75D0 /* DiffyTests.xctest */,
+				9098C1721F6FE88500026404 /* Differ.framework */,
+				9098C1741F6FE88500026404 /* DifferTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 		C9278AA91DE31361009CE846 = {
 			isa = PBXGroup;
 			children = (
-				C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */,
+				C9278AC91DE323F6009CE846 /* Differ.xcodeproj */,
 				C9278AB41DE31362009CE846 /* TableViewExample */,
 				C9278AB31DE31362009CE846 /* Products */,
 			);
@@ -133,7 +133,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				907FFBAC1F6E9203007F75D0 /* PBXTargetDependency */,
+				9098C17B1F6FE89700026404 /* PBXTargetDependency */,
 			);
 			name = TableViewExample;
 			productName = TableViewExample;
@@ -169,8 +169,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 907FFB9E1F6E91EF007F75D0 /* Products */;
-					ProjectRef = C9278AC91DE323F6009CE846 /* Diffy.xcodeproj */;
+					ProductGroup = 9098C16D1F6FE88500026404 /* Products */;
+					ProjectRef = C9278AC91DE323F6009CE846 /* Differ.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -181,18 +181,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		907FFBA31F6E91EF007F75D0 /* Diffy.framework */ = {
+		9098C1721F6FE88500026404 /* Differ.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Diffy.framework;
-			remoteRef = 907FFBA21F6E91EF007F75D0 /* PBXContainerItemProxy */;
+			path = Differ.framework;
+			remoteRef = 9098C1711F6FE88500026404 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		907FFBA51F6E91EF007F75D0 /* DiffyTests.xctest */ = {
+		9098C1741F6FE88500026404 /* DifferTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = DiffyTests.xctest;
-			remoteRef = 907FFBA41F6E91EF007F75D0 /* PBXContainerItemProxy */;
+			path = DifferTests.xctest;
+			remoteRef = 9098C1731F6FE88500026404 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -224,10 +224,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		907FFBAC1F6E9203007F75D0 /* PBXTargetDependency */ = {
+		9098C17B1F6FE89700026404 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = Diffy;
-			targetProxy = 907FFBAB1F6E9203007F75D0 /* PBXContainerItemProxy */;
+			name = Differ;
+			targetProxy = 9098C17A1F6FE89700026404 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

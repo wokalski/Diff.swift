@@ -1,4 +1,4 @@
-import Diffy
+import Differ
 import UIKit
 
 class TableViewController: UITableViewController {
@@ -22,8 +22,8 @@ class TableViewController: UITableViewController {
             "👋🏻",
         ]
     ]
-    
-    
+
+
     var currentObjects = 0 {
         didSet {
             tableView.animateRowChanges(

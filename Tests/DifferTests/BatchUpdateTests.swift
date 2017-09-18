@@ -1,7 +1,7 @@
 #if !os(macOS) && !os(watchOS)
 
     import XCTest
-    @testable import Diffy
+    @testable import Differ
 
     func IP(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)

@@ -1,1 +1,1 @@
-../../Sources/Diffy/Patch.swift
+../../../Sources/Differ/Patch.swift

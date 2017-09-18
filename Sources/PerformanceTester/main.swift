@@ -21,9 +21,9 @@ public final class PerformanceTesterTool {
         let diff = performDiff(fromFilePath: from, toFilePath: to, diffFunc: diffSwift)
         print("Done!", terminator: "\n\n\n")
 
-        print("         | Diffy          | Dwifft           ")
+        print("         | Differ              | Dwifft           ")
         print("---------|:-------------------:|:----------------:")
-        print(" same    |   \(diff.same)   | \(dwifft.same)")
+        print(" same    |   \(diff.same)      | \(dwifft.same)")
         print(" created |   \(diff.created)   | \(dwifft.created)")
         print(" deleted |   \(diff.deleted)   | \(dwifft.deleted)")
         print(" diff    |   \(diff.changed)   | \(dwifft.changed)")

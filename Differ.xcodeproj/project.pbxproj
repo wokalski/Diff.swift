@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		900E03A41DE7C6C60033A799 /* Diffy.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Diffy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		900E03A51DE7C6D60033A799 /* Diffy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE87161CCFCA83006BD90E /* Diffy.framework */; };
+		900E03A41DE7C6C60033A799 /* Differ.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Differ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		900E03A51DE7C6D60033A799 /* Differ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE87161CCFCA83006BD90E /* Differ.framework */; };
 		C90CD7171DFB368200BE9114 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7161DFB368200BE9114 /* NestedDiff.swift */; };
 		C90CD7191DFB43C600BE9114 /* NestedDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */; };
 		C921BF711E15448300747566 /* NestedExtendedDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921BF701E15448300747566 /* NestedExtendedDiffTests.swift */; };
@@ -46,12 +46,12 @@
 		900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
 		C90CD7161DFB368200BE9114 /* NestedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
 		C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiffTests.swift; sourceTree = "<group>"; };
-		C92178BB1CD0023E004642C7 /* Diffy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diffy.h; sourceTree = "<group>"; };
+		C92178BB1CD0023E004642C7 /* Differ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Differ.h; sourceTree = "<group>"; };
 		C92178BD1CD0023E004642C7 /* Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Framework-Info.plist"; sourceTree = "<group>"; };
 		C921BF701E15448300747566 /* NestedExtendedDiffTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiffTests.swift; sourceTree = "<group>"; };
 		C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Diff+UIKit.swift"; sourceTree = "<group>"; };
 		C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExtendedPatch+Apply.swift"; sourceTree = "<group>"; };
-		C9838FF11D29571000691BE8 /* DiffyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiffyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9838FF11D29571000691BE8 /* DifferTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DifferTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9838FF31D29571000691BE8 /* DiffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DiffTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9838FF51D29571000691BE8 /* FrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FrameworkTests-Info.plist"; sourceTree = "<group>"; };
 		C99118941DDB1BA800067A60 /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		C9B03FBF1DE1CA7500BC6F2A /* ExtendedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExtendedDiff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9C924791DBB97130006ACC4 /* PatchSortTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PatchSortTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9D4BC951E1124CE00C79537 /* NestedExtendedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedExtendedDiff.swift; sourceTree = "<group>"; };
-		C9EE87161CCFCA83006BD90E /* Diffy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diffy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9EE87161CCFCA83006BD90E /* Differ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE87821CCFFB68006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Diff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9EE87831CCFFB68006BD90E /* Patch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Patch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchUpdateTests.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				900E03A51DE7C6D60033A799 /* Diffy.framework in Frameworks */,
+				900E03A51DE7C6D60033A799 /* Differ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,12 +102,12 @@
 		9097A2B21F6A65A0003EC08A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C9838FF21D29571000691BE8 /* DiffyTests */,
+				C9838FF21D29571000691BE8 /* DifferTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		9097A2B51F6A67FD003EC08A /* Diffy */ = {
+		9097A2B51F6A67FD003EC08A /* Differ */ = {
 			isa = PBXGroup;
 			children = (
 				C9EE87821CCFFB68006BD90E /* Diff.swift */,
@@ -123,10 +123,10 @@
 				C991189A1DDB4EAB00067A60 /* Patch+Apply.swift */,
 				C99118971DDB4C3000067A60 /* Patch+Sort.swift */,
 			);
-			path = Diffy;
+			path = Differ;
 			sourceTree = "<group>";
 		};
-		C9838FF21D29571000691BE8 /* DiffyTests */ = {
+		C9838FF21D29571000691BE8 /* DifferTests */ = {
 			isa = PBXGroup;
 			children = (
 				E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */,
@@ -137,7 +137,7 @@
 				C991189D1DDB4F1100067A60 /* PatchApplyTests.swift */,
 				C9C924791DBB97130006ACC4 /* PatchSortTests.swift */,
 			);
-			path = DiffyTests;
+			path = DifferTests;
 			sourceTree = "<group>";
 		};
 		C9EE870C1CCFCA83006BD90E = {
@@ -153,8 +153,8 @@
 		C9EE87171CCFCA83006BD90E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C9EE87161CCFCA83006BD90E /* Diffy.framework */,
-				C9838FF11D29571000691BE8 /* DiffyTests.xctest */,
+				C9EE87161CCFCA83006BD90E /* Differ.framework */,
+				C9838FF11D29571000691BE8 /* DifferTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 		C9EE87811CCFFB68006BD90E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				9097A2B51F6A67FD003EC08A /* Diffy */,
+				9097A2B51F6A67FD003EC08A /* Differ */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -171,7 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				900E039E1DE7C3370033A799 /* Configurations */,
-				C92178BB1CD0023E004642C7 /* Diffy.h */,
+				C92178BB1CD0023E004642C7 /* Differ.h */,
 				C92178BD1CD0023E004642C7 /* Framework-Info.plist */,
 				C9838FF51D29571000691BE8 /* FrameworkTests-Info.plist */,
 			);
@@ -185,16 +185,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				900E03A41DE7C6C60033A799 /* Diffy.h in Headers */,
+				900E03A41DE7C6C60033A799 /* Differ.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C9838FF01D29571000691BE8 /* DiffyTests */ = {
+		C9838FF01D29571000691BE8 /* DifferTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DiffyTests" */;
+			buildConfigurationList = C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DifferTests" */;
 			buildPhases = (
 				C9838FED1D29571000691BE8 /* Sources */,
 				C9838FEE1D29571000691BE8 /* Frameworks */,
@@ -204,14 +204,14 @@
 			dependencies = (
 				90987F2C1F69678700B13E4F /* PBXTargetDependency */,
 			);
-			name = DiffyTests;
+			name = DifferTests;
 			productName = DiffTests;
-			productReference = C9838FF11D29571000691BE8 /* DiffyTests.xctest */;
+			productReference = C9838FF11D29571000691BE8 /* DifferTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C9EE87151CCFCA83006BD90E /* Diffy */ = {
+		C9EE87151CCFCA83006BD90E /* Differ */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Diffy" */;
+			buildConfigurationList = C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Differ" */;
 			buildPhases = (
 				C9EE87111CCFCA83006BD90E /* Sources */,
 				C9EE87121CCFCA83006BD90E /* Frameworks */,
@@ -221,9 +221,9 @@
 			);
 			dependencies = (
 			);
-			name = Diffy;
+			name = Differ;
 			productName = Diff.swift;
-			productReference = C9EE87161CCFCA83006BD90E /* Diffy.framework */;
+			productReference = C9EE87161CCFCA83006BD90E /* Differ.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -247,7 +247,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Diffy" */;
+			buildConfigurationList = C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Differ" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -259,8 +259,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C9EE87151CCFCA83006BD90E /* Diffy */,
-				C9838FF01D29571000691BE8 /* DiffyTests */,
+				C9EE87151CCFCA83006BD90E /* Differ */,
+				C9838FF01D29571000691BE8 /* DifferTests */,
 			);
 		};
 /* End PBXProject section */
@@ -304,7 +304,7 @@
 /* Begin PBXTargetDependency section */
 		90987F2C1F69678700B13E4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C9EE87151CCFCA83006BD90E /* Diffy */;
+			target = C9EE87151CCFCA83006BD90E /* Differ */;
 			targetProxy = 90987F2B1F69678700B13E4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -473,7 +473,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DiffyTests" */ = {
+		C9838FF91D29571000691BE8 /* Build configuration list for PBXNativeTarget "DifferTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9838FFA1D29571000691BE8 /* Debug */,
@@ -482,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Diffy" */ = {
+		C9EE87101CCFCA83006BD90E /* Build configuration list for PBXProject "Differ" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9EE871C1CCFCA83006BD90E /* Debug */,
@@ -491,7 +491,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Diffy" */ = {
+		C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Differ" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9EE871F1CCFCA83006BD90E /* Debug */,

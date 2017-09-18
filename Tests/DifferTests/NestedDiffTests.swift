@@ -1,5 +1,5 @@
 import XCTest
-@testable import Diffy
+@testable import Differ
 
 struct KeyedIntArray: Equatable {
     let elements: [Int]
