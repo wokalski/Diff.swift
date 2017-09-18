@@ -79,13 +79,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9EE87121CCFCA83006BD90E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -214,7 +207,6 @@
 			buildConfigurationList = C9EE871E1CCFCA83006BD90E /* Build configuration list for PBXNativeTarget "Differ" */;
 			buildPhases = (
 				C9EE87111CCFCA83006BD90E /* Sources */,
-				C9EE87121CCFCA83006BD90E /* Frameworks */,
 				900E03A31DE7C6C30033A799 /* Headers */,
 			);
 			buildRules = (
