@@ -163,7 +163,7 @@ If you'd like to learn more about how this library works, `Graph.playground` is 
 
 Differ is **fast**. Many of the other Swift diff libraries use a simple `O(n*m)` algorithm, which allocates a 2 dimensional array and then walks through every element. This can use _a lot_ of memory.
 
-In the bundled benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
+In the following benchmarks, you should see an order of magnitude difference in calculation time between the two algorithms.
 
 Each measurement is the mean time in seconds it takes to calculate a diff, over 10 runs on an iPhone 6.
 
@@ -174,11 +174,7 @@ Each measurement is the mean time in seconds it takes to calculate a diff, over 
 | deleted |  0.0184   | 0.0050  |
 | diff    |  0.1320   | 63.4084 |
 
-You can run these benchmarks yourself:
-
-```sh
-swift run -c release PerformanceTester Sources/PerformanceTester/Samples/Diff-old.swift Sources/PerformanceTester/Samples/Diff-new.swift
-```
+You can run these benchmarks yourself by [checking out the Diff Performance Suite](https://github.com/tonyarnold/DiffPerformanceSuite).
 
 All of the above being said, the algorithm used by Diff works best for collections with _small_ differences between them. However, even for big differences this library is still likely to be faster than those that use the simple `O(n*m)` algorithm. If you need better performance with large differences between collections, please consider implementing a more suitable approach such as [Hunt & Szymanski's algorithm](http://par.cse.nsysu.edu.tw/~lcs/Hunt-Szymanski%20Algorithm.php) and/or [Hirschberg's algorithm](https://en.wikipedia.org/wiki/Hirschberg%27s_algorithm).
 
