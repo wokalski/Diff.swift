@@ -1,3 +1,9 @@
+## This project has moved [here](https://github.com/tonyarnold/Differ)
+
+Since I don't use `Diff.swift` anymore [Tony Arnold](https://twitter.com/tonyarnold) kindly offered to take over maintenance of this project in his own [fork](https://github.com/tonyarnold/Differ). Don't use `Diff.swift`, this repo is only kept as an archive.
+
+---
+
 [![Build Status](https://travis-ci.org/wokalski/Diff.swift.svg?branch=master)](https://travis-ci.org/wokalski/Diff.swift)
 [![codecov](https://codecov.io/gh/wokalski/Diff.swift/branch/master/graph/badge.svg)](https://codecov.io/gh/wokalski/Diff.swift)
 
