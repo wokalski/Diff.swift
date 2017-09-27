@@ -77,19 +77,19 @@ class DiffTests: XCTestCase {
     }
 
     func testSingleElementArray() {
-        let changes = "a".diff(to: "a")
+        let changes = "a".diff("a")
         XCTAssertEqual(changes.elements.count, 0)
     }
 
     func duplicateTraces(from: String, to: String) -> Bool {
-        let traces = from.characters.diffTraces(to: to.characters)
+        let traces = from.diffTraces(to: to)
         let tracesSet = Set(traces)
         return !(traces.count == tracesSet.count)
     }
 
     func tracesOutOfBounds(from: String, to: String) -> [Trace] {
-        let ac = from.characters
-        let bc = to.characters
+        let ac = from
+        let bc = to
         return ac.diffTraces(to: bc)
             .filter { $0.to.y > bc.count || $0.to.x > ac.count }
     }
@@ -98,7 +98,7 @@ class DiffTests: XCTestCase {
         from: String,
         to: String) -> String {
         return from
-            .diff(to: to)
+            .diff(to)
             .reduce("") { $0 + $1.debugDescription }
     }
 

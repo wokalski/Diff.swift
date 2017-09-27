@@ -119,7 +119,7 @@ class PatchTests: XCTestCase {
         for _ in 0 ..< 200 {
             let randomString = randomAlphaNumericString(length: 30)
             let permutation = randomAlphaNumericString(length: 30)
-            let patch = randomString.diff(to: permutation).patch(from: randomString.characters, to: permutation.characters, sort: sort)
+            let patch = randomString.diff(permutation).patch(from: randomString, to: permutation, sort: sort)
             let result = randomString.apply(patch)
             XCTAssertEqual(result, permutation)
         }
@@ -129,7 +129,7 @@ class PatchTests: XCTestCase {
 func randomAlphaNumericString(length: Int) -> String {
 
     let allowedChars = "abcdefghijklmnopqrstu"
-    let allowedCharsCount = UInt32(allowedChars.characters.count)
+    let allowedCharsCount = UInt32(allowedChars.count)
     var randomString = ""
 
     for _ in 0 ..< length {
@@ -150,13 +150,13 @@ func _test(
     sortingFunction: SortingFunction? = nil) -> String {
     if let sort = sortingFunction {
         return patch(
-            from: from.characters,
-            to: to.characters,
+            from: from,
+            to: to,
             sort: sort)
             .reduce("") { $0 + $1.debugDescription }
     }
     return patch(
-        from: from.characters,
-        to: to.characters)
+        from: from,
+        to: to)
         .reduce("") { $0 + $1.debugDescription }
 }

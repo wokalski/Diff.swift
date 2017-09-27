@@ -35,7 +35,7 @@ class PatchApplyTests: XCTestCase {
     }
 }
 
-func stringPatch(from textualRepresentation: String) -> [Patch<String.CharacterView.Iterator.Element>] {
+func stringPatch(from textualRepresentation: String) -> [Patch<Character>] {
     return textualRepresentation.components(separatedBy: ")").flatMap { string in
         if string == "" {
             return nil
@@ -48,7 +48,7 @@ func stringPatch(from textualRepresentation: String) -> [Patch<String.CharacterV
         } else if type == "I" {
             let startIndex = string.index(string.startIndex, offsetBy: 2)
             let indexAndElement = string[startIndex...].components(separatedBy: ",")
-            return .insertion(index: Int(indexAndElement[0])!, element: indexAndElement[1].characters.first!)
+            return .insertion(index: Int(indexAndElement[0])!, element: indexAndElement[1].first!)
         } else {
             return nil
         }

@@ -101,43 +101,6 @@ extension Trace {
     }
 }
 
-public extension String {
-
-    /// Creates a diff between the calee and `to` string
-    ///
-    /// - Complexity: O((N+M)*D)
-    ///
-    /// - Parameters:
-    ///   - to: a string to compare the calee to.
-    /// - Returns: a Diff between the calee and `to` string
-    public func diff(to: String) -> Diff {
-        if self == to {
-            return Diff(elements: [])
-        }
-        return characters.diff(to.characters)
-    }
-
-    /// Creates an extended diff (includes insertions, deletions, and moves) between the calee and `other` string
-    ///
-    /// - Complexity: O((N+M)*D)
-    ///
-    /// - Parameters:
-    ///   - other: a string to compare the calee to.
-    /// - Returns: an ExtendedDiff between the calee and `other` string
-    public func extendedDiff(_ other: String) -> ExtendedDiff {
-        if self == other {
-            return ExtendedDiff(
-                source: Diff(elements: []),
-                sourceIndex: [],
-                reorderedIndex: [],
-                elements: [],
-                moveIndices: Set()
-            )
-        }
-        return characters.extendedDiff(other.characters)
-    }
-}
-
 extension Array {
     func value(at index: Index) -> Iterator.Element? {
         if index < 0 || index >= count {

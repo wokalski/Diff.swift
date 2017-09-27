@@ -86,8 +86,8 @@ class ExtendedPatchSortTests: XCTestCase {
             let string1 = "eakjnrsignambmcbdcdhdkmhkolpdgfedcpgabtldjkaqkoobomuhpepirdcrdrgmrmaefesoiildmtnbronpmmbuuplnfnjgdhadkbmprensshiekknhskognpbknpbepmlakducnfktjeookncjpcnpklfedrebstisalskigsuojkookhbmkdafiaftrkrccupgjapqrigbanfbboapmicabeclhentlabourhtqmlboqctgorajirchesaorsgnigattkdrenquffcutffopbjrebegbfmkeikstqsut"
             let string2 = "mdjqtbchphncsjdkjtutagahmdtfcnjliipmqgrhgajsgotcdgidlghithdgrcmfuausmjnbtjghqblaiuldirulhllidbpcpglfbnfbkbddhdskdplsgjjsusractdplajrctgrcebhesbeneidsititlalsqkhliontgpesglkoorjqeniqaetatamneonhbhunqlfkbmfsjallnejhkcfaeapdnacqdtukcuiheiabqpudmgosssabisrrlmhcmpkgerhesqihdnfjmqgfnmulnfkmpqrsghutfsckurr"
             let patch = string1.extendedDiff(string2).patch(
-                from: string1.characters,
-                to: string2.characters,
+                from: string1,
+                to: string2,
                 sort: sort)
             let result = string1.apply(patch)
             XCTAssertEqual(result, string2)
@@ -103,13 +103,13 @@ func _extendedTest(
     sortingFunction: ExtendedSortingFunction? = nil) -> String {
     guard let sort = sortingFunction else {
         return extendedPatch(
-            from: from.characters,
-            to: to.characters)
+            from: from,
+            to: to)
             .reduce("") { $0 + $1.debugDescription }
     }
     return extendedPatch(
-        from: from.characters,
-        to: to.characters,
+        from: from,
+        to: to,
         sort: sort)
         .reduce("") { $0 + $1.debugDescription }
 }
