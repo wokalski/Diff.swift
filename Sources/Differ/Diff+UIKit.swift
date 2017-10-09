@@ -1,4 +1,4 @@
-#if !os(macOS) && !os(watchOS)
+#if !os(macOS) && !os(watchOS) && !os(Linux)
 
     import UIKit
 
