@@ -169,8 +169,8 @@ func unbox<T>(_ element: BoxedDiffAndPatchElement<T>) -> [SortedPatchElement<T>]
     switch element {
     case let .move(_, deletion, insertion):
         return [deletion, insertion]
-    case let .single(_, singasd):
-        return [singasd]
+    case let .single(_, patchElement):
+        return [patchElement]
     }
 }
 
