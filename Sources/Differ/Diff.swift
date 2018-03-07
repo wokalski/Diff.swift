@@ -124,21 +124,21 @@ public extension Collection {
     /// Creates a diff between the calee and `other` collection
     ///
     /// - Complexity: O((N+M)*D)
-    /// 
+    ///
     /// - Parameters:
     ///   - other: a collection to compare the calee to
     /// - Returns: a Diff between the calee and `other` collection
     public func diff(
         _ other: Self,
         isEqual: EqualityChecker<Self>
-    ) -> Diff {
+        ) -> Diff {
         let diffPath = outputDiffPathTraces(
             to: other,
             isEqual: isEqual
         )
         return Diff(elements:
             diffPath
-            .flatMap { Diff.Element(trace: $0) }
+                .flatMap { Diff.Element(trace: $0) }
         )
     }
 
@@ -150,7 +150,7 @@ public extension Collection {
     public func diffTraces(
         to: Self,
         isEqual: EqualityChecker<Self>
-    ) -> [Trace] {
+        ) -> [Trace] {
         if count == 0 && to.count == 0 {
             return []
         } else if count == 0 {
@@ -166,7 +166,7 @@ public extension Collection {
     public func outputDiffPathTraces(
         to: Self,
         isEqual: EqualityChecker<Self>
-    ) -> [Trace] {
+        ) -> [Trace] {
         return findPath(
             diffTraces(to: to, isEqual: isEqual),
             n: Int(count),
@@ -195,22 +195,28 @@ public extension Collection {
     fileprivate func myersDiffTraces(
         to: Self,
         isEqual: (Iterator.Element, Iterator.Element) -> Bool
-    ) -> [Trace] {
+        ) -> [Trace] {
 
+        // fromCount is N, N is the number of from array
         let fromCount = Int(count)
+        // toCount is M, M is the number of to array
         let toCount = Int(to.count)
         var traces = Array<Trace>()
 
         let max = fromCount + toCount // this is arbitrary, maximum difference between from and to. N+M assures that this algorithm always finds from diff
 
-        var vertices = Array(repeating: -1, count: 2 * Int(max) + 1) // from [0...2*max], it is -max...max in the whitepaper
+        var vertices = Array(repeating: -1, count: max + 1) // from [0...N+M], it is -M...N in the whitepaper
+        vertices[toCount + 1] = 0
 
-        vertices[max + 1] = 0
-
+        // D-patch: numberOfDifferences is D
         for numberOfDifferences in 0 ... max {
             for k in stride(from: (-numberOfDifferences), through: numberOfDifferences, by: 2) {
 
-                let index = k + max
+                guard k >= -toCount && k <= fromCount else {
+                    continue
+                }
+
+                let index = k + toCount
                 let traceStep = TraceStep(D: numberOfDifferences, k: k, previousX: vertices.value(at: index - 1), nextX: vertices.value(at: index + 1))
                 if let trace = bound(trace: nextTrace(traceStep), maxX: fromCount, maxY: toCount) {
                     var x = trace.to.x
@@ -255,10 +261,10 @@ public extension Collection {
         let D = traceStep.D
 
         if traceType == .insertion {
-            let x = traceStep.nextX!
+            let x = traceStep.nextX ?? -1
             return Trace(from: Point(x: x, y: x - k - 1), to: Point(x: x, y: x - k), D: D)
         } else {
-            let x = traceStep.previousX! + 1
+            let x = (traceStep.previousX ?? 0) + 1
             return Trace(from: Point(x: x - 1, y: x - k), to: Point(x: x, y: x - k), D: D)
         }
     }
@@ -312,21 +318,21 @@ public extension Collection where Iterator.Element: Equatable {
     /// - SeeAlso: `diff(_:isEqual:)`
     public func diff(
         _ other: Self
-    ) -> Diff {
+        ) -> Diff {
         return diff(other, isEqual: { $0 == $1 })
     }
 
     /// - SeeAlso: `diffTraces(to:isEqual:)`
     public func diffTraces(
         to: Self
-    ) -> [Trace] {
+        ) -> [Trace] {
         return diffTraces(to: to, isEqual: { $0 == $1 })
     }
 
     /// - SeeAlso: `outputDiffPathTraces(to:isEqual:)`
     public func outputDiffPathTraces(
         to: Self
-    ) -> [Trace] {
+        ) -> [Trace] {
         return outputDiffPathTraces(to: to, isEqual: { $0 == $1 })
     }
 }
@@ -364,3 +370,4 @@ extension Diff.Element: CustomDebugStringConvertible {
         }
     }
 }
+
