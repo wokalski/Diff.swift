@@ -169,7 +169,7 @@ class NestedDiffTests: XCTestCase {
             (
                 [[1, 2], [1, 4]],
                 [[5, 2], [10, 4, 8]],
-                "DS(1)IS(1)DE(0,0)IE(0,0)"
+                "DS(0)DS(1)IS(0)IS(1)"
             ),
             (
                 [[1]],
@@ -179,7 +179,7 @@ class NestedDiffTests: XCTestCase {
             (
                 [[1]],
                 [[], [2]],
-                "IS(0)DE(0,0)IE(0,1)"
+                "DS(0)IS(0)IS(1)"
             )
         ]
 
