@@ -20,7 +20,16 @@ public struct NestedExtendedDiff: DiffProtocol {
         return i + 1
     }
 
-    public let elements: [Element]
+    /// An array of particular diff operations
+    public var elements: [Element]
+
+    //// Initializes a new `NestedExtendedDiff` from a given array of diff operations.
+    ///
+    /// - Parameters:
+    ///   - elements: an array of particular diff operations
+    public init(elements: [Element]) {
+        self.elements = elements
+    }
 }
 
 public typealias NestedElementEqualityChecker<T: Collection> = (T.Iterator.Element.Iterator.Element, T.Iterator.Element.Iterator.Element) -> Bool where T.Iterator.Element: Collection
@@ -184,5 +193,12 @@ extension NestedExtendedDiff.Element: CustomDebugStringConvertible {
         case let .moveSection(from, to):
             return "MS(\(from),\(to))"
         }
+    }
+}
+
+extension NestedExtendedDiff: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: NestedExtendedDiff.Element...) {
+        self.elements = elements
     }
 }

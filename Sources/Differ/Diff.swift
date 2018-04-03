@@ -30,7 +30,15 @@ public struct Diff: DiffProtocol {
     }
 
     /// An array of particular diff operations
-    public let elements: [Diff.Element]
+    public var elements: [Diff.Element]
+
+    /// Initializes a new `Diff` from a given array of diff operations.
+    ///
+    /// - Parameters:
+    ///   - elements: an array of particular diff operations
+    public init(elements: [Diff.Element]) {
+        self.elements = elements
+    }
 }
 
 extension Diff.Element {
@@ -371,3 +379,9 @@ extension Diff.Element: CustomDebugStringConvertible {
     }
 }
 
+extension Diff: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: Diff.Element...) {
+        self.elements = elements
+    }
+}

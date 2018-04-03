@@ -18,7 +18,16 @@ public struct NestedDiff: DiffProtocol {
         return i + 1
     }
 
-    public let elements: [Element]
+    /// An array of particular diff operations
+    public var elements: [Element]
+
+    /// Initializes a new `NestedDiff` from a given array of diff operations.
+    ///
+    /// - Parameters:
+    ///   - elements: an array of particular diff operations
+    public init(elements: [Element]) {
+        self.elements = elements
+    }
 }
 
 public extension Collection
@@ -145,5 +154,12 @@ extension NestedDiff.Element: CustomDebugStringConvertible {
         case let .insertSection(section):
             return "IS(\(section))"
         }
+    }
+}
+
+extension NestedDiff: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: Element...) {
+        self.elements = elements
     }
 }
