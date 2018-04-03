@@ -3,32 +3,37 @@
     import UIKit
 
     public struct BatchUpdate {
+        public struct MoveStep: Equatable {
+            let from: IndexPath
+            let to: IndexPath
+        }
+
         public let deletions: [IndexPath]
         public let insertions: [IndexPath]
-        public let moves: [(from: IndexPath, to: IndexPath)]
+        public let moves: [MoveStep]
 
         public init(
             diff: ExtendedDiff,
             indexPathTransform: (IndexPath) -> IndexPath = { $0 }
         ) {
-            deletions = diff.flatMap { element -> IndexPath? in
+            deletions = diff.compactMap { element -> IndexPath? in
                 switch element {
                 case let .delete(at):
                     return indexPathTransform(IndexPath(row: at, section: 0))
                 default: return nil
                 }
             }
-            insertions = diff.flatMap { element -> IndexPath? in
+            insertions = diff.compactMap { element -> IndexPath? in
                 switch element {
                 case let .insert(at):
                     return indexPathTransform(IndexPath(row: at, section: 0))
                 default: return nil
                 }
             }
-            moves = diff.flatMap { element -> (IndexPath, IndexPath)? in
+            moves = diff.compactMap { element -> MoveStep? in
                 switch element {
                 case let .move(from, to):
-                    return (indexPathTransform(IndexPath(row: from, section: 0)), indexPathTransform(IndexPath(row: to, section: 0)))
+                    return MoveStep(from: indexPathTransform(IndexPath(row: from, section: 0)), to: indexPathTransform(IndexPath(row: to, section: 0)))
                 default: return nil
                 }
             }

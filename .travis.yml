@@ -1,35 +1,42 @@
-osx_image: xcode9
-language: swift
-
+osx_image: xcode9.3beta
+language: objective-c
 env:
     global:
         - LANG=en_US.UTF-8
-
         - PROJECT="Differ.xcodeproj"
         - SCHEME="Differ"
-
-        - IOS_SDK=iphonesimulator11.0
+        - IOS_SDK=iphonesimulator11.3
         - OSX_SDK=macosx10.13
-        - TVOS_SDK=appletvsimulator11.0
-        - WATCHOS_SDK=watchsimulator4.0
-
+        - TVOS_SDK=appletvsimulator11.3
+        - WATCHOS_SDK=watchsimulator4.3
     matrix:
-        - DESTINATION="arch=x86_64" SDK="$OSX_SDK" SCHEME="$SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="NO" POD_LINT="NO"
-        - DESTINATION="OS=11.0,name=iPhone 7" SDK="$IOS_SDK" SCHEME="$SCHEME" RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="YES"
-        - DESTINATION="OS=11.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO" POD_LINT="NO"
-        - DESTINATION="OS=4.0,name=Apple Watch - 42mm" SDK="$WATCHOS_SDK" SCHEME="$SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO" POD_LINT="NO"
-
+        - >-
+            DESTINATION="arch=x86_64" SDK="$OSX_SDK" SCHEME="$SCHEME"
+            RUN_TESTS="YES" BUILD_EXAMPLE="NO" POD_LINT="NO"
+        - >-
+            DESTINATION="OS=11.3,name=iPhone 7" SDK="$IOS_SDK" SCHEME="$SCHEME"
+            RUN_TESTS="YES" BUILD_EXAMPLE="YES" POD_LINT="YES"
+        - >-
+            DESTINATION="OS=11.3,name=Apple TV 4K" SDK="$TVOS_SDK"
+            SCHEME="$SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO" POD_LINT="NO"
+        - >-
+            DESTINATION="OS=4.3,name=Apple Watch - 42mm" SDK="$WATCHOS_SDK"
+            SCHEME="$SCHEME" RUN_TESTS="NO" BUILD_EXAMPLE="NO" POD_LINT="NO"
 script:
     - set -o pipefail
-
-    - if [ $POD_LINT == "YES" ]; then pod lib lint; fi
-
-    - if [ $BUILD_EXAMPLE == "YES" ]; then xcodebuild clean build -project Examples/TableViewExample/TableViewExample.xcodeproj -scheme TableViewExample -sdk "$SDK" -destination "$DESTINATION"; fi
-
-    - if [ $RUN_TESTS == "YES" ]; then xcodebuild clean test -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO; fi
-    - if [ $RUN_TESTS != "YES" ]; then xcodebuild clean build -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ; fi
-
+    - 'if [ $POD_LINT == "YES" ]; then pod lib lint; fi'
+    - >-
+        if [ $BUILD_EXAMPLE == "YES" ]; then xcodebuild clean build -project
+        Examples/TableViewExample/TableViewExample.xcodeproj -scheme
+        TableViewExample -sdk "$SDK" -destination "$DESTINATION"; fi
+    - >-
+        if [ $RUN_TESTS == "YES" ]; then xcodebuild clean test -project
+        "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
+        ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO; fi
+    - >-
+        if [ $RUN_TESTS != "YES" ]; then xcodebuild clean build -project
+        "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
+        ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ; fi
     - swift test
-
 after_success:
-   - bash <(curl -s https://codecov.io/bash)
+    - 'bash <(curl -s https://codecov.io/bash)'

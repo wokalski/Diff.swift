@@ -68,7 +68,7 @@ public extension Collection
         }
 
         let sectionMoves =
-            sectionDiff.flatMap { diffElement -> (Int, Int)? in
+            sectionDiff.compactMap { diffElement -> (Int, Int)? in
                 if case let .moveSection(from, to) = diffElement {
                     return (from, to)
                 }

@@ -138,7 +138,7 @@ public extension Collection {
         )
         return Diff(elements:
             diffPath
-                .flatMap { Diff.Element(trace: $0) }
+                .compactMap { Diff.Element(trace: $0) }
         )
     }
 
@@ -356,7 +356,7 @@ extension DiffProtocol {
 
 public extension Diff {
     public init(traces: [Trace]) {
-        elements = traces.flatMap { Diff.Element(trace: $0) }
+        elements = traces.compactMap { Diff.Element(trace: $0) }
     }
 }
 

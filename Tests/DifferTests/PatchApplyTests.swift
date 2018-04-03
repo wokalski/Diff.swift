@@ -36,7 +36,7 @@ class PatchApplyTests: XCTestCase {
 }
 
 func stringPatch(from textualRepresentation: String) -> [Patch<Character>] {
-    return textualRepresentation.components(separatedBy: ")").flatMap { string in
+    return textualRepresentation.components(separatedBy: ")").compactMap { string in
         if string == "" {
             return nil
         }
@@ -56,7 +56,7 @@ func stringPatch(from textualRepresentation: String) -> [Patch<Character>] {
 }
 
 func intPatch(from textualRepresentation: String) -> [Patch<Int>] {
-    return textualRepresentation.components(separatedBy: ")").flatMap { string in
+    return textualRepresentation.components(separatedBy: ")").compactMap { string in
         if string == "" {
             return nil
         }

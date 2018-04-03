@@ -10,12 +10,6 @@ struct KeyedIntArray: Equatable {
     }
 }
 
-extension Array: Equatable {
-    public static func ==<T>(fst: Array<T>, snd: Array<T>) -> Bool {
-        return fst.count == snd.count
-    }
-}
-
 extension KeyedIntArray: Collection {
     public func index(after i: Int) -> Int {
         return i + 1

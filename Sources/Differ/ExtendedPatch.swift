@@ -75,7 +75,7 @@ extension ExtendedDiff {
             result = shiftedPatchElements(from: generateSortedPatchElements(from: from, to: to))
         }
 
-        return result.indices.flatMap { i -> ExtendedPatch<T.Iterator.Element>? in
+        return result.indices.compactMap { i -> ExtendedPatch<T.Iterator.Element>? in
             let patchElement = result[i]
             if moveIndices.contains(patchElement.sourceIndex) {
                 let to = result[i + 1].value

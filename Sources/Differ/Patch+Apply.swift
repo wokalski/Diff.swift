@@ -6,10 +6,10 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: Equatab
         for change in patch {
             switch change {
             case let .insertion(i, element):
-                let target = mutableSelf.index(mutableSelf.startIndex, offsetBy: IndexDistance(i))
+                let target = mutableSelf.index(mutableSelf.startIndex, offsetBy: i)
                 mutableSelf.insert(element, at: target)
             case let .deletion(i):
-                let target = mutableSelf.index(mutableSelf.startIndex, offsetBy: IndexDistance(i))
+                let target = mutableSelf.index(mutableSelf.startIndex, offsetBy: i)
                 mutableSelf.remove(at: target)
             }
         }

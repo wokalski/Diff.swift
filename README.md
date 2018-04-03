@@ -10,9 +10,9 @@ It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))` 
 
 - ⚡️ [It is fast](#performance-notes)
 - Differ supports three types of operations:
-    - Insertions
-    - Deletions
-    - Moves (when using `ExtendedDiff`)
+  - Insertions
+  - Deletions
+  - Moves (when using `ExtendedDiff`)
 - Arbitrary sorting of patches (`Patch`)
 - Utilities for updating `UITableView` and `UICollectionView`
 - Calculating differences between collections containing collections (use `NestedDiff`)
@@ -55,35 +55,29 @@ Delete the item at index 0        | `"b"`
 In order to mitigate this issue, there are two types of output:
 
 - *Diff*
-    - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. Differ produces just one `Diff`.
+  - A sequence of deletions, insertions, and moves (if using `ExtendedDiff`) where deletions point to locations of an item to be deleted in the source and insertions point to the items in the output. Differ produces just one `Diff`.
 - *Patch*
-    - An _ordered sequence_ of steps to be applied to the source collection that will result in the second collection. This is based on a `Diff`, but it can be arbitrarily sorted.
+  - An _ordered sequence_ of steps to be applied to the source collection that will result in the second collection. This is based on a `Diff`, but it can be arbitrarily sorted.
 
 ### Practical sorting
 
 In practice, this means that a diff to transform the string `1234` into `1` could be described as the following set of steps:
 
-```
-DELETE 1
-DELETE 2
-DELETE 3
-```
+    DELETE 1
+    DELETE 2
+    DELETE 3
 
 The patch to describe the same change would be:
 
-```
-DELETE 1
-DELETE 1
-DELETE 1
-```
+    DELETE 1
+    DELETE 1
+    DELETE 1
 
 However, if we decided to sort it so that deletions and higher indices are processed first, we get this patch:
 
-```
-DELETE 3
-DELETE 2
-DELETE 1
-```
+    DELETE 3
+    DELETE 2
+    DELETE 1
 
 ## How to use
 
@@ -146,8 +140,8 @@ An advanced example: you would like to calculate the difference first, and then 
 
 `D` is the length of a diff:
 
- - Generating a sorted patch takes `O(D^2)` time.
- - The default order takes `O(D)` to generate.
+  - Generating a sorted patch takes `O(D^2)` time.
+  - The default order takes `O(D)` to generate.
 
 ```swift
 // Generate the difference first
@@ -180,7 +174,7 @@ All of the above being said, the algorithm used by Diff works best for collectio
 
 ## Requirements
 
-Differ requires Swift 4 / Xcode 9 or later to compile.
+Differ requires Swift 4.1 / Xcode 9.3 or later to compile.
 
 ## Installation
 
