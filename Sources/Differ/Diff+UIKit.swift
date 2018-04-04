@@ -4,8 +4,8 @@
 
     public struct BatchUpdate {
         public struct MoveStep: Equatable {
-            let from: IndexPath
-            let to: IndexPath
+            public let from: IndexPath
+            public let to: IndexPath
         }
 
         public let deletions: [IndexPath]
