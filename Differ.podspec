@@ -21,6 +21,8 @@ Also included are utilities for easily applying diffs and patches to `UICollecti
 
   s.platforms = { :ios => "8.0", :osx => "10.10", :tvos => "9.0", :watchos => "3.0" }
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
-  s.osx.exclude_files = "Sources/Differ/Diff+UIKit.swift"
-  s.watchos.exclude_files = "Sources/Differ/Diff+UIKit.swift"
+  s.ios.exclude_files = ["Sources/Differ/Diff+AppKit.swift"]
+  s.osx.exclude_files = ["Sources/Differ/Diff+UIKit.swift"]
+  s.tvos.exclude_files = ["Sources/Differ/Diff+AppKit.swift"]
+  s.watchos.exclude_files = ["Sources/Differ/Diff+UIKit.swift", "Sources/Differ/Diff+AppKit.swift"
 end
