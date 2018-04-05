@@ -24,5 +24,5 @@ Also included are utilities for easily applying diffs and patches to `UICollecti
   s.ios.exclude_files = ["Sources/Differ/Diff+AppKit.swift"]
   s.osx.exclude_files = ["Sources/Differ/Diff+UIKit.swift"]
   s.tvos.exclude_files = ["Sources/Differ/Diff+AppKit.swift"]
-  s.watchos.exclude_files = ["Sources/Differ/Diff+UIKit.swift", "Sources/Differ/Diff+AppKit.swift"
+  s.watchos.exclude_files = ["Sources/Differ/Diff+UIKit.swift", "Sources/Differ/Diff+AppKit.swift"]
 end
