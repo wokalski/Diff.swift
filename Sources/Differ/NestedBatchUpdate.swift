@@ -1,6 +1,7 @@
 //
 //  Copyright © 2018 wczekalski. All rights reserved.
 
+#if !os(watchOS)
 import Foundation
 
 struct NestedBatchUpdate {
@@ -48,3 +49,6 @@ struct NestedBatchUpdate {
         self.sectionDeletions = sectionDeletions
     }
 }
+
+#endif
+
