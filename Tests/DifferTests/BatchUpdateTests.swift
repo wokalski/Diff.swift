@@ -2,7 +2,7 @@
 import XCTest
 
 private func IP(_ row: Int, _ section: Int) -> IndexPath {
-    return IndexPath(row: row, section: section)
+    return IndexPath(item: row, section: section)
 }
 
 class BatchUpdateTests: XCTestCase {
@@ -44,7 +44,7 @@ class BatchUpdateTests: XCTestCase {
     }
 
     func _testCellsWithTransform() {
-        let transform: (IndexPath) -> IndexPath = { IP($0.row + 1, $0.section + 2) }
+        let transform: (IndexPath) -> IndexPath = { IP($0.item + 1, $0.section + 2) }
 
         for expectation in self.cellExpectations {
             let batch = BatchUpdate(diff: expectation.orderBefore.extendedDiff(expectation.orderAfter), indexPathTransform: transform)
