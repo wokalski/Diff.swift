@@ -27,6 +27,8 @@
 		C9D4BC961E1124CE00C79537 /* NestedExtendedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4BC951E1124CE00C79537 /* NestedExtendedDiff.swift */; };
 		C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87821CCFFB68006BD90E /* Diff.swift */; };
 		C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EE87831CCFFB68006BD90E /* Patch.swift */; };
+		CA14534D2075C648004A343A /* BatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA14534C2075C648004A343A /* BatchUpdate.swift */; };
+		CA14534F2075C73D004A343A /* Diff+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA14534E2075C73D004A343A /* Diff+AppKit.swift */; };
 		E2F1C8561E3A14DF00FBE786 /* BatchUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 		C9EE87161CCFCA83006BD90E /* Differ.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differ.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9EE87821CCFFB68006BD90E /* Diff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Diff.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9EE87831CCFFB68006BD90E /* Patch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Patch.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		CA14534C2075C648004A343A /* BatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchUpdate.swift; sourceTree = "<group>"; };
+		CA14534E2075C73D004A343A /* Diff+AppKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diff+AppKit.swift"; sourceTree = "<group>"; };
 		E2F1C8551E3A14DF00FBE786 /* BatchUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchUpdateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +109,8 @@
 			children = (
 				C9EE87821CCFFB68006BD90E /* Diff.swift */,
 				C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */,
+				CA14534E2075C73D004A343A /* Diff+AppKit.swift */,
+				CA14534C2075C648004A343A /* BatchUpdate.swift */,
 				C9B03FBF1DE1CA7500BC6F2A /* ExtendedDiff.swift */,
 				C99118AD1DDDAFEA00067A60 /* ExtendedPatch.swift */,
 				C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */,
@@ -277,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9B03FC01DE1CA7500BC6F2A /* ExtendedDiff.swift in Sources */,
+				CA14534F2075C73D004A343A /* Diff+AppKit.swift in Sources */,
 				C99118951DDB1BA800067A60 /* LinkedList.swift in Sources */,
 				C99118B81DE062BE00067A60 /* GenericPatch.swift in Sources */,
 				C9EE87861CCFFB68006BD90E /* Patch.swift in Sources */,
@@ -286,6 +293,7 @@
 				C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */,
 				C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
+				CA14534D2075C648004A343A /* BatchUpdate.swift in Sources */,
 				C99118B01DDDB02D00067A60 /* ExtendedPatch.swift in Sources */,
 				C90CD7171DFB368200BE9114 /* NestedDiff.swift in Sources */,
 			);
