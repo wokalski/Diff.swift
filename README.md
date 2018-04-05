@@ -14,12 +14,12 @@ It uses a [fast algorithm](http://www.xmailserver.org/diff2.pdf) `(O((N+M)*D))` 
   - Deletions
   - Moves (when using `ExtendedDiff`)
 - Arbitrary sorting of patches (`Patch`)
-- Utilities for updating `UITableView` and `UICollectionView`
+- Utilities for updating `UITableView` and `UICollectionView` in UIKit, and `NSTableView` and `NSCollectionView` in AppKit
 - Calculating differences between collections containing collections (use `NestedDiff`)
 
 ## Why do I need it?
 
-There's a lot more to calculating diffs than performing `UITableView` animations easily!
+There's a lot more to calculating diffs than performing table view animations easily!
 
 Wherever you have code that propagates `added`/`removed`/`moved` callbacks from your model to your user interface, you should consider using a library that can calculate differences. Animating small batches of changes is usually going to be faster and provide a more responsive experience than reloading all of your data.
 
@@ -81,7 +81,7 @@ However, if we decided to sort it so that deletions and higher indices are proce
 
 ## How to use
 
-### `UITableView`/`UICollectionView`
+### Table and Collection Views
 
 ```swift
 // The following will automatically animate deletions, insertions, and moves:
