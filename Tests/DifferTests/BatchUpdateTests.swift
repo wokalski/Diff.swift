@@ -1,4 +1,3 @@
-#if !os(macOS) && !os(watchOS)
 @testable import Differ
 import XCTest
 
@@ -20,7 +19,7 @@ class BatchUpdateTests: XCTestCase {
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [4, 2, 3, 1], insertions: [], deletions: [], moves: [BatchUpdate.MoveStep(from: IP(0, 0), to: IP(3, 0)), BatchUpdate.MoveStep(from: IP(3, 0), to: IP(0, 0))]),
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [2, 3, 1], insertions: [], deletions: [IP(3, 0)], moves: [BatchUpdate.MoveStep(from: IP(0, 0), to: IP(2, 0))]),
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [5, 2, 3, 4], insertions: [IP(0, 0)], deletions: [IP(0, 0)], moves: []),
-        Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [4, 1, 3, 5], insertions: [IP(3, 0)], deletions: [IP(1, 0)], moves: [BatchUpdate.MoveStep(from:IP(3, 0), to: IP(0, 0))]),
+        Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [4, 1, 3, 5], insertions: [IP(3, 0)], deletions: [IP(1, 0)], moves: [BatchUpdate.MoveStep(from: IP(3, 0), to: IP(0, 0))]),
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [4, 2, 3, 4], insertions: [IP(0, 0)], deletions: [IP(0, 0)], moves: []),
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [1, 2, 4, 4], insertions: [IP(3, 0)], deletions: [IP(2, 0)], moves: []),
         Expectation(orderBefore: [1, 2, 3, 4], orderAfter: [5, 6, 7, 8], insertions: [IP(0, 0), IP(1, 0), IP(2, 0), IP(3, 0)], deletions: [IP(0, 0), IP(1, 0), IP(2, 0), IP(3, 0)], moves: []),
@@ -55,4 +54,3 @@ class BatchUpdateTests: XCTestCase {
         }
     }
 }
-#endif
