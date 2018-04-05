@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		900E03A41DE7C6C60033A799 /* Differ.h in Headers */ = {isa = PBXBuildFile; fileRef = C92178BB1CD0023E004642C7 /* Differ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		900E03A51DE7C6D60033A799 /* Differ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9EE87161CCFCA83006BD90E /* Differ.framework */; };
+		90382F122075D23E006EFFBF /* NestedBatchUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90382F112075D23E006EFFBF /* NestedBatchUpdate.swift */; };
 		C90CD7171DFB368200BE9114 /* NestedDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7161DFB368200BE9114 /* NestedDiff.swift */; };
 		C90CD7191DFB43C600BE9114 /* NestedDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */; };
 		C921BF711E15448300747566 /* NestedExtendedDiffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C921BF701E15448300747566 /* NestedExtendedDiffTests.swift */; };
@@ -46,6 +47,7 @@
 		900E039F1DE7C3370033A799 /* Universal-Framework-Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Framework-Target.xcconfig"; sourceTree = "<group>"; };
 		900E03A01DE7C3370033A799 /* Universal-Target-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Universal-Target-Base.xcconfig"; sourceTree = "<group>"; };
 		900E03AF1DE7F1E80033A799 /* Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
+		90382F112075D23E006EFFBF /* NestedBatchUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedBatchUpdate.swift; sourceTree = "<group>"; };
 		C90CD7161DFB368200BE9114 /* NestedDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiff.swift; sourceTree = "<group>"; };
 		C90CD7181DFB43C600BE9114 /* NestedDiffTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedDiffTests.swift; sourceTree = "<group>"; };
 		C92178BB1CD0023E004642C7 /* Differ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Differ.h; sourceTree = "<group>"; };
@@ -107,15 +109,16 @@
 		9097A2B51F6A67FD003EC08A /* Differ */ = {
 			isa = PBXGroup;
 			children = (
-				C9EE87821CCFFB68006BD90E /* Diff.swift */,
-				C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */,
-				CA14534E2075C73D004A343A /* Diff+AppKit.swift */,
 				CA14534C2075C648004A343A /* BatchUpdate.swift */,
+				C9EE87821CCFFB68006BD90E /* Diff.swift */,
+				CA14534E2075C73D004A343A /* Diff+AppKit.swift */,
+				C9278ADD1DE32B88009CE846 /* Diff+UIKit.swift */,
 				C9B03FBF1DE1CA7500BC6F2A /* ExtendedDiff.swift */,
 				C99118AD1DDDAFEA00067A60 /* ExtendedPatch.swift */,
 				C96F41931DE0EEC500B8E135 /* ExtendedPatch+Apply.swift */,
 				C99118B51DE0629000067A60 /* GenericPatch.swift */,
 				C99118941DDB1BA800067A60 /* LinkedList.swift */,
+				90382F112075D23E006EFFBF /* NestedBatchUpdate.swift */,
 				C90CD7161DFB368200BE9114 /* NestedDiff.swift */,
 				C9D4BC951E1124CE00C79537 /* NestedExtendedDiff.swift */,
 				C9EE87831CCFFB68006BD90E /* Patch.swift */,
@@ -292,6 +295,7 @@
 				C9278ADE1DE32B88009CE846 /* Diff+UIKit.swift in Sources */,
 				C991189B1DDB4EAB00067A60 /* Patch+Apply.swift in Sources */,
 				C96F41941DE0EEC500B8E135 /* ExtendedPatch+Apply.swift in Sources */,
+				90382F122075D23E006EFFBF /* NestedBatchUpdate.swift in Sources */,
 				C9EE87841CCFFB68006BD90E /* Diff.swift in Sources */,
 				CA14534D2075C648004A343A /* BatchUpdate.swift in Sources */,
 				C99118B01DDDB02D00067A60 /* ExtendedPatch.swift in Sources */,
