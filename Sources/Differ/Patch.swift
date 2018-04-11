@@ -28,7 +28,7 @@ public extension Diff {
     public func patch<T: Collection>(
         from: T,
         to: T
-    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element: Equatable {
+    ) -> [Patch<T.Iterator.Element>] {
         var shift = 0
         return map { element in
             switch element {

@@ -32,7 +32,7 @@ public extension Diff {
         from: T,
         to: T,
         sort: OrderedBefore
-    ) -> [Patch<T.Iterator.Element>] where T.Iterator.Element: Equatable {
+    ) -> [Patch<T.Iterator.Element>] {
         let shiftedPatch = patch(from: from, to: to)
         return shiftedPatchElements(from: sortedPatchElements(
             from: shiftedPatch,
