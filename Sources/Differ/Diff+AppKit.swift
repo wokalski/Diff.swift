@@ -96,6 +96,7 @@ extension NSTableView {
     }
 }
 
+@available(macOS 10.11, *)
 public extension NSCollectionView {
     /// Animates items which changed between oldData and newData.
     ///
