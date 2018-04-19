@@ -1,5 +1,5 @@
-osx_image: xcode9.3beta
-language: objective-c
+osx_image: xcode9.3
+language: swift
 env:
     global:
         - LANG=en_US.UTF-8
@@ -37,6 +37,6 @@ script:
         if [ $RUN_TESTS != "YES" ]; then xcodebuild clean build -project
         "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
         ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO ; fi
-    - swift test -Xswiftc "-target" -Xswiftc "x86_64-apple-macosx10.11"
+    - swift test
 after_success:
     - 'bash <(curl -s https://codecov.io/bash)'
