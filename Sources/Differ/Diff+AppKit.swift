@@ -138,7 +138,8 @@ public extension NSCollectionView {
         completion: ((Bool) -> Swift.Void)? = nil,
         indexPathTransform: @escaping (IndexPath) -> IndexPath = { $0 }
         ) {
-        performBatchUpdates({
+        self.animator()
+        .performBatchUpdates({
             let update = BatchUpdate(diff: diff, indexPathTransform: indexPathTransform)
             self.deleteItems(at: Set(update.deletions))
             self.insertItems(at: Set(update.insertions))
@@ -270,7 +271,8 @@ public extension NSCollectionView {
         sectionTransform: @escaping (Int) -> Int = { $0 },
         completion: ((Bool) -> Void)? = nil
         ) {
-        performBatchUpdates({
+        self.animator()
+        .performBatchUpdates({
             let update = NestedBatchUpdate(diff: diff, indexPathTransform: indexPathTransform, sectionTransform: sectionTransform)
             self.insertSections(update.sectionInsertions)
             self.deleteSections(update.sectionDeletions)
