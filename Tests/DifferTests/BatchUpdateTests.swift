@@ -2,7 +2,7 @@
 import XCTest
 
 private func IP(_ row: Int, _ section: Int) -> IndexPath {
-    return IndexPath(item: row, section: section)
+    return [row, section]
 }
 
 class BatchUpdateTests: XCTestCase {

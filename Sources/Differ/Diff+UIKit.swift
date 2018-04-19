@@ -9,21 +9,21 @@ extension BatchUpdate {
         deletions = diff.compactMap { element -> IndexPath? in
             switch element {
             case let .delete(at):
-                return indexPathTransform(IndexPath(row: at, section: 0))
+                return indexPathTransform([at, 0])
             default: return nil
             }
         }
         insertions = diff.compactMap { element -> IndexPath? in
             switch element {
             case let .insert(at):
-                return indexPathTransform(IndexPath(row: at, section: 0))
+                return indexPathTransform([at, 0])
             default: return nil
             }
         }
         moves = diff.compactMap { element -> MoveStep? in
             switch element {
             case let .move(from, to):
-                return MoveStep(from: indexPathTransform(IndexPath(row: from, section: 0)), to: indexPathTransform(IndexPath(row: to, section: 0)))
+                return MoveStep(from: indexPathTransform([from, 0]), to: indexPathTransform([to, 0]))
             default: return nil
             }
         }

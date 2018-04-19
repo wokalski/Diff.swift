@@ -27,11 +27,11 @@ struct NestedBatchUpdate {
         diff.forEach { element in
             switch element {
             case let .deleteElement(at, section):
-                itemDeletions.append(indexPathTransform(IndexPath(item: at, section: section)))
+                itemDeletions.append(indexPathTransform([at, section]))
             case let .insertElement(at, section):
-                itemInsertions.append(indexPathTransform(IndexPath(item: at, section: section)))
+                itemInsertions.append(indexPathTransform([at, section]))
             case let .moveElement(from, to):
-                itemMoves.append((indexPathTransform(IndexPath(item: from.item, section: from.section)), indexPathTransform(IndexPath(item: to.item, section: to.section))))
+                itemMoves.append((indexPathTransform([from.item, from.section]), indexPathTransform([to.item, to.section])))
             case let .deleteSection(at):
                 sectionDeletions.insert(sectionTransform(at))
             case let .insertSection(at):
