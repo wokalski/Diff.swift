@@ -7,6 +7,7 @@
 //
 
 import UIKit
+@testable import Differ
 
 public class GraphViewController: UIViewController {
     let dValueLabel = UILabel()

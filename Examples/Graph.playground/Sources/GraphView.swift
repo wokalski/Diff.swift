@@ -7,6 +7,7 @@
 //
 
 import UIKit
+@testable import Differ
 
 public struct Grid {
     let x: Int

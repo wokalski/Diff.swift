@@ -55,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		83A52110201BC80200514B1C /* Graph.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Graph.playground; path = ../Graph.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C9278AB21DE31362009CE846 /* TableViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9278AB51DE31362009CE846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9278AB71DE31362009CE846 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		C9278AA91DE31361009CE846 = {
 			isa = PBXGroup;
 			children = (
+				83A52110201BC80200514B1C /* Graph.playground */,
 				C9278AC91DE323F6009CE846 /* Differ.xcodeproj */,
 				C9278AB41DE31362009CE846 /* TableViewExample */,
 				C9278AB31DE31362009CE846 /* Products */,
