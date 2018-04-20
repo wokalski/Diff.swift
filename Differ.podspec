@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Differ"
-  s.version      = "1.2.0"
+  s.version      = "1.2.1"
   s.summary      = "A very fast difference calculation library written in Swift."
   s.homepage     = "https://github.com/tonyarnold/Diff"
   s.description  = <<-DESC
@@ -16,7 +16,7 @@ Also included are utilities for easily applying diffs and patches to `UICollecti
     "Tony Arnold" => "tony@thecocoabots.com"
   }
 
-  s.source = { :git => "https://github.com/tonyarnold/Differ.git", :tag => "1.2.0" }
+  s.source = { :git => "https://github.com/tonyarnold/Differ.git", :tag => "1.2.1" }
   s.source_files = "Sources/Differ"
 
   s.platforms = { :ios => "8.0", :osx => "10.11", :tvos => "9.0", :watchos => "3.0" }
