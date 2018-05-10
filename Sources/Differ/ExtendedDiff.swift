@@ -50,27 +50,27 @@ extension ExtendedDiff.Element {
 
 public extension Collection {
 
-    /// Creates an extended diff between the calee and `other` collection
+    /// Creates an extended diff between the callee and `other` collection
     ///
     /// - Complexity: O((N+M)*D). There's additional cost of O(D^2) to compute the moves.
     ///
     /// - Parameters:
-    ///   - other: a collection to compare the calee to
+    ///   - other: a collection to compare the callee to
     ///   - isEqual: instance comparator closure
-    /// - Returns: ExtendedDiff between the calee and `other` collection
+    /// - Returns: ExtendedDiff between the callee and `other` collection
     public func extendedDiff(_ other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff {
         return extendedDiff(from: diff(other, isEqual: isEqual), other: other, isEqual: isEqual)
     }
 
-    /// Creates an extended diff between the calee and `other` collection
+    /// Creates an extended diff between the callee and `other` collection
     ///
     /// - Complexity: O(D^2). where D is number of elements in diff.
     ///
     /// - Parameters:
     ///   - diff: source diff
-    ///   - other: a collection to compare the calee to
+    ///   - other: a collection to compare the callee to
     ///   - isEqual: instance comparator closure
-    /// - Returns: ExtendedDiff between the calee and `other` collection
+    /// - Returns: ExtendedDiff between the callee and `other` collection
     public func extendedDiff(from diff: Diff, other: Self, isEqual: EqualityChecker<Self>) -> ExtendedDiff {
 
         var elements: [ExtendedDiff.Element] = []
