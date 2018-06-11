@@ -194,6 +194,6 @@ pod 'Differ'
 
 ## Acknowledgements
 
-Differ is a modified fork of [Wojtek Czekalski's](https://github.com/wokalski) [Diff.swift](https://github.com/wokalski/Diff.swift) - Wojtek deserves all the credit for the original implementation, I am merely it's present custodian.
+Differ is a modified fork of [Wojtek Czekalski's](https://github.com/wokalski) [Diff.swift](https://github.com/wokalski/Diff.swift) - Wojtek deserves all the credit for the original implementation, I am merely its present custodian.
 
 Please, [file issues with this fork here in this repository](/tonyarnold/Diff/issues/new), not in Wojtek's original repository.
