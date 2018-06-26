@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D043718E20E2955100A49A53"
-               BuildableName = "libDiffer.a"
+               BlueprintIdentifier = "D04371EF20E29DB100A49A53"
+               BuildableName = "Differ.framework"
                BlueprintName = "Differ"
                ReferencedContainer = "container:Differ.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D043718E20E2955100A49A53"
-            BuildableName = "libDiffer.a"
+            BlueprintIdentifier = "D04371EF20E29DB100A49A53"
+            BuildableName = "Differ.framework"
             BlueprintName = "Differ"
             ReferencedContainer = "container:Differ.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D043718E20E2955100A49A53"
-            BuildableName = "libDiffer.a"
+            BlueprintIdentifier = "D04371EF20E29DB100A49A53"
+            BuildableName = "Differ.framework"
             BlueprintName = "Differ"
             ReferencedContainer = "container:Differ.xcodeproj">
          </BuildableReference>
