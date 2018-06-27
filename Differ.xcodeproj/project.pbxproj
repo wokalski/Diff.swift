@@ -460,6 +460,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Supporting Files/Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -468,9 +469,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tonyarnold.Differ;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "";
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos watchsimulator watchos iphoneos iphonesimulator macosx";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALID_ARCHS = "";
+				"VALID_ARCHS[sdk=appletv*]" = arm64;
+				"VALID_ARCHS[sdk=appletvsimulator*]" = x86_64;
+				"VALID_ARCHS[sdk=iphoneos*]" = "arm64 armv7 armv7s";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = "i386 x86_64";
+				"VALID_ARCHS[sdk=macosx*]" = "i386 x86_64";
+				"VALID_ARCHS[sdk=watchos*]" = armv7k;
+				"VALID_ARCHS[sdk=watchsimulator*]" = i386;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -488,6 +499,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Supporting Files/Framework-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -496,9 +508,19 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tonyarnold.Differ;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "";
+				SUPPORTED_PLATFORMS = "appletvsimulator appletvos watchsimulator watchos iphoneos iphonesimulator macosx";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALID_ARCHS = "";
+				"VALID_ARCHS[sdk=appletv*]" = arm64;
+				"VALID_ARCHS[sdk=appletvsimulator*]" = x86_64;
+				"VALID_ARCHS[sdk=iphoneos*]" = "arm64 armv7 armv7s";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = "i386 x86_64";
+				"VALID_ARCHS[sdk=macosx*]" = "i386 x86_64";
+				"VALID_ARCHS[sdk=watchos*]" = armv7k;
+				"VALID_ARCHS[sdk=watchsimulator*]" = i386;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
